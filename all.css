@@ -49,7 +49,7 @@ h1, h2 {
 }
 
 .docker-logo {
-    margin-bottom: 14px;
+    margin-bottom: 51px;
 }
 
 .link-container a {
@@ -63,11 +63,18 @@ a, a:visited, a:hover, a:active, a:focus {
 
 @media (max-width: 768px) {
     .link-container img {
-        width: 230px;
+        width: 210px;
     }
 
     .link-container {
-        height: 320px;
+        height: auto;
+    }
+    .docker-logo {
+        margin-bottom: 0;
+    }
+
+    .openstack-logo {
+        margin: 0;
     }
 
     .ta-right, .ta-left {
