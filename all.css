@@ -1,5 +1,5 @@
 body {
-    background: #e66b00;
+    background: rgba(230,107,0,0.8);
     color: #FFF;
     padding-bottom: 10px;
 }
@@ -83,7 +83,8 @@ a, a:visited, a:hover, a:active, a:focus {
 .technology a:hover {
     text-decoration: none;
     border-bottom: none;
-    font-weight: 700;
+    display: inline-block;
+    transform: scale(1.1);
 }
 
 .flex-container {
@@ -110,5 +111,9 @@ a, a:visited, a:hover, a:active, a:focus {
 
     .ta-right, .ta-left {
         text-align: center;
+    }
+
+    .technology ul {
+        padding-left: 0
     }
 }
