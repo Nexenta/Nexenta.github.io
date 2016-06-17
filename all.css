@@ -76,8 +76,9 @@ a, a:visited, a:hover, a:active, a:focus {
     list-style: none;
     padding: 3px 0;
 }
-.technology a {
+.technology a, a:focus{
     border-bottom: 1px dotted #FFF;
+    text-decoration: none;
 }
 
 .technology a:hover {
