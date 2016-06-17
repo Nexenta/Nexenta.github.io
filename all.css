@@ -44,6 +44,10 @@ h1, h2 {
     text-align: left;
 }
 
+.nexenta-logo {
+    width: 333px;
+}
+
 .openstack-logo {
     margin-left: 10px;
 }
