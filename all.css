@@ -61,6 +61,31 @@ a, a:visited, a:hover, a:active, a:focus {
     color: #FFF;
 }
 
+.technology h2 {
+    margin-bottom: 0;
+}
+.technology h2 img {
+    width: 40px;
+}
+.technology ul {
+    list-style: none;
+    padding-left: 47px;
+    margin-top: 5px;
+}
+.technology ul li{
+    list-style: none;
+    padding: 3px 0;
+}
+.technology a {
+    border-bottom: 1px dotted #FFF;
+}
+
+.technology a:hover {
+    text-decoration: none;
+    border-bottom: none;
+    font-weight: 700;
+}
+
 @media (max-width: 768px) {
     .link-container img {
         width: 210px;
