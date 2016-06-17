@@ -86,6 +86,12 @@ a, a:visited, a:hover, a:active, a:focus {
     font-weight: 700;
 }
 
+.flex-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 @media (max-width: 768px) {
     .link-container img {
         width: 210px;
