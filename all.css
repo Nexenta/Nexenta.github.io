@@ -64,9 +64,7 @@ h1, h2 {
 a, a:visited, a:hover, a:active, a:focus {
     color: #FFF;
 }
-.nexenta-logo {
-    width: 285px;
-}
+
 .technology h2 {
     margin-bottom: 0;
 }
@@ -108,10 +106,14 @@ a, a:visited, a:hover, a:active, a:focus {
     .link-container {
         height: auto;
     }
+    
+    .nexenta-logo {
+        width: 285px;
+    }
     .docker-logo {
         margin-bottom: 0;
     }
-
+    
     .openstack-logo {
         margin: 0;
     }
