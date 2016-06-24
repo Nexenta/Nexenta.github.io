@@ -80,7 +80,7 @@ a, a:visited, a:hover, a:active, a:focus {
     list-style: none;
     padding: 3px 0;
 }
-.technology a, a:focus{
+.technology a, .technology a:focus{
     border-bottom: 1px dotted #FFF;
     text-decoration: none;
 }
