@@ -98,6 +98,16 @@ a, a:visited, a:hover, a:active, a:focus {
     flex-wrap: wrap;
 }
 
+.product-title {
+    background: rgba(255,255,255,0.3);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.product-title img {
+    width: 50px;
+}
+
 @media (max-width: 768px) {
     .link-container img {
         width: 210px;
