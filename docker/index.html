@@ -37,35 +37,57 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-10 ta-left">
-            <h1>Nexenta + Containers</h1>
+        <div class="col-sm-6">
+            <h1 class="product-title">
+                <img src="/images/logo-stor.svg" alt="stor">
+                NexentaStor
+                <button class="goToEdgeBtn">
+                    go to NexentaEdge docs
+                </button>
+            </h1>
+            <div class="row">
+                <div class="col-sm-6 technology">
+                    <h2>
+                        <img src="/images/logo-docker.svg" alt="docker">
+                        Docker Driver
+                    </h2>
+                    <ul>
+                        <li><a href="https://github.com/Nexenta/nexenta-docker-driver">GitHub - Docker Volume Driver for NexentaStor</a></li>
+                        <li><a href="https://github.com/Nexenta/nexenta-docker-driver">Docs</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=c1aP4qaldjE">How to Video</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-3 ta-left technology">
-            <h2>
-                <img src="/images/logo-docker.svg" alt="docker">
-                Docker Driver
-            </h2>
-            <ul>
-                <li><a href="https://github.com/Nexenta/nexenta-docker-driver">GitHub - Docker Volume Driver for NexentaStor</a></li>
-                <li><a href="https://github.com/Nexenta/nexenta-docker-driver">Docs</a></li>
-                <li><a href="https://www.youtube.com/watch?v=c1aP4qaldjE">How to Video</a></li>
-            </ul>
-        </div>
-        <div class="col-sm-3 ta-left technology">
-            <h2>
-                <img src="/images/logo-flocker.svg" alt="flocker">
-                Flocker Driver
-            </h2>
-            <ul>
-                <li><a href="https://github.com/Nexenta/nedge-flocker-driver">GitHub - Flocker Driver for NexentaEdge</a></li>
-                <li><a href="https://github.com/Nexenta/nedge-flocker-driver">Docs</a></li>
-            </ul>
+        <div class="col-sm-6">
+            <h1 class="product-title nexenta-edge-title">
+                <img src="/images/logo-stor.svg" alt="stor">
+                NexentaEdge
+            </h1>
+            <div class="row">
+                <div class="col-sm-6 technology">
+                    <h2>
+                        <img src="/images/logo-flocker.svg" alt="flocker">
+                        Flocker Driver
+                    </h2>
+                    <ul>
+                        <li><a href="https://github.com/Nexenta/nedge-flocker-driver">GitHub - Flocker Driver for NexentaEdge</a></li>
+                        <li><a href="https://github.com/Nexenta/nedge-flocker-driver">Docs</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script>
+    (function () {
+        var button = document.getElementsByClassName('goToEdgeBtn')[0];
+        button.addEventListener('click', function() {
+            var y = document.getElementsByClassName('nexenta-edge-title')[0]
+                    .getBoundingClientRect().top;
+            window.scrollTo(0,y - 10);
+        })
+    })();
+</script>
 </body>
 </html>
