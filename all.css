@@ -87,6 +87,7 @@ a, a:visited, a:hover, a:active, a:focus {
     list-style: none;
     padding-left: 47px;
     margin-top: 5px;
+    text-align: left;
 }
 .technology ul li{
     list-style: none;
@@ -131,6 +132,7 @@ a, a:visited, a:hover, a:active, a:focus {
 
     .link-container {
         height: auto;
+        margin: 10px 0;
     }
     
     .nexenta-logo {
