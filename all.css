@@ -26,7 +26,8 @@ h1, h2 {
 .link-container {
     background: rgba(255, 255, 255, .3);
     border-radius: 10px;
-    margin-top: 50px;
+    margin: 50px 20px 0 20px;
+    vertical-align: top;
 
     display: inline-block;
     transition: all 0.1s ease;
@@ -61,6 +62,10 @@ h1, h2 {
 
 .docker-logo {
     margin-bottom: 51px;
+}
+
+img.vmware-logo {
+    margin: 110px 0;
 }
 
 .link-container a {
