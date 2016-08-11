@@ -115,7 +115,7 @@ a, a:visited, a:hover, a:active, a:focus {
     background: rgba(255,255,255,0.3);
     border-radius: 5px;
     padding: 10px;
-    height: 74px;
+    min-height: 74px;
 }
 
 .product-title img {
