@@ -44,11 +44,12 @@ const siteConfig = {
   scripts: [
     'https://buttons.github.io/buttons.js',
     'https://use.fontawesome.com/releases/v5.0.8/js/all.js',
-    'https://unpkg.com/mermaid@8.0.0-rc.6/dist/mermaid.min.js'
+    'https://unpkg.com/mermaid@8.0.0-rc.6/dist/mermaid.min.js',
+    '/js/main.js'
   ],
   // You may provide arbitrary config keys to be used as needed by your template.
   repoUrl: 'https://github.com/Nexenta/nedge-dev',
-  stylesheets: ['/css/fonts.css'],
+  //stylesheets: ['/css/fonts.css'],
   algolia: {
     apiKey: '839b05a95d1375c54722a0161e78d578',
     indexName: 'nexentaedge'

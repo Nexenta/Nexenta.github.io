@@ -151,42 +151,7 @@ const Features = () => (
   </Block>
 );
 
-const Showcase = (props) => {
-  if ((siteConfig.users || []).length === 0) {
-    return null;
-  }
-  const showcase = siteConfig.users
-    .filter((user) => {
-      return user.pinned;
-    })
-    .map((user, i) => {
-      return (
-        <a href={user.infoLink} key={i}>
-          <img src={user.image} title={user.caption} />
-        </a>
-      );
-    });
-
-  return (
-    <div className="productShowcaseSection paddingBottom">
-      <h2>{"Who's Using This?"}</h2>
-      <p>This project is used by all these people</p>
-      <div className="logos">{showcase}</div>
-      <div className="more-users">
-        <a className="button" href={pageUrl('users.html', props.language)}>
-          More {siteConfig.title} Users
-        </a>
-      </div>
-    </div>
-  );
-};
-
 class Index extends React.Component {
-  componentDidMount() {
-    console.log('## lol');
-    mermaid.initialize({startOnLoad:true});
-  }
-  
   render() {
     let language = this.props.language || '';
 
@@ -194,13 +159,14 @@ class Index extends React.Component {
       <div>
         <HomeSplash language={language} />
         <div className="mainContainer">
-          <Features  />
-          <Showcase language={language} />
-          <section className="container paddingBottom" style={{backgroundColor: "#e6e6e6"}}>
-              <section className="wrapper" style={{padding: "50px 0 0 0"}}>
-                <img src={imgUrl('logo-openstack.png')} style={{height: 70, float: 'left', marginRight: 30}} />
-                <a href="/openstack/" style={{display: 'inline-block', marginTop: 20}}>Openstack Drivers</a>
-              </section>
+          <Features />
+          <section className="container paddingBottom" style={{backgroundColor: '#e6e6e6'}}>
+            <section className="wrapper" style={{padding: '50px 0 0 0'}}>
+              <img src={imgUrl('logo-openstack.png')} style={{height: 70, float: 'left', marginRight: 30}} />
+              <a href="/openstack/" style={{display: 'inline-block', marginTop: 20}}>
+                Openstack Drivers
+              </a>
+            </section>
           </section>
         </div>
       </div>
