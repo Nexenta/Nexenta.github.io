@@ -182,6 +182,11 @@ const Showcase = (props) => {
 };
 
 class Index extends React.Component {
+  componentDidMount() {
+    console.log('## lol');
+    mermaid.initialize({startOnLoad:true});
+  }
+  
   render() {
     let language = this.props.language || '';
 

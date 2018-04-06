@@ -12,5 +12,8 @@
   "devDependencies": {
     "docusaurus": "1.0.7",
     "prettier": "1.11.1"
+  },
+  "dependencies": {
+    "mermaid": "^8.0.0-rc.6"
   }
 }

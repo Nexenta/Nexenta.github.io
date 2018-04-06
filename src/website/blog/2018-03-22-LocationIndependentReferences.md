@@ -40,7 +40,7 @@ We'll explain the four most critical transactions that implement this strategy:
 * Putting a Version Manifest
 
 ## Get Chunk with CHID
-```mermaid
+<div class="mermaid">
 sequenceDiagram
 Initiator->>TargetGroup: Get Chunk with CHID=X
 TargetGroup->>Initiator: Have Chunk Can Deliver at T | Not here
@@ -51,7 +51,7 @@ Note over TargetGroup: Wait till specified time
 TargetGroup->>Initiator: Requested Chunk
 Note left of TargetGroup: From the selected target
 Note over Initiator: Initiator validates received chunk, retries on error.
-```
+</div>
 
 Payload chunks are found by sending a find
 request identifying the CHID (Content Hash IDentifier)
@@ -72,7 +72,7 @@ a network with a non-blocking core can transmit the chunks
 at the full rate provisioned for payload transfers.
 
 ## Put Chunk With CHID
-```mermaid
+<div class="mermaid">
 sequenceDiagram
 Initiator->>TargetGroup: Put Chunk with CHID=X
 TargetGroup->>Initiator: Could Accept at Time I-J | Already Stored
@@ -86,7 +86,7 @@ Note Left of TargetGroup: Optional Receipt Ack from each receiving Target
 TargetGroup->>Initiator: Chunk Saved Ack
 Note Left of TargetGroup: Chunk Saved Ack from each receiving Target
 Note over Initiator: Initiator Retries unless sufficient replicas were confirmed
-```
+</div>
 
 Of course before we can get Chunk X from somewhere
 within a TargetGroup we have to put it to that
@@ -108,7 +108,7 @@ of an already existing Chunk and to put this missing
 replicas if there is not.
 
 ## Get Version Manifest With NHID
-```mermaid
+<div class="mermaid">
 sequenceDiagram
 Initiator->>TargetGroup: Get Version Manifest with NHID=X
 TargetGroup->>Initiator: Have Version Manifest with UVID X Can Deliver at T | Not here
@@ -120,7 +120,7 @@ TargetGroup->>Initiator: Requested Version Manifest
 Note left of TargetGroup: From the selected target
 Note over Initiator: Initiator validates received Version Manifest, retries on error.
 Note over Initiator: Typically then fetch the referenced chunks.
-```
+</div>
 
 Of course a storage system that only allowed you to retrieve content previously stored if you remembered a 256 or 512 arbitrary identifier wouldn't be very useful. We need to put and get named objects. Typically we want the current version of a named object.
 
@@ -150,7 +150,7 @@ Version Manifest to the Initiator at the negotiated
 time at the configured full rate.
 
 ## Put Version Manifest
-```mermaid
+<div class="mermaid">
 sequenceDiagram
 Initiator->>TargetGroup: Put Version Manifest with NHID=X
 TargetGroup->>Initiator: Could Accept Delivery at Times I - J
@@ -165,7 +165,7 @@ Note Left of TargetGroup: Optional Receipt Ack from each receiving Target
 TargetGroup->>Initiator: Chunk Saved Ack
 Note Left of TargetGroup: Chunk Saved Ack from each receiving Target
 Note over Initiator: Initiator Retries unless sufficient replicas were confirme
-```
+</div>
 
 Putting a new Version Manifest is nearly identical
 to putting a Payload Chunk, except that the Put
