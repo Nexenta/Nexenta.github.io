@@ -1820,6 +1820,12 @@ footer .copyright {
   }
 }
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+html, body {
+  font-family: 'Open Sans', '-apple-system', 'system-ui', sans-serif;
+}
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
 }
 
@@ -1894,9 +1900,4 @@ footer .copyright {
 .mermaid {
   font-size: 14px;
   font-family: trebuchet ms,verdana,arial;
-}
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-
-html, body {
-  font-family: 'Open Sans', '-apple-system', 'system-ui', sans-serif;
 }
