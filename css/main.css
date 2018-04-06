@@ -1891,6 +1891,10 @@ footer .copyright {
   padding: 2px 20px 10px 2px;
 }
 
+.mermaid {
+  font-size: 14px;
+  font-family: trebuchet ms,verdana,arial;
+}
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 html, body {
