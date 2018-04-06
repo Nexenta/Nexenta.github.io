@@ -1,10 +1,10 @@
-# NexentaEdge site
+# Nexenta site
 
 ## Publish to blog
 **IMPORTANT:** use this name format: "YYYY-MM-DD-TITLE.md"
 
 #### On Github
-Add file directly on Github: [create new blog post](https://github.com/nexentaedge/nexentaedge.github.io/new/master/src/website/blog).
+Add file directly on Github: [create new blog post](https://github.com/Nexenta/Nexenta.github.io/new/master/src/website/blog).
 
 #### Locally
 ```bash
@@ -17,9 +17,9 @@ vim 2018-03-02-my-post-title.md # create new post
 **IMPORTANT:** use this name format: "TOPIC.md"
 
 #### On Github
-Add file directly on Github: [create new docs topic](https://github.com/nexentaedge/nexentaedge.github.io/new/master/src/docs).
+Add file directly on Github: [create new docs topic](https://github.com/Nexenta/Nexenta.github.io/new/master/src/docs).
 
-Then edit sidebar file: [edit sidebar](https://github.com/nexentaedge/nexentaedge.github.io/edit/master/src/website/sidebars.json), add the `id` of the created page to the appropriate section.
+Then edit sidebar file: [edit sidebar](https://github.com/Nexenta/Nexenta.github.io/edit/master/src/website/sidebars.json), add the `id` of the created page to the appropriate section.
 
 #### Locally
 ```bash
@@ -32,7 +32,7 @@ vim src/website/sidebars.json # add new topic to the sidebar
 ## Edit index page
 
 #### On Github
-[Edit index page](https://github.com/nexentaedge/nexentaedge.github.io/edit/master/src/website/pages/en/index.js).
+[Edit index page](https://github.com/Nexenta/Nexenta.github.io/edit/master/src/website/pages/en/index.js).
 
 #### Locally
 ```bash
