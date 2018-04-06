@@ -1898,6 +1898,7 @@ html, body {
 }
 
 .mermaid {
+  width: 100%;
   font-size: 14px;
   font-family: trebuchet ms,verdana,arial;
 }
