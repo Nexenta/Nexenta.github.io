@@ -46,12 +46,6 @@ const SplashContainer = (props) => (
   </div>
 );
 
-const Logo = (props) => (
-  <div className="projectLogo" style={{paddingRight: 70}}>
-    <img src={props.img_src} />
-  </div>
-);
-
 const ProjectTitle = () => (
   <h2 className="projectTitle">
     Discover NexentaEdge
@@ -71,10 +65,8 @@ const PromoSection = (props) => (
 
 class HomeSplash extends React.Component {
   render() {
-    //let language = this.props.language || '';
     return (
       <SplashContainer>
-        {/*<Logo img_src={imgUrl('background.jpg')} />*/}
         <div className="inner">
           <ProjectTitle />
           <PromoSection>
@@ -199,6 +191,12 @@ class Index extends React.Component {
         <div className="mainContainer">
           <Features />
           <Showcase language={language} />
+          <section className="container paddingBottom" style={{backgroundColor: "#e6e6e6"}}>
+              <section className="wrapper" style={{padding: "50px 0 0 0"}}>
+                <img src={imgUrl('logo-openstack.png')} style={{height: 70, float: 'left', marginRight: 30}} />
+                <a href="/openstack/" style={{display: 'inline-block', marginTop: 20}}>Openstack Drivers</a>
+              </section>
+          </section>
         </div>
       </div>
     );

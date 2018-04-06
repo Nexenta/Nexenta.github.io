@@ -18,8 +18,8 @@ const siteConfig = {
     //  pinned: true
     //}
   ],
-  headerIcon: 'img/logo-nexenta-edge.png',
-  footerIcon: 'img/logo-nexenta-edge.png',
+  headerIcon: 'img/logo-nexenta.png',
+  footerIcon: 'img/logo-nexenta.png',
   favicon: 'img/favicon.png',
   colors: {
     primaryColor: '#e86b00',
