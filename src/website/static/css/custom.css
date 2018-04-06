@@ -1,0 +1,70 @@
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}
+
+.button {
+  background-color: #fffaf4;
+}
+
+.container .wrapper h2 {
+  font-size: 25px;
+}
+
+.navPusher {
+  padding-top: 100px;
+  height: calc(100% - 100px);
+}
+.gridBlock .fourByGridBlock .blockContent  div {
+  margin-bottom: 30px;
+}
+.imageAlignTop .blockImage {
+  margin-bottom: 0;
+}
+@media only screen and (min-width: 736px) {
+  .navPusher {
+    padding-top: 50px;
+    height: calc(100% - 50px);
+  }
+
+  .gridBlock .fourByGridBlock {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gridBlock .fourByGridBlock .blockContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gridBlock .fourByGridBlock .blockContent  div {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+  }
+
+  .gridBlock .fourByGridBlock .blockContent  div span {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.navSearchWrapper .aa-dropdown-menu {
+  border-width: 1px;
+  padding: 2px 20px 10px 2px;
+}

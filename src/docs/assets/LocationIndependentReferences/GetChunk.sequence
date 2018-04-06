@@ -1,0 +1,10 @@
+sequenceDiagram
+Initiator->>TargetGroup: Get Chunk with CHID=X
+TargetGroup->>Initiator: Have Chunk Can Deliver at T | Not There
+Note left of TargetGroup: Response is from each Target in TargetGroup
+Note over Initiator: Select best offer
+Initiator->>TargetGroup: Select Target to Supply Chunk
+Note over TargetGroup: Wait till specified time
+TargetGroup->>Initiator: Requested Chunk
+Note left of TargetGroup: From the selected target
+Note over Initiator: Initiator validates received chunk, retries on error.

@@ -1,0 +1,7 @@
+{
+  "docs": {
+    "Getting Started": ["introduction", "installation", "installation-ui", "network-considerations"],
+    "Guides": ["using-docker"],
+    "Online Resources": ["online-resources"]
+  }
+}

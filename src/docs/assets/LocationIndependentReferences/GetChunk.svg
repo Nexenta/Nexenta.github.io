@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="955.3203125" height="529.53125"><style xmlns="http://www.w3.org/1999/xhtml" type="text/css">
+svg text {
+  fill: #000;
+  stroke: none;
+  font-size: 12pt;
+  font-family: 'Andale Mono', monospace;
+}
+
+svg :not(text) {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2;
+}
+
+.textbg {
+  fill: #fff;
+  stroke: none;
+}
+
+.rect {
+  fill: #fff;
+}
+
+.signal-solid {
+  stroke-dasharray: 0;
+}
+
+.signal-dotted {
+  stroke-dasharray: 5;
+}
+
+.arrow-filled {
+  marker-end: url(#arrow-filled);
+}
+
+.arrow-open {
+  marker-end: url(#arrow-open);
+}
+</style><defs><marker id="arrow-filled" refX="5" refY="2.5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 5,2.5 0,5z" style="stroke: none; fill: #000"/></marker><marker id="arrow-open" refX="5" refY="2.5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 5,2.5 0,5" style="stroke-width: 1"/></marker></defs><rect width="106.40625" height="38.21875" x="216.234375" y="20" class="rect"/><text x="269.4375" y="39.109375" style="text-anchor: middle; alignment-baseline: central;">Initiator</text><rect width="106.40625" height="38.21875" x="216.234375" y="471.3125" class="rect"/><text x="269.4375" y="490.421875" style="text-anchor: middle; alignment-baseline: central;">Initiator</text><path d="M269.4375,58.21875 v413.09375" class="timeline"/><rect width="125.609375" height="38.21875" x="669.4921875" y="20" class="rect"/><text x="732.296875" y="39.109375" style="text-anchor: middle; alignment-baseline: central;">TargetGroup</text><rect width="125.609375" height="38.21875" x="669.4921875" y="471.3125" class="rect"/><text x="732.296875" y="490.421875" style="text-anchor: middle; alignment-baseline: central;">TargetGroup</text><path d="M732.296875,58.21875 v413.09375" class="timeline"/><rect width="201.625" height="18" x="400.046875" y="74.21875" class="textbg"/><text x="500.8671875" y="83.21875" style="text-anchor: middle; alignment-baseline: central;">Get Chunk with CHID=X</text><path d="M269.4375,96.21875 h462.859375" class="signal-solid arrow-filled"/><rect width="374.453125" height="18" x="313.625" y="112.21875" class="textbg"/><text x="500.8671875" y="121.21875" style="text-anchor: middle; alignment-baseline: central;">Have Chunk Can Deliver at T | Not There</text><path d="M732.296875,134.21875 h-462.859375" class="signal-solid arrow-filled"/><rect width="422.859375" height="28.21875" x="289.4375" y="154.21875" class="rect"/><text x="500.8671875" y="168.328125" style="text-anchor: middle; alignment-baseline: central;">Response is from each Target in TargetGroup</text><rect width="173.21875" height="28" x="182.828125" y="202.4375" class="rect"/><text x="269.4375" y="216.4375" style="text-anchor: middle; alignment-baseline: central;">Select best offer</text><rect width="278.4375" height="18.21875" x="361.640625" y="246.4375" class="textbg"/><text x="500.8671875" y="255.4375" style="text-anchor: middle; alignment-baseline: central;">Select Target to Supply Chunk</text><path d="M269.4375,268.65625 h462.859375" class="signal-solid arrow-filled"/><rect width="240.4375" height="28.21875" x="612.078125" y="288.65625" class="rect"/><text x="732.296875" y="302.765625" style="text-anchor: middle; alignment-baseline: central;">Wait till specified time</text><rect width="144.015625" height="18.21875" x="428.84375" y="332.875" class="textbg"/><text x="500.8671875" y="341.875" style="text-anchor: middle; alignment-baseline: central;">Requested Chunk</text><path d="M732.296875,355.09375 h-462.859375" class="signal-solid arrow-filled"/><rect width="240.4375" height="28.21875" x="471.859375" y="375.09375" class="rect"/><text x="592.078125" y="389.203125" style="text-anchor: middle; alignment-baseline: central;">From the selected target</text><rect width="518.875" height="28" x="10" y="423.3125" class="rect"/><text x="269.4375" y="437.3125" style="text-anchor: middle; alignment-baseline: central;">Initiator validates received chunk, retries on error.</text></svg>
