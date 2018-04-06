@@ -1,0 +1,171 @@
+<html lang="en"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Location Independent References · Nexenta</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Location Independent References · Nexenta"/><meta property="og:type" content="website"/><meta property="og:url" content="https://nexenta.github.io/blog/2018/03/22/LocationIndependentReferences.html"/><meta property="og:description" content="In the prior blog on NexentaEdge we mentioned that"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://nexenta.github.io/blog/atom.xml" title="Nexenta Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://nexenta.github.io/blog/feed.xml" title="Nexenta Blog RSS Feed"/><link rel="stylesheet" href="/css/fonts.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo-nexenta-edge.png"/><h2 class="headerTitle">Nexenta</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="https://groups.google.com/forum/#!forum/nexentaedge-users" target="_self">Ask us</a></li><li><a href="/docs/introduction.html" target="_self">Documentation</a></li><li><a href="/blog" target="_self">Blog</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Recent Posts</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Recent Posts</h3><ul><li class="navListItem"><a class="navItem" href="/blog/2018/03/30/ImmutableMetadataNotEnough.html"></a></li><li class="navListItem"><a class="navItem" href="/blog/2018/03/26/NamespaceManifests.html">Namespace Manifests</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/blog/2018/03/22/LocationIndependentReferences.html">Location Independent References</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/03/20/ConsensusNotNeeded.html">Consensus, Who Needs It?</a></li><li class="navListItem"><a class="navItem" href="/blog/2016/03/11/blog-post.html">One SDS feature that made ZFS famous</a></li></ul></div></div></section></div><script>
+          var toggler = document.getElementById('navToggler');
+          var nav = document.getElementById('docsNav');
+          toggler.onclick = function() {
+            nav.classList.toggle('docsSliderActive');
+          };
+        </script></nav></div><div class="container mainContainer documentContainer postContainer blogContainer"><div class="wrapper"><div class="lonePost"><div class="post"><header class="postHeader"><h1><a href="/blog/2018/03/22/LocationIndependentReferences.html">Location Independent References</a></h1><p class="post-meta">March 22, 2018</p><div class="authorBlock"><p class="post-authorName"><a target="_blank">Caitlin Bestler</a></p></div></header><div><span><p>In the prior blog on NexentaEdge we mentioned that
+Chunks were unique and immutable and that Chunk References
+merely identify how a Chunk is used to rebuild an object,
+but do not specify the locations where the chunk is stored.</p>
+<p>This time we will expand on how the Location Independent
+References are done.</p>
+<p>The Version Manifest specifies a specific version of an object. It specifies the metadata for the version, including a few mandatory fields, and a series of Chunk References which reference the payload chunks.</p>
+<p>A typical Chunk Reference contains:</p>
+<ul>
+<li>The CHID of the referenced chunk.</li>
+<li>The Logical Offset of the Chunk in the object version.</li>
+<li>The Logical Length of the decompressed payload.</li>
+</ul>
+<p>What it does not specified is any locations where the replicas are held. This means that the content can be migrated either for maintenance or load-balancing purposes without updating the Version Manifest.</p>
+<p>Actually lots of systems have location-free Chunks
+References. What is different about NexentaEdge is
+that the location-free Chunk References can specify
+a dynamic set of locations that can change without
+the add or drop of any storage target.</p>
+<p>This is done by hashing the relevant cryptographic
+hash (content or name) to a Negotiating Group rather
+than to a set of target machines. Storing and
+retrieving chunks is negotiated within the group.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<p>We'll explain the four most critical transactions that implement this strategy:</p>
+<ul>
+<li>Getting a Payload Chunk</li>
+<li>Putting a Payload Chunk</li>
+<li>Getting a Version Manifest</li>
+<li>Putting a Version Manifest</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" name="get-chunk-with-chid"></a><a href="#get-chunk-with-chid" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get Chunk with CHID</h2>
+<pre><code class="hljs css mermaid">sequenceDiagram
+Initiator-&gt;&gt;TargetGroup: <span class="hljs-builtin-name">Get</span> Chunk with <span class="hljs-attribute">CHID</span>=X
+TargetGroup-&gt;&gt;Initiator: Have Chunk Can Deliver at T | <span class="hljs-keyword">Not</span> here<span class="hljs-built_in">
+Note </span>left of TargetGroup: Response is <span class="hljs-keyword">from</span> each Target <span class="hljs-keyword">in</span> TargetGroup<span class="hljs-built_in">
+Note </span>over Initiator: Select best offer
+Initiator-&gt;&gt;TargetGroup: Select Target <span class="hljs-keyword">to</span> Supply Chunk<span class="hljs-built_in">
+Note </span>over TargetGroup: Wait till specified time
+TargetGroup-&gt;&gt;Initiator: Requested Chunk<span class="hljs-built_in">
+Note </span>left of TargetGroup: <span class="hljs-keyword">From</span> the selected target<span class="hljs-built_in">
+Note </span>over Initiator: Initiator validates received chunk, retries on error.
+</code></pre>
+<p>Payload chunks are found by sending a find
+request identifying the CHID (Content Hash IDentifier)
+of the desired chunk to every member of the TargetGroup. This target  group is selected by hashing the CHID.</p>
+<p>Each receiving Target responds to the Initiator with
+either an indication that it has Chunk X and could
+deliver it at time Y, or that it does not have Chunk X.</p>
+<p>Once sufficient replies have been received to make
+a selection the Initiator sends a message to the TargetGroup specifying the selection it has made.
+This is sent to the same group so that nodes not selected can
+cancel tentative resource reservations.</p>
+<p>Lastly the selected storage target delivers the requested
+chunk at the specified time. Because this was negotiated,
+a network with a non-blocking core can transmit the chunks
+at the full rate provisioned for payload transfers.</p>
+<h2><a class="anchor" aria-hidden="true" name="put-chunk-with-chid"></a><a href="#put-chunk-with-chid" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Put Chunk With CHID</h2>
+<pre><code class="hljs css mermaid">sequenceDiagram
+Initiator-&gt;&gt;TargetGroup: Put Chunk with <span class="hljs-attribute">CHID</span>=X
+TargetGroup-&gt;&gt;Initiator: Could Accept at Time I-J | Already Stored<span class="hljs-built_in">
+Note </span>left of TargetGroup: Response is <span class="hljs-keyword">from</span> each Target <span class="hljs-keyword">in</span> TargetGroup<span class="hljs-built_in">
+Note </span>over Initiator: Select best <span class="hljs-builtin-name">set</span> of Targets
+Initiator-&gt;&gt;TargetGroup: Select Targets <span class="hljs-keyword">to</span> Receive Chunk at Time T<span class="hljs-built_in">
+Note </span>over Initiator: Wait till specified time
+Initiator-&gt;&gt;TargetGroup: Chunk
+TargetGroup-&gt;&gt;Initiator: Receipt Ack<span class="hljs-built_in">
+Note </span>Left of TargetGroup: Optional Receipt Ack <span class="hljs-keyword">from</span> each receiving Target
+TargetGroup-&gt;&gt;Initiator: Chunk Saved Ack<span class="hljs-built_in">
+Note </span>Left of TargetGroup: Chunk Saved Ack <span class="hljs-keyword">from</span> each receiving Target<span class="hljs-built_in">
+Note </span>over Initiator: Initiator Retries unless sufficient replicas were confirmed
+</code></pre>
+<p>Of course before we can get Chunk X from somewhere
+within a TargetGroup we have to put it to that
+group.</p>
+<p>Each member of the group identifies when it could
+accept the transfer. The Initiator picks the best
+set of targets with an overlapping delivery window
+to receive the required number of replicas.</p>
+<p>The number of replicas can be reduced when some
+replicas already exist. This message can also
+complete the transaction if there are already
+sufficient replicas.</p>
+<p>There is also a nearly identical Replicate Chunk
+transaction to test if there are sufficient replicas
+of an already existing Chunk and to put this missing
+replicas if there is not.</p>
+<h2><a class="anchor" aria-hidden="true" name="get-version-manifest-with-nhid"></a><a href="#get-version-manifest-with-nhid" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get Version Manifest With NHID</h2>
+<pre><code class="hljs css mermaid">sequenceDiagram
+Initiator-&gt;&gt;TargetGroup: <span class="hljs-builtin-name">Get</span> Version Manifest with <span class="hljs-attribute">NHID</span>=X
+TargetGroup-&gt;&gt;Initiator: Have Version Manifest with UVID X Can Deliver at T | <span class="hljs-keyword">Not</span> here<span class="hljs-built_in">
+Note </span>left of TargetGroup: Response is <span class="hljs-keyword">from</span> each Target <span class="hljs-keyword">in</span> TargetGroup<span class="hljs-built_in">
+Note </span>over Initiator: Select best offer
+Initiator-&gt;&gt;TargetGroup: Select Target <span class="hljs-keyword">to</span> Supply Version Manifest<span class="hljs-built_in">
+Note </span>over TargetGroup: Wait till specified time
+TargetGroup-&gt;&gt;Initiator: Requested Version Manifest<span class="hljs-built_in">
+Note </span>left of TargetGroup: <span class="hljs-keyword">From</span> the selected target<span class="hljs-built_in">
+Note </span>over Initiator: Initiator validates received Version Manifest, retries on error.<span class="hljs-built_in">
+Note </span>over Initiator: Typically then fetch the referenced chunks.
+</code></pre>
+<p>Of course a storage system that only allowed you to retrieve content previously stored if you remembered a 256 or 512 arbitrary identifier wouldn't be very useful. We need to put and get named objects. Typically we want the current version of a named object.</p>
+<p>Each object version is described by a Version Manifest. Version Manifests are also Chunks, but they are assigned to TargetGroups based upon their fully qualified object name (it is fully qualified because what the tenant perceives of as the &quot;Fully Qualified&quot; name is prefixed by the Tenant name).</p>
+<p>Current Version Manifests are found by sending a
+named find requesting identifying the NHID (Name hash
+IDentier) of the Version Manifest desired. This is send to the TargetGroup hashed from the NHID. The default request
+seeks the most current version stored by each target in the group.
+The Group is derived from the NHID rather than the CHID.</p>
+<p>Each receiving Target responds saying it could deliver
+a Version Manifest with NHID X and UVID Y (the unique
+version identifier, including the version's timestamp.
+It is made unique by adding the original Initiator's
+IP address as a tie-breaker).
+Each is the most current version known to that Target.</p>
+<p>Once sufficient replies have been collected, the
+Initiator selects the Version Manifest it wants,
+and sends a message to the TargetGroup speciyfing which
+Target should supply the Version Manifest and at what time.
+Again, this allows the non-selected targets to release tentative resource claims.</p>
+<p>Lastly the selected storage target delivers the selected
+Version Manifest to the Initiator at the negotiated
+time at the configured full rate.</p>
+<h2><a class="anchor" aria-hidden="true" name="put-version-manifest"></a><a href="#put-version-manifest" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Put Version Manifest</h2>
+<pre><code class="hljs css mermaid">sequenceDiagram
+Initiator-&gt;&gt;TargetGroup: Put Version Manifest with <span class="hljs-attribute">NHID</span>=X
+TargetGroup-&gt;&gt;Initiator: Could Accept Delivery at Times I - J<span class="hljs-built_in">
+Note </span>left of TargetGroup: Response is <span class="hljs-keyword">from</span> each Target <span class="hljs-keyword">in</span> TargetGroup<span class="hljs-built_in">
+Note </span>over Initiator: Select best <span class="hljs-builtin-name">set</span> of Targets
+Initiator-&gt;&gt;TargetGroup: Select Target <span class="hljs-builtin-name">Set</span> <span class="hljs-keyword">to</span> store Version Manifest at time T<span class="hljs-built_in">
+Note </span>over Initiator: Wait till specified time
+Initiator-&gt;&gt;TargetGroup: Version Manifest<span class="hljs-built_in">
+Note </span>left of TargetGroup: <span class="hljs-keyword">To</span> each Target previously selected
+TargetGroup-&gt;&gt;Initiator: Receipt Ack<span class="hljs-built_in">
+Note </span>Left of TargetGroup: Optional Receipt Ack <span class="hljs-keyword">from</span> each receiving Target
+TargetGroup-&gt;&gt;Initiator: Chunk Saved Ack<span class="hljs-built_in">
+Note </span>Left of TargetGroup: Chunk Saved Ack <span class="hljs-keyword">from</span> each receiving Target<span class="hljs-built_in">
+Note </span>over Initiator: Initiator Retries unless sufficient replicas were confirme
+</code></pre>
+<p>Putting a new Version Manifest is nearly identical
+to putting a Payload Chunk, except that the Put
+request is sent to the NHID-derived group
+(rather than CHID-derived) and that there will
+not be a pre-existing Version Manifest with the
+same UVID (Unique Version IDentifier).</p>
+<h2><a class="anchor" aria-hidden="true" name="dealing-with-old-versions-and-more"></a><a href="#dealing-with-old-versions-and-more" aria-hidden="true" class="hash-link" ><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dealing With Old Versions and More</h2>
+<p>The early releases of NexentaEdge implemented Version searches by having each Target maintain a list of Version Manifests they stored for each Object they stored.</p>
+<p>We have a new approach that uses a two track system:</p>
+<ul>
+<li>The Targets only track the current version. This is the most common version requested, and we save one persistent storage write for each new object version by only tracking the current version.</li>
+<li>A &quot;Namespace Manifest&quot; which is a distributed object that uses MapReduce techn\niques to collect and query a distributed key-value store of all Version Manifests logged by any target in the cluster.</li>
+</ul>
+<p>Namespace Manifests enable doing queries on any directory, or even any wildcard mask. Other object stores use some equivalent of Swift's ContainerDB to enumerate all versions within a single container. The Namespace Manifest allows queries for <em>any</em> directory, not just the root directories. It also allows the Namespace Manifest to be updated asynchronously, but reliably.</p>
+<p>We'll cover the Namespace Manifest next time, and then how the Namespace Manifest enables true point-in-time snapshots even in a cluster with no cluster-wide synchronization.</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1"  class="footnote-item"><p>This is done with multicast groups confined to the backend network by default, or by iterative unicasting otherwise. <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+</span></div></div></div><div class="blog-recent"><a class="button" href="/blog">Recent Posts</a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo-nexenta-edge.png" alt="Nexenta" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/introduction.html">Getting Started</a><a href="https://nexenta.com/products/nexentaedge">Enterprise Documentation</a><a href="https://edgex.docs.apiary.io/">Edge-X S3 API Reference</a></div><div><h5>Community</h5><a href="https://twitter.com/nexenta" target="_blank"><i class="fab fa-twitter fa-sm fa-fw"></i> Twitter</a><a href="https://join.slack.com/t/nexentaedge/shared_invite/enQtMzEwMjA5MTczNDU3LTVmNjk4NjEwNTVlYThjMjg4NWI0ZWM5NTBjNTE5YzgwZTFjYjhjMWFhMWY4NjYxYWI0YWJmOTFkNTY5MmI1YWI" target="_blank"><i class="fab fa-slack fa-sm fa-fw"></i> Slack</a><a href="https://groups.google.com/forum/#!forum/nexentaedge-users" target="_blank"><i class="fab fa-google fa-sm fa-fw"></i> Google Group</a></div><div><h5>More</h5><a href="/blog"><i class="fas fa-book fa-sm fa-fw"></i> Blog</a><a href="https://github.com/Nexenta/nedge-dev"><i class="fab fa-github fa-sm fa-fw"></i> GitHub</a><a class="github-button" href="https://github.com/Nexenta/nedge-dev" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 Nexenta Systems, Inc.</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+              var search = docsearch({
+                apiKey: '839b05a95d1375c54722a0161e78d578',
+                indexName: 'nexentaedge',
+                inputSelector: '#search_input_react'
+              });
+            </script></body></html>
