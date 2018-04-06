@@ -1,7 +1,7 @@
 node('master') {
     docker.withServer('unix:///var/run/docker.sock') {
         stage('Git clone') {
-            git url: 'git@github.com-nexenta.github.io:nexentaedge/nexenta.github.io.git', branch: 'master'
+            git url: 'git@github.com-Nexenta.github.io:Nexenta/Nexenta.github.io.git', branch: 'master'
             if (lastCommitIsPublishCommit()) {
                 currentBuild.result = 'ABORTED'
                 error('Aborting the build to prevent a loop.')
