@@ -1,4 +1,4 @@
-document.onload = function() {
+window.onload = function() {
   mermaid.initialize({
     startOnLoad: true,
     flowchart: {
