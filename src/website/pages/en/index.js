@@ -189,7 +189,7 @@ class Index extends React.Component {
       <div>
         <HomeSplash language={language} />
         <div className="mainContainer">
-          <Features />
+          <Features  />
           <Showcase language={language} />
           <section className="container paddingBottom" style={{backgroundColor: "#e6e6e6"}}>
               <section className="wrapper" style={{padding: "50px 0 0 0"}}>
