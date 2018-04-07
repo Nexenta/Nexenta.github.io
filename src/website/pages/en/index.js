@@ -161,11 +161,24 @@ class Index extends React.Component {
         <div className="mainContainer">
           <Features />
           <section className="container paddingBottom" style={{backgroundColor: '#e6e6e6'}}>
-            <section className="wrapper" style={{padding: '50px 0 0 0'}}>
-              <img src={imgUrl('logo-openstack.png')} style={{height: 70, float: 'left', marginRight: 30}} />
-              <a href="/openstack/" style={{display: 'inline-block', marginTop: 20}}>
-                Openstack Drivers
-              </a>
+            <section
+              className="wrapper"
+              style={{padding: '50px 0 0 0', display: 'flex', justifyContent: 'space-around'}}
+            >
+              <section style={{textAlign: 'center'}}>
+                <img src={imgUrl('logo-openstack.png')} style={{height: 70}} />
+                <br />
+                <a href="/openstack/" style={{display: 'inline-block', marginTop: 20}}>
+                  Openstack Drivers
+                </a>
+              </section>
+              <section style={{textAlign: 'center'}}>
+                <img src={imgUrl('logo-docker.svg')} style={{height: 70}} />
+                <br />
+                <a href="/docker/" style={{display: 'inline-block', marginTop: 20}}>
+                  Openstack & K8s Drivers
+                </a>
+              </section>
             </section>
           </section>
         </div>
