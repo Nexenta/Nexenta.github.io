@@ -160,10 +160,10 @@ class Index extends React.Component {
         <HomeSplash language={language} />
         <div className="mainContainer">
           <Features />
-          <section className="container paddingBottom" style={{backgroundColor: '#e6e6e6'}}>
+          <section className="container" style={{backgroundColor: '#e6e6e6', paddingBottom: 40}}>
             <section
               className="wrapper"
-              style={{padding: '50px 0 0 0', display: 'flex', justifyContent: 'space-around'}}
+              style={{paddingTop: 50, display: 'flex', justifyContent: 'space-around'}}
             >
               <section style={{textAlign: 'center'}}>
                 <img src={imgUrl('logo-openstack.png')} style={{height: 70}} />
