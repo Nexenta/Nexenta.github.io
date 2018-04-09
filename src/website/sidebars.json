@@ -1,6 +1,6 @@
 {
   "docs": {
-    "Getting Started": ["introduction", "installation", "installation-ui", "network-considerations"],
+    "Getting Started": ["introduction", "installation", "installation-ui", "network-considerations","Multi-Tenant and Kubernetes"],
     "Guides": ["using-docker"],
     "Online Resources": ["online-resources"]
   }
