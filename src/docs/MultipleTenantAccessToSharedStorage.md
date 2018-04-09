@@ -1,4 +1,5 @@
 ---
+id: multi-tenant-and-kubernetes
 title: Multiple Tenant Access To A Shared Storage Cluster Using Kubernetes
 author: Caitlin Bestler
 sidebar_label: Multi-Tenant and Kubernetes
