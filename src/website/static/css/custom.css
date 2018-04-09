@@ -80,3 +80,7 @@ html, body {
   font-size: 14px;
   font-family: trebuchet ms,verdana,arial;
 }
+
+.mermaid svg {
+  height: auto;
+}
