@@ -9,7 +9,7 @@
     <logo>https://nexenta.github.io/img/logo-nexenta.png</logo>
     <rights>Copyright © 2018 Nexenta Systems</rights>
     <entry>
-        <title type="html"/>
+        <title type="html"><![CDATA[Immutable Metadata Not Enough]]></title>
         <id>https://nexenta.github.io/blog/2018/03/30/ImmutableMetadataNotEnough.html</id>
         <link href="https://nexenta.github.io/blog/2018/03/30/ImmutableMetadataNotEnough.html">
         </link>
@@ -17,6 +17,7 @@
         <summary type="html"><![CDATA[<p>In prior blogs I've explained how NexentaEdge has immutable self-validating location-independent metadata referencing self-validating location-independent payload. The same can be set about IPFS, the Interplanetary File System (<a href="https://ipfs.io">https://ipfs.io</a>). Whil</p>
 ]]></summary>
         <author>
+            <name>Caitlin Bestler</name>
         </author>
     </entry>
     <entry>
