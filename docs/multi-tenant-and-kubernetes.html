@@ -40,15 +40,16 @@
 <p>The backend storage cluster must be provisioned before any tenant access networks are added or removed. The backend storage network frequently has specialized requirements, and specific characteristics may be desired for local storage. Kubernetes has sufficient options to customize host selection to enable provisioning of even very picky storage clusters.</p>
 <p>After this backend network is provisioned we need to tag the selected hosts so that Tenant Access Pods can be provisioned to hosts that already have the backend storage service Pod running. Ideally, only nodes requiring optimized access to the backend storage network should be scheduled directly on these gateway hosts.</p>
 <p>An example of an end result is depicted below, with two different Tenant Access Pods communicating with a single Backend Storage Service Pod.</p>
-<pre><code class="hljs css mermaid">graph TD;
-A<span class="hljs-function"><span class="hljs-params">(Tenant A Access Pod)</span>--&gt;</span>FrontNIC(Frontend NIC);
-A-<span class="hljs-function">-&gt;</span>LocalHostIPC(Localhost IPC);
-B<span class="hljs-function"><span class="hljs-params">(Tenant B Access Pod)</span>--&gt;</span>FrontNIC;
-B-<span class="hljs-function">-&gt;</span>LocalHostIPC;
-S<span class="hljs-function"><span class="hljs-params">(Backend Storage Service Pod)</span>--&gt;</span>FrontNIC;
-S-<span class="hljs-function">-&gt;</span>LocalHostIPC;
-S-<span class="hljs-function">-&gt;</span>BackendNIC(Backend NIC);
-</code></pre>
+<div class="mermaid">
+graph TD;
+A(Tenant A Access Pod)-->FrontNIC(Frontend NIC);
+A-->LocalHostIPC(Localhost IPC);
+B(Tenant B Access Pod)-->FrontNIC;
+B-->LocalHostIPC;
+S(Backend Storage Service Pod)-->FrontNIC;
+S-->LocalHostIPC;
+S-->BackendNIC(Backend NIC);
+</div>
 <p>There would be a minimum of one Pod for each tenant, although tenants could have multiple Pods to accommodate varying scheduling requirements. Separation of services into different addresses spaces is frequently desirable, but it is not a requirement for providing multi-tenant service. What is required is that each tenant Pod has tenant-quarantined access to the FrontEnd NIC.</p>
 <p>A BackendStorageServicePod (or pods) has previously been provisioned with access to the BackendNIC. For many storage clusters this will be a network with specific quality of service guarantees and specialized resource allocation needs. Some may require lossless Ethernet service, Fibre Channel, Infiniband or merely some guaranteed bandwidth.</p>
 <p>The Tenant Access Pods communicate with the Backend Storage Service POD via localhost IPC. This may be used for all communication, or merely to set up shared memory message queuing.</p>
