@@ -77,7 +77,10 @@ S(Backend Storage Service Pod)-->FrontNIC;
 S-->LocalHostIPC;
 S-->BackendNIC(Backend NIC);
 </div>
+<<<<<<< HEAD
+=======
 
+>>>>>>> 51aebb195de3874433cb922fb935d5996f4877a7
 There would be a minimum of one Pod for each tenant, although tenants could have multiple Pods to accommodate varying scheduling requirements. Separation of services into different addresses spaces is frequently desirable, but it is not a requirement for providing multi-tenant service. What is required is that each tenant Pod has tenant-quarantined access to the FrontEnd NIC.
 
 A BackendStorageServicePod (or pods) has previously been provisioned with access to the BackendNIC. For many storage clusters this will be a network with specific quality of service guarantees and specialized resource allocation needs. Some may require lossless Ethernet service, Fibre Channel, Infiniband or merely some guaranteed bandwidth.
