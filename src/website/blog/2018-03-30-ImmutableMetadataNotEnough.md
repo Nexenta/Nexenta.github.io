@@ -1,26 +1,27 @@
 ---
-Title: Immutable Metadata Not Enough
-Author: Caitlin Bestler
+title: Immutable Metadata Not Enough
+author: Caitlin Bestler
+tags: [CCOW,IPFS,Metadata Search,Hierarchical Directories]
 ---
 In prior blogs I've explained how NexentaEdge has immutable self-validating location-independent metadata referencing self-validating location-independent payload. The same can be set about IPFS, the Interplanetary File System (https://ipfs.io). While the two storage solutions' handling of payload chunks is very similar, the differences in how objects are named and found are almost as different as possible.
 
 ## Payload Chunks
-The end result of putting a chunk to IPFS is that it is identified and validated with a cryptographic hash, and that the crypographic hash can be used to find the chunk for retrieval.
+The end result of putting a chunk to IPFS is that it is identified and validated with a cryptographic hash, and that the cryptographic hash can be used to find the chunk for retrieval.
 
 This is very similar to NexentaEdge, but there are differences:
-  * IPFS accepts the chunk and then generates its cryptographic hash. A NexentaEdge client directly interfacing to NexentaEdge cryptographically hashes the chunk before requesting that it be put. This avoids tranmission of duplicate chunks.
-  * IPFS routing is a cosistent hashing solution. NexentaEdge hases to a Target Group and then does rapid negotiations within the group to find and dynamically place new chunks on the least burdened targets.
+  * IPFS accepts the chunk and then generates its cryptographic hash. A NexentaEdge client directly interfacing to NexentaEdge cryptographically hashes the chunk before requesting that it be put. This avoids transmission of duplicate chunks.
+  * IPFS routing is a consistent hashing solution. NexentaEdge hashes to a Target Group and then does rapid negotiations within the group to find and dynamically place new chunks on the least burdened targets.
 
 ## Different Metadata Philosophy
 The IPFS naming system is still a work-in-progress, but all of their examples suggest a very different method for publishing content accessible by name.
 
-They take the cryptographic hash of the atomic object and embed those references in other documents, which basically function as directories. Each of these directory obects is also immutable, referencing specific frozen-in-time content. The directory object itself has a cryptographic hash, which can be referenced in higher layer directories. Finally a "root" directory is published which is then pointed to by a mutable name to directory object mappping.
+They take the cryptographic hash of the atomic object and embed those references in other documents, which basically function as directories. Each of these directory objects is also immutable, referencing specific frozen-in-time content. The directory object itself has a cryptographic hash, which can be referenced in higher layer directories. Finally a "root" directory is published which is then pointed to by a mutable name to directory object mapping.
 
-From the examples given and the suggested implementations it is clear that this is not intended as a high transaction rate solution. This is something more akin to publishing the daily release of a open-source project. This new root is collected, authorized and published by a single authorative user.
+From the examples given and the suggested implementations it is clear that this is not intended as a high transaction rate solution. This is something more akin to publishing the daily release of a open-source project. This new root is collected, authorized and published by a single authoritative user.
 
 This is not that bad of an approach for creating a "permanent web", although it would not even seem applicable for sites such as cnn.com that publish continuously.
 
-One of the primary objectives of NexentaEdge is to be a shared repository for versioned documents that can be accessed and updated by thousands of tenant approved users. Any tenant-approved user should be able to post a new object version, subject to tenant-specified ACLs, at any time without interference from other users. Any tenant-approved user should be able to fetch any version of any tenant object at any time without interference from other users beyond contention for bandwidth. Information about new object versions is propogated asynchronously, but rapidly, and with known and measured propogation delay.
+One of the primary objectives of NexentaEdge is to be a shared repository for versioned documents that can be accessed and updated by thousands of tenant approved users. Any tenant-approved user should be able to post a new object version, subject to tenant-specified ACLs, at any time without interference from other users. Any tenant-approved user should be able to fetch any version of any tenant object at any time without interference from other users beyond contention for bandwidth. Information about new object versions is propagated asynchronously, but rapidly, and with known and measured propagation delay.
 
 A storage service, as opposed to a publishing service, needs to treat stored payload as opaque blobs. The storage service is not allowed to find references within the payload because it should embrace client driven end-to-end encryption. The storage service should presume that all payload is encrypted and never try to analyze it.[^1]
 
@@ -93,4 +94,4 @@ Version Manifests are retained when they are referenced in Snapshots or they are
 Tenants are allowed to expung their own Version Manifests. This enables them to expunge content from their account in order to comply with legal requirements to remove content. Tenants will be able to subscribe to receive notices if expunged chunks are re-added.
 
 ## Metadata for Enterprise storage
-NexentaEdge's metadata is not just immutable, self-validating and location idenpendent. It supports rapid metadata searches that are designed to meet the needs of a document/object storage system holding tenant-private objects. IPFS is inherently limited to publishing the permanent web, and will never be suitable as a versioned project active archive.
+NexentaEdge's metadata is not just immutable, self-validating and location independent. It supports rapid metadata searches that are designed to meet the needs of a document/object storage system holding tenant-private objects. IPFS is inherently limited to publishing the permanent web, and will never be suitable as a versioned project active archive.

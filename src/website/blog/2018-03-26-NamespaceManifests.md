@@ -1,6 +1,7 @@
 ---
 title: Namespace Manifests
 author: Caitlin Bestler
+tags: [CCOW,Namespace Manifest]
 ---
 With efficient group messaging a group of storage targets can efficiently manage the collective responsibility for storing Chunks within the group while allowing metadata references to the stored chunks to omit the specific storage targets selected.
 
