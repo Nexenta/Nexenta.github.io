@@ -11,6 +11,7 @@
     "Installation": "Installation",
     "introduction": "Introduction",
     "Introduction": "Introduction",
+    "MultipleTenantAccessToSharedStorage": "Multiple Tenant Access To A Shared Storage Cluster Using Kubernetes",
     "network-considerations": "NexentaEdge Networking Considerations",
     "Networking Considerations": "Networking Considerations",
     "online-resources": "Online Resources",
