@@ -1,6 +1,7 @@
 ---
 title: Multiple Tenant Access To A Shared Storage Cluster Using Kubernetes
 author: Caitlin Bestler
+sidebar_label: Multi-Tenant and Kubernetes
 tags: {NexentaEdge,CCOW,Peer-to-Peer Storage,IPFS,Multi-Tenant,Kubernetes}
 ---
 Kubernetes is currently capable of scheduling a storage cluster which provides storage services to a flat namespace. It can also create multiple tenant clusters with isolated pods which cannot accept connections from nodes of other tenants. This proposal addresses the ability of storge clusters to offer storage services to tenant isolated access pods.
