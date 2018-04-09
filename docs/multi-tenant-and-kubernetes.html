@@ -50,7 +50,24 @@ S(Backend Storage Service Pod)-->FrontNIC;
 S-->LocalHostIPC;
 S-->BackendNIC(Backend NIC);
 </div>
-<p>There would be a minimum of one Pod for each tenant, although tenants could have multiple Pods to accommodate varying scheduling requirements. Separation of services into different addresses spaces is frequently desirable, but it is not a requirement for providing multi-tenant service. What is required is that each tenant Pod has tenant-quarantined access to the FrontEnd NIC.</p>
+<<<<<<< HEAD
+=======
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>51aebb195de3874433cb922fb935d5996f4877a7
+There would be a minimum of one Pod for each tenant, although tenants could have multiple Pods to accommodate varying scheduling requirements. Separation of services into different addresses spaces is frequently desirable, but it is not a requirement for providing multi-tenant service. What is required is that each tenant Pod has tenant-quarantined access to the FrontEnd NIC.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <p>A BackendStorageServicePod (or pods) has previously been provisioned with access to the BackendNIC. For many storage clusters this will be a network with specific quality of service guarantees and specialized resource allocation needs. Some may require lossless Ethernet service, Fibre Channel, Infiniband or merely some guaranteed bandwidth.</p>
 <p>The Tenant Access Pods communicate with the Backend Storage Service POD via localhost IPC. This may be used for all communication, or merely to set up shared memory message queuing.</p>
 <p>The Backend Storage Service Pod could authenticate each Tenant Access Pod, but would find life simpler if the scheduling policy simply enforced that Tenant access Pods would be scheduled on this host. The Pod could certainly have hyper-converged Containers.</p>
