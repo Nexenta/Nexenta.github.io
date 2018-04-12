@@ -9,6 +9,18 @@
     <logo>https://nexenta.github.io/img/logo-nexenta.png</logo>
     <rights>Copyright © 2018 Nexenta Systems</rights>
     <entry>
+        <title type="html"><![CDATA[Multiple Tenant Access To A Shared Storage Cluster]]></title>
+        <id>https://nexenta.github.io/blog/2018/04/12/MultipleTenantAccessToSharedStorage.html</id>
+        <link href="https://nexenta.github.io/blog/2018/04/12/MultipleTenantAccessToSharedStorage.html">
+        </link>
+        <updated>2018-04-12T06:00:00Z</updated>
+        <summary type="html"><![CDATA[<p>In the prior blog we discussed how to use Kubernetes to provision a class of storage clusters which protects against loss of stored assets itself via erasure encoding and/or replication across already provisioned resources, rather than relying on Kub</p>
+]]></summary>
+        <author>
+            <name>Caitlin Bestler</name>
+        </author>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[Beyond the Virtual Disk]]></title>
         <id>https://nexenta.github.io/blog/2018/04/12/BeyondVirtualDisks.html</id>
         <link href="https://nexenta.github.io/blog/2018/04/12/BeyondVirtualDisks.html">
