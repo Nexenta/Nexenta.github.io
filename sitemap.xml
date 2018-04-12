@@ -4,6 +4,7 @@
 <url> <loc>https://nexenta.github.io/index.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://nexenta.github.io/en/index.html" /> </url>
 <url> <loc>https://nexenta.github.io/tryOnline.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://nexenta.github.io/en/tryOnline.html" /> </url>
 <url> <loc>https://nexenta.github.io/users.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://nexenta.github.io/en/users.html" /> </url>
+<url> <loc>https://nexenta.github.io/blog/2018/04/12/BeyondVirtualDisks.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
 <url> <loc>https://nexenta.github.io/blog/2018/03/30/ImmutableMetadataNotEnough.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
 <url> <loc>https://nexenta.github.io/blog/2018/03/26/NamespaceManifests.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>
 <url> <loc>https://nexenta.github.io/blog/2018/03/22/LocationIndependentReferences.html</loc> <changefreq>weekly</changefreq> <priority>0.3</priority> </url>

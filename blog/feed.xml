@@ -4,7 +4,7 @@
         <title>Nexenta Blog</title>
         <link>https://nexenta.github.io/blog</link>
         <description>The best place to stay up-to-date with the latest Nexenta news and events.</description>
-        <lastBuildDate>Fri, 30 Mar 2018 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 12 Apr 2018 06:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
@@ -13,6 +13,15 @@
             <link>https://nexenta.github.io/blog</link>
         </image>
         <copyright>Copyright © 2018 Nexenta Systems</copyright>
+        <item>
+            <title><![CDATA[Beyond the Virtual Disk]]></title>
+            <link>https://nexenta.github.io/blog/2018/04/12/BeyondVirtualDisks.html</link>
+            <guid>https://nexenta.github.io/blog/2018/04/12/BeyondVirtualDisks.html</guid>
+            <pubDate>Thu, 12 Apr 2018 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>Kubernetes defines numerous options for Persistent Volumes and Persistent Volume Claims. The problem is that they are too numerous, or perhaps more to the point too diverse.</p>
+<p>A Persistent Volume can be anything from a set of storage held by a backend</p>
+]]></description>
+        </item>
         <item>
             <title><![CDATA[Immutable Metadata Not Enough]]></title>
             <link>https://nexenta.github.io/blog/2018/03/30/ImmutableMetadataNotEnough.html</link>
