@@ -2,16 +2,19 @@
 title: Cloud-Friendly High Performance East-West networks
 author: Caitlin Bestler
 ---
-Ethernet switches, especially those with IEEE 802.1 DCB features, can deliver high throughput datacenter traffic, especially for east-west traffic that is within an L2 subnet and do not involve routers to/from the general Internet.
+There is a business opportunity that seems to be unaddressed in the current cloud market.
 
-The on-demand virtual networks sold by cloud providers seem to focus on REST/HTTPs traffic. GRE/VxLAN routing is intermixed with monitoring solutions tailored to bursty non-constant traffic.
+Cloud providers sell slices of compute/network/storage resources to end users. The end user is only charged for resources actually needed, but with a markup. The markup is enough to buy more resources than are actually needed in aggregate and still make a profit. The end users still save money because they are not paying for assets that would inevitably go idle.
 
-There is a simple way to offer high-performance ports instead. These are ports, or virtual ports, on a 802.1 switching core. The ports would be leased on a port/day basis irrespective of the number of packets actually sent on that port.
+That applies to network bandwidth, storage capacity, processor cores, RAM and third shift personnel. Forcing each user to pay for these separately would be too expensive, especially the third shift staff. The cloud operator can pass on half of these savings to the end user and everybody is happy.
 
-The datacenter provider can provision a non-blocking core with N switches and N*K physical ports. Depending on how many trunk links are allocated this core will have some non-blocking bandwidth guarantee that it can support between any two ports.
+But so far the only model of networking supported is bursty generic TCP traffic. There is an entirely separate model for sustained low-latency high throughput networking for HPC and storage clusters.
 
-Because this can be guaranteed between *any* set of ports the network operator can create virtual subsets of this switching core, isolated by any method supported by the switch core, and there is no change to the QoS guarantees available.
+The IEEE 802.1 DCB (data-center bridging) initiative defined a new class of "no drop" Ethernet that caters to this market. These capabilities are highly desirable when laying out your own network for on-premise or co-location deployment. Why would't there be the same demand for leasing this capacity?
 
-So a 312 port non-blocking core can be leased to different users N ports at a time. The system provider divides the cost of each port by its utilization and rounds up by its profit margin. That's what they do with the REST/HTTPS/TCP traffic. The only thing different for high-performance networking is that granularity is different.
+The granularity would obviously be different. Think "port/hours" rather than GBs/month. For this type of high-throughput low-latency network you want a simple guaranteed bandwidth with maximum latency for a duration of time amongst your N leased machines.
 
-The network adminstrator merely has to provide a limited switch administration utility to assign ports to specific VLANs. The more complex configuration options would be done for the collective L2 network when the set of switches is deployed, not when each set of N ports is leased.
+There is a simple way for any data-center to offer this type of leased service:
+* Create a large L2 switch core with lots of ports and a defined non-blocking rate that can be sustained from any port to any port.
+* Offer to lease any N of these ports by the hour/day/month.
+* Bundle the leased ports into a VLAN, using any method of creating a VLAN supported by your switch core. Do **not** provide any form of IP Address Management to these ports beyond assuring that the L2 MAC addresses are unique. Using the hardware L2 MAC addresses is a very simple way to do this. Let the end user manage L3 and up on the leased port and just collect the rent.
