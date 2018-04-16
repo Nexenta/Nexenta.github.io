@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0">
     <channel>
-        <title>Nexenta Blog</title>
+        <title> Blog</title>
         <link>https://nexenta.github.io/blog</link>
-        <description>The best place to stay up-to-date with the latest Nexenta news and events.</description>
+        <description>The best place to stay up-to-date with the latest  news and events.</description>
         <lastBuildDate>Thu, 12 Apr 2018 06:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
-            <title>Nexenta Blog</title>
-            <url>https://nexenta.github.io/img/logo-nexenta.png</url>
+            <title> Blog</title>
+            <url>https://nexenta.github.io/img/logo-nexenta-full.png</url>
             <link>https://nexenta.github.io/blog</link>
         </image>
         <copyright>Copyright © 2018 Nexenta Systems</copyright>
