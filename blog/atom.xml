@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://nexenta.github.io/blog</id>
-    <title>Nexenta Blog</title>
+    <title> Blog</title>
     <updated>2018-04-12T06:00:00Z</updated>
     <generator>Feed for Node.js</generator>
     <link rel="alternate" href="https://nexenta.github.io/blog"/>
-    <subtitle>The best place to stay up-to-date with the latest Nexenta news and events.</subtitle>
-    <logo>https://nexenta.github.io/img/logo-nexenta.png</logo>
+    <subtitle>The best place to stay up-to-date with the latest  news and events.</subtitle>
+    <logo>https://nexenta.github.io/img/logo-nexenta-full.png</logo>
     <rights>Copyright © 2018 Nexenta Systems</rights>
     <entry>
         <title type="html"><![CDATA[Multiple Tenant Access To A Shared Storage Cluster]]></title>
