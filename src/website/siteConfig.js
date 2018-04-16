@@ -1,6 +1,6 @@
 const siteConfig = {
-  title: 'Nexenta',
-  tagline: 'Your universal Scale-Out Storage Software with global Deduplication and Compression',
+  title: '',
+  tagline: 'Nexenta · Your universal Scale-Out Storage Software with global Deduplication and Compression',
   url: 'https://nexenta.github.io',
   baseUrl: '/',
   projectName: 'nexenta.github.io', // or set an env variable PROJECT_NAME
@@ -18,11 +18,11 @@ const siteConfig = {
     //  pinned: true
     //}
   ],
-  headerIcon: 'img/logo-nexenta.png',
+  headerIcon: 'img/logo-nexenta-full.png',
   footerIcon: 'img/logo-nexenta.png',
   favicon: 'img/favicon.png',
   colors: {
-    primaryColor: '#e86b00',
+    primaryColor: '#f37121',
     secondaryColor: '#c6c6c6'
   },
   //fonts: {
