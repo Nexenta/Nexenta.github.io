@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+    <title>'s notes</title>
+    <subtitle>NexentaEdge - Your universal Scale-Out Storage Software with global Deduplication and Compression</subtitle>
+    <link href="/feed.xml" rel="self"/>
+    <link href="/"/>
+    <id>urn:uuid:</id>
+    <updated>2018-04-24T19:04:24Z</updated>
+
+
+    
+    <entry>
+        <title>Namespace Manifests</title>
+        <link href="/blog/2018/03/26/namespace-manifests/"/>
+        <link rel="alternate" type="text/html" href="/blog/2018/03/26/namespace-manifests/"/>
+        <id>urn:uuid:</id>
+        <updated>2018-03-26T00:00:00Z</updated>
+        <summary></summary>
+        <content type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+                <img src="" />
+                ...
+            </div>
+        </content>
+        <author>
+            <name></name>
+            <email></email>
+        </author>
+    </entry>
+    
+    <entry>
+        <title>Location Independent References</title>
+        <link href="/blog/2018/03/22/location-independent-references/"/>
+        <link rel="alternate" type="text/html" href="/blog/2018/03/22/location-independent-references/"/>
+        <id>urn:uuid:</id>
+        <updated>2018-03-22T00:00:00Z</updated>
+        <summary></summary>
+        <content type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+                <img src="" />
+                ...
+            </div>
+        </content>
+        <author>
+            <name></name>
+            <email></email>
+        </author>
+    </entry>
+    
+    <entry>
+        <title>Consensus, Who Needs It?</title>
+        <link href="/blog/2018/03/20/consensus-who-needs-it/"/>
+        <link rel="alternate" type="text/html" href="/blog/2018/03/20/consensus-who-needs-it/"/>
+        <id>urn:uuid:</id>
+        <updated>2018-03-20T00:00:00Z</updated>
+        <summary></summary>
+        <content type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+                <img src="" />
+                ...
+            </div>
+        </content>
+        <author>
+            <name></name>
+            <email></email>
+        </author>
+    </entry>
+    
+    <entry>
+        <title>One SDS feature that made ZFS famous</title>
+        <link href="/blog/2016/03/11/one-sds-feature-that-made-zfs-famous/"/>
+        <link rel="alternate" type="text/html" href="/blog/2016/03/11/one-sds-feature-that-made-zfs-famous/"/>
+        <id>urn:uuid:</id>
+        <updated>2016-03-11T00:00:00Z</updated>
+        <summary></summary>
+        <content type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+                <img src="" />
+                ...
+            </div>
+        </content>
+        <author>
+            <name></name>
+            <email></email>
+        </author>
+    </entry>
+    
+
+</feed>
