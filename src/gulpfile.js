@@ -26,8 +26,8 @@ try {
 }
 
 function renderMermaid(str) {
-  const inpitFilePath = path.join('/tmp', 'mermaid.tmp');
-  const outputFilePath = path.join('/tmp', 'mermaid.tmp.svg');
+  const inpitFilePath = path.join('./', 'mermaid.tmp');
+  const outputFilePath = path.join('./', 'mermaid.tmp.svg');
   const configPath = path.join('mermaidConfig.json');
   fs.writeFileSync(inpitFilePath, str);
   execSync(`./node_modules/.bin/mmdc -i ${inpitFilePath} -o ${outputFilePath} -c ${configPath}`);
