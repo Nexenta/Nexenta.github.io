@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - Consensus, Who Needs It?</title>
+    <meta name="description" content="NexentaEdge - Your universal Scale-Out Storage Software with global Deduplication and Compression">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed">
+    <link href="/css/all.min.css" rel="stylesheet">
+    <link href="/favicon.ico" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+<body>
+<header>
+    <section class="container container-flex">
+        <section class="title">
+            <a href="/" title="Home">
+                <img src="/resources/images/logo-nexenta-with-title.png"/>
+            </a>
+        </section>
+    </section>
+</header>
+<section class="content">
+    
+<section class="container">
+    <article itemscope itemtype="http://schema.org/Article">
+        <h1 itemprop="name">Consensus, Who Needs It?</h1>
+        <time itemprop="datePublished" content="2018-03-20" datetime="2018-03-20">2018-03-20</time>
+
+        
+
+        <div class="clear"></div>
+
+        
+
+        <p>The conventional tradeoff for distributed storage clusters is between transactional consistency and eventual consistency. Eventual consistency is usually viewed as the cheaper solution, both in terms of desirability and system cost. The critical cost of transactional consistency is the need to reach a consensus on ordering updates.</p>
+<p>Eventual consistency is usually portrayed as simply tolerance for inconsistency on the presumption that momentary contradictions are acceptable as long as they go away eventually.</p>
+<p>NexentaEdge takes a different approach. All stored chunks, whether metadata or payload, are unique, immutable and self-validated. References to these chunks do not include the locations where they are stored, but still enable those chunks to be efficiently retrieved.</p>
+<p>This strategy allows NexentaEdge to provide guarantees beyond making thing consistent &quot;eventually&quot;:</p>
+<ul>
+<li>Any client will never retrieve a version older than the most recent version that the client has put itself.
+The changes in any version will never be automatically erased. * A version will only be expunged according to policy and after a version that is a successor to it is published.</li>
+<li>No network partition will prevent a client from putting a new object version. Indeed no client will ever prevent another client from putting a new object version.</li>
+</ul>
+<p>Never blocking a new object version because of the actions of another client is a feature, not a bug or limitation.  Transactional systems can only guarantee non-overlapping edits after reaching a consensus. The consensus may be on which updater has the exclusive right to update an object now (distributed locking) or on which of multiple conflicting updates can be committed (MVCC or multi-version consensus control). Effectively the cluster must be serialized either before the update is initiated or before it can be completed. Distributed locking is more efficient when conflicting attempted edits are common, MVCC for the far more common situation where conflicts are rare.</p>
+<p>So eventual consistency is actually what end consumers want for versioned document archives. Not accepting, or even delaying, the ability to record a new version is not good. What they would prefer is to reliably know when other versions are created and to minimize the time when a new update is not visible to someone wanting to further edit the same document.</p>
+<p>What NexentaEdge offers is eventual consistency with the benefits of immutability and knowledge of what range of possible object versions could exist but which have not yet been propagated.</p>
+<p>What lies behind this capability is simple, NexentaEdge has defined its metadata so that no consensus algorithm is needed. Other storage solutions may have clever consensus algorithms, but you cannot be more clever than no consensus algorithm at all.</p>
+<h2>Consensus is Expensive</h2>
+<p>The fundamental issue is that it is impossible to update the same information at multiple locations at exactly the same time. This has been expressed many ways, including CAP Theorem.</p>
+<p>Distributed Storage systems that offer transactional consistency by requiring a cluster-wide consensus before the put transaction creating a new object version can complete. This may be based upon <em>a priori</em> locks or optimistic locking which detects conflicting edits and immediately applies the conflicting edits before reapplying the attempted edit.</p>
+<p>Either strategy requires end-to-end communications covering at least a relevant quorum of node members. Of course, a quorum based consensus is dependent on agreement about how many votes are needed, which is why consensus algorithms always get complex. If a quorum consensus on either the lock or the specific edit cannot be achieved then the requested operation cannot proceed or complete. Disallowing puts of new versions is the <em>last</em> thing that a storage cluster supporting versioned documents should do.</p>
+<h2>Unique Chunks Do Not Require Consensus</h2>
+<p>NexentaEdge defines object versions in metadata chunks called Version Manifests. These chunks include the fully qualified object name and a unique version identifier.</p>
+<p>Chunks are located using a cryptographic hash identifier of the chunk. For Version Manifests this is the Name Hash Identifier (NHID). All Version Manifests for a given object are stored within storage servers addressed by a single multicast group derived from the NHID. Payload Chunks, by contrast, are located based on the Content Hash Identifier (CHID). Depending on options selected the cryptographic hashes may be 256 or 512 bits.</p>
+<p>Further, because the Version Manifests include their unique identifier, their Content Hash Identifiers (CHIDs) are also unique.</p>
+<h2>NexentaEdge Always Accepts New Versions</h2>
+<p>All NexentaEdge chunks are unique. They either have unique payload identified by a 256 or 512 bit cryptographic hash, or they have a Version Manifest that includes a unique identifier of the the version.</p>
+<p>Two nodes can both put the same payload chunks without harm. Because the unique version identifier includes the IP address of the originating node there is only a single source for any new version. This does impose the onerous constraint that no single source can put two versions of the same object within a single system tick, currently 1/10,000th of a second. The round trip times to negotiate and confirm putting a new chunk will take longer than that.</p>
+<p>Because the same Version Manifest has a unique identifier the source creating it does not need to consult with any other node before creating it. The only entity that is qualified to have an opinion on whether it created a new version of a given object at a given timestamp is itself. Instant consensus.</p>
+<h1>Namespace Manifest and Snapshots</h1>
+<p>Because Version Manifests are unique they can always be created. NexentaEdge collects and processes the transaction log entries noting each new Version Manifest to create a permanent registry of all Version Manifest that we call a Namespace Manifest. The Namespace Manifest can support complex metadata queries and makes it possible to take true point-in-time snapshots of a distributed storage cluster without requiring any consensus deriving blockage.</p>
+<p>We’ll follow up on the Namespace Manifest and Snapshots in our next blog.</p>
+
+    </article>
+</section>
+
+</section>
+<footer>
+    <section class="container container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            Nexenta Systems, Inc.
+        </section>
+    </section>
+</footer>
+</body>
+<script>
+    if (window.location.hostname !== 'localhost') {
+        (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', '', 'nexenta.github.io');
+        ga('send', 'pageview');
+    }
+</script>
+</html>
