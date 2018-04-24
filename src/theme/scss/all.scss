@@ -184,6 +184,12 @@ header {
       display: flex;
       justify-content: space-between;
 
+      .logo {
+        margin: 22px 12px 0 0;
+        height: 60px;
+        float: left;
+      }
+
       .screenshot {
         margin: -5px 0 0 30px;
 
