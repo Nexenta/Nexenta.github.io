@@ -12,7 +12,7 @@ node('master') {
                 .image('solutions-team-jenkins-agent-nexenta.github.io-build')
                 .inside('--volumes-from solutions-team-jenkins-master') {
                     sh """
-                        cd src/website;\
+                        cd src;\
                         npm install;
                     """
                 }
@@ -25,7 +25,7 @@ node('master') {
                         cd src;\
                         npm run build;\
                         cd -;\
-                        cp -r src/website/build/* ./
+                        cp -r src/build/* ./
                     """
                 }
         }
