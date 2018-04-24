@@ -101,7 +101,9 @@ const markdown = new Remarkable({
   highlight: (str, lang) => {
     if (lang) {
       if (lang === 'mermaid') {
-        return renderMermaid(str);
+        //TODO: can't install chrome on jenkins build machine
+        //return renderMermaid(str);
+        return `<div class="mermaid">${str}</div>`;
       } else if (highlightJs.getLanguage(lang)) {
         try {
           return highlightJs.highlight(lang, str).value;
