@@ -1,0 +1,14 @@
+{
+  "startOnLoad": true,
+  "flowchart": {
+    "useMaxWidth": true,
+    "htmlLabels": true
+  },
+  "sequence": {
+    "height": 40,
+    "actorMargin": 80,
+    "mirrorActors": false,
+    "bottomMarginAdj": 1
+  },
+  "theme": "forest"
+}

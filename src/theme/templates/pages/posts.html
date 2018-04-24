@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <section class="container container-text">
+        <h1>Blog</h1>
+        {% if tag.title %}
+            <h2>Tag: {{tag.title}}</h2>
+            <br>
+        {% endif %}
+
+        {% for post in posts %}
+            <section class="post-item">
+                <a href="{{post.link}}"><h2>{{post.title}}</h2></a>
+                <time datetime="{{post.date}}">{{post.date}}</time>
+            </section>
+        {% else %}
+            <section class="post-item">
+                Nothing there...
+            </section>
+        {% endfor %}
+    </section>
+{% endblock %}

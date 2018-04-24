@@ -1,0 +1,478 @@
+$colorPrimary: #f37121; //#e86b00
+$colorPrimaryHover: #e86b00;
+$colorText: #333333;
+$colorGray: #777777;
+$colorBorder: #dddddd;
+$colorBorderLight: #eeeeee;
+
+$maxContentWidth: 1050px;
+$maxContentWidthMedia: 1120px;
+
+// --- layout ---
+
+body {
+  font-family: 'Open Sans', '-apple-system', 'Ubuntu', 'sans-serif', arial;
+  font-size: 1em;
+  font-weight: normal;
+  color: $colorText;
+}
+
+.container {
+  max-width: $maxContentWidth;
+  margin: 0 auto;
+}
+
+.container-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-text {
+  padding-top: 50px;
+}
+
+// --- common ---
+
+a {
+  text-decoration: none;
+  color: $colorPrimary;
+  cursor: pointer;
+
+  &:visited,
+  &:hover {
+    color: $colorPrimaryHover;
+  }
+
+  &:hover {
+    text-decoration: underline;
+
+    h1,
+    .icon {
+      text-decoration: none;
+    }
+  }
+}
+
+hr {
+  border: 0;
+  border-bottom: 1px solid $colorBorder;
+  height: 0;
+  width: 100%;
+  clear: both;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0;
+  padding: 5px 0 0 0;
+  color: #666;
+}
+
+h2 {
+  font-size: 1.6em;
+  margin: 35px 0 0 0;
+}
+
+h3 {
+  span {
+    font-weight: normal;
+  }
+}
+
+pre {
+  background-color: #fafafa;
+  border: 1px dotted #dddddd;
+  padding: 12px 15px;
+  border-radius: 5px;
+  margin: 0 0 2em 0;
+}
+
+// --- structure ---
+
+.container {
+  @media (max-width: $maxContentWidthMedia) {
+    padding: 0 2em;
+  }
+}
+
+header {
+  top: 0;
+  height: 75px;
+
+  background-color: $colorPrimary;
+  z-index: 10;
+
+  a,
+  a:hover,
+  a:visited {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .container {
+    section.title {
+      padding: 17px 10px 0 0;
+
+      a {
+        display: flex;
+        align-items: center;
+
+        img {
+          height: 40px;
+        }
+
+        span {
+          margin: 1px 0 0 5px;
+          font-size: 1.4em;
+          white-space: nowrap;
+        };
+      }
+    }
+
+    nav {
+      display: flex;
+
+      & > a {
+        flex-grow: 1;
+
+        display: inline-block;
+        margin-left: 20px;
+        padding-top: 28px;
+
+        border-bottom: 5px solid $colorPrimary;
+        &:hover {
+          border-bottom: 5px solid white;
+        }
+      }
+    }
+  }
+}
+
+.content {
+  margin: 0 auto;
+}
+
+.band {
+  padding: 80px 0;
+
+  &.band-first {
+    background-color: #f0f0f0;
+  }
+  &.band-second {
+    background-color: #d8d8d8;
+  }
+  &.band-third {
+    background-color: #e8e8e8;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+
+  p {
+    font-size: 1.1em;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .description {
+      display: flex;
+      justify-content: space-between;
+
+      .image {
+        padding: 50px 0 0 50px;
+
+        img {
+          max-width: 190px;
+        }
+      }
+    }
+
+    .action {
+      text-align: center;
+      padding-top: 25px;
+
+      a {
+        display: inline-block;
+        text-decoration: none;
+        text-align: center;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: white;
+        background-color: $colorPrimary;
+        padding: 15px 10px;
+        min-width: 380px;
+      }
+    }
+  }
+}
+
+.post-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 35px 0;
+  border-bottom: 1px dotted $colorBorder;
+
+  time {
+    color: $colorGray;
+    font-size: 0.8em;
+    text-align: right;
+    min-width: 100px;
+    padding-top: 10px;
+  }
+
+  p {
+    line-height: 1.5em;
+    margin: 1em 0;
+  }
+
+  a {
+    overflow: hidden;
+
+    h2 {
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  &:first-child {
+    margin-top: 30px;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+    margin-bottom: 50px;
+  }
+}
+
+article {
+  padding-bottom: 4em;
+
+  a {
+    text-decoration: underline;
+  }
+
+  p {
+    line-height: 1.75em;
+    margin: 1em 0;
+  }
+
+  time {
+    color: $colorGray;
+    font-size: 0.8em;
+    padding-left: 2px;
+  }
+
+  img {
+    max-width: 100%;
+    margin: 20px 0;
+  }
+
+  h1 {
+    padding: 1em 0 0.5em 0;
+    margin: 20px 0 0 0;
+  }
+  h3 {
+    margin: 2em 0 0 0;
+  }
+
+  pre {
+    margin-top: 1em;
+    overflow-x: auto;
+    font-size: 0.97em;
+
+    code {
+      background-color: inherit;
+      padding: 0;
+    }
+
+    code.language-mermaid {
+      display: block;
+      text-align: center;
+      width: 100%;
+      font-size: 1em;
+
+      svg {
+        text-align: center;
+        height: auto;
+
+        tspan, text {
+          font-size: 14px;
+          font-family: 'Open Sans', '-apple-system', 'Ubuntu', 'sans-serif', arial;
+        }
+      }
+    }
+  }
+
+  li {
+    padding: 5px 0;
+  }
+
+  code {
+    font-size: 0.85em;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    padding: 3px 5px;
+  }
+
+  span.tags {
+    font-size: 0.8em;
+    padding-left: 8px;
+    margin-left: 5px;
+    color: $colorGray;
+
+    a {
+      color: #bbbbdd;
+      padding-left: 4px;
+      text-decoration: none;
+
+      &:hover {
+        color: $colorPrimaryHover;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.top-border-block {
+  border-top: 1px solid $colorBorderLight;
+
+  .label {
+    display: inline-block;
+    margin: 15px 1px;
+  }
+}
+
+.share-buttons {
+  margin: 50px 0 0 0;
+
+  .twitter-share-button {
+    margin: 0 0 -4px 9px;
+  }
+}
+
+.comments {
+  margin: 10px 0 45px 0;
+
+  #disqus_thread {
+    margin: 0;
+    padding: 0 20px;
+  }
+}
+
+footer {
+  padding: 35px 0 0 1px;
+  color: white;
+  font-size: 0.9em;
+  background-color: #a0a0a0;
+  border-top: 1px solid $colorBorder;
+  min-height: 100px;
+
+  a,
+  a:hover,
+  a:visited {
+    color: white;
+  }
+
+  nav {
+    display: flex;
+
+    & > * {
+      display: inline-block;
+      margin: 0 15px 0 0;
+    }
+  }
+}
+
+// TODO: remove unused
+// --- icons ---
+$icon-home: '\e900';
+$icon-envelop: '\e901';
+$icon-mobile: '\e902';
+$icon-earth: '\e90d';
+$icon-checkbox-checked: '\e903';
+$icon-checkbox-unchecked: '\e904';
+$icon-terminal: '\e905';
+$icon-mail: '\e907';
+$icon-twitter: '\e909';
+$icon-github: '\e90a';
+$icon-skype: '\e90b';
+$icon-linkedin: '\e90c';
+
+@font-face {
+  font-family: 'icomoon';
+  src: url('/resources/fonts/icomoon.eot?1');
+  src: url('/resources/fonts/icomoon.eot?1#iefix') format('embedded-opentype'),
+  url('/resources/fonts/icomoon.ttf?1') format('truetype'), url('/resources/fonts/icomoon.woff?1') format('woff'),
+  url('/resources/fonts/icomoon.svg?1#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-home3:before {
+  content: '\e900';
+}
+
+.icon-envelop:before {
+  content: '\e901';
+}
+
+.icon-mobile:before {
+  content: '\e902';
+}
+
+.icon-earth:before {
+  content: '\e90d';
+}
+
+.icon-checkbox-checked:before {
+  content: '\e903';
+}
+
+.icon-checkbox-unchecked:before {
+  content: '\e904';
+}
+
+.icon-terminal:before {
+  content: '\e905';
+}
+
+.icon-mail:before {
+  content: '\e907';
+}
+
+.icon-twitter:before {
+  content: '\e909';
+}
+
+.icon-github:before {
+  content: '\e90a';
+}
+
+.icon-skype:before {
+  content: '\e90b';
+}
+
+.icon-linkedin:before {
+  content: '\e90c';
+}

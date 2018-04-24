@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="container">
+    <article itemscope itemtype="http://schema.org/Article">
+        <h1 itemprop="name">{{post.title}}</h1>
+        <time itemprop="datePublished" content="{{post.date}}" datetime="{{post.date}}">{{post.date}}</time>
+
+        {% if post.tags %}
+            <span class="tags">
+                Tags: <i>{{post.tags}}</i>
+            </span>
+        {% endif %}
+
+        <div class="clear"></div>
+
+        {% if post.image %}
+            <img itemprop="image" src="{{post.image}}">
+            <div class="clear"></div>
+        {% endif %}
+
+        {{post.text}}
+    </article>
+</section>
+{% endblock %}

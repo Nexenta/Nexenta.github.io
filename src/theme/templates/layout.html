@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">{{config.companyName}}{{' - ' + title if title else ''}}</title>
+    <meta name="description" content="{{post.metaDescription | default(config.description)}}">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="{{config.companyFullName}}">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed">
+    <link href="/css/all.min.css" rel="stylesheet">
+    <link href="/favicon.ico" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+<body>
+<header>
+    <section class="container container-flex">
+        <section class="title">
+            <a href="/" title="Home">
+                <img src="/resources/images/logo-nexenta-with-title.png"/>
+            </a>
+        </section>
+    </section>
+</header>
+<section class="content">
+    {% block content %}{% endblock %}
+</section>
+<footer>
+    <section class="container container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            {{config.companyNameFull}}
+        </section>
+    </section>
+</footer>
+</body>
+<script>
+    if (window.location.hostname !== 'localhost') {
+        (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', '{{config.ga}}', '{{config.hostname}}');
+        ga('send', 'pageview');
+    }
+</script>
+</html>
