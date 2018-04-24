@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - One SDS feature that made ZFS famous</title>
+    <meta name="description" content="NexentaEdge - Your universal Scale-Out Storage Software with global Deduplication and Compression">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed">
+    <link href="/css/all.min.css" rel="stylesheet">
+    <link href="/favicon.ico" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+<body>
+<header>
+    <section class="container container-flex">
+        <section class="title">
+            <a href="/" title="Home">
+                <img src="/resources/images/logo-nexenta-with-title.png"/>
+            </a>
+        </section>
+    </section>
+</header>
+<section class="content">
+    
+<section class="container">
+    <article itemscope itemtype="http://schema.org/Article">
+        <h1 itemprop="name">One SDS feature that made ZFS famous</h1>
+        <time itemprop="datePublished" content="2016-03-11" datetime="2016-03-11">2016-03-11</time>
+
+        
+
+        <div class="clear"></div>
+
+        
+
+        <p>It was back in 2005 when Sun Microsystems unveiled OpenSolaris and an with it young yet brave new file system called ZFS. Clearly Sun did lots of marketing to get ZFS widely recognized and known. Mostly it was grass root effort via engineering blogs and forums, people who were very passionate about what they’ve architected and engineered.</p>
+<p>But what was it that made ZFS so prominent among other existing filesystems at the time? What is it was wrong with the world that made it widely accepted?</p>
+<p>Some believe that ZFS’s differentiation was a direct cause from its performance. However, ZFS wasn’t the fastest. In fact, It was on average acceptable in majority of workloads and EXT4 did outperform ZFS actually. ZFS was greedy for available DRAM and CPU resources. And when over time these components became affordable, following Moore’s low curve, ZFS outperformed EXT4 on write intensive workloads. The rectified performance of the ZFS system, however, was not the leading reason for its fame.</p>
+<p>ZFS stands for &quot;Zettabyte File System&quot;. But i didn’t see that its great addressability what was critical at a time. In fact, typical array size (ZFS pool cannot be accessed via two nodes simultaneously) was in range of 100-200TBs. You do not need ZB+ addressability if all you planning to address is just going to be within 1PB at most. No, it wasn’t its great scalability either…</p>
+<p>Features? Usability? Well, that did help to attract hundreds of thousands of enthusiasts to play with it. It certainly gave it necessary momentum. But this couldn’t compare to what Linux adoption did with millions of people using EXT4 every day till these days actually. And by the way, breaking layers idea was “too revolutionary” at a time… while gaining better usability (LVM and FS layer integrated) it did create unnecessary controversy, along side with CDDL vs. GPL discussions. This didn’t help much.</p>
+<p>Looking back, I’d say ZFS the most important feature that really made it so appreciated in enterprise circles is its built-in end-to-end integrity as a result of Copy-On-Write technique it used so masterfully. As a matter of fact this technique was the core dispute between NetApp and Sun (later Oracle) until it was court settled due to patent claims expiration dates.</p>
+<p>To understand this, you need to be an admin or a devop fellow who’s job is on the hook if their enterprise would suddenly loose data or it would corrupt archives silently. When ZFS released to public, in open, free as in speech, or with support contracts from companies like Nexenta, it was big deal to those guys! No longer they need to buy expensive EMC subscriptions and NetApp contracts. ZFS let people keep critical data safe, with guaranteed integrity and self-healing capabilities built-in. Snapshots and Clones were obvious by-products of Copy-On-Write rather than separate inspirations. ZFS just harvested its benefits smartly… by enabling ARC cache and clever transactions algorithms, it did deliver acceptable performance even for workloads that typically hard to achieve with Copy-On-Write, i.e. random writes. As i mentioned earlier Moor’s low worked in their advantage.</p>
+<p>It was year of 2011 when group of talented engineers and architects at Nexenta realized that world needs to extend Copy-On-Write technique to stay relevant in the Cloud era. This is when Cloud-Copy-On-Write technique was born and with it new product, delivering it - NexentaEdge.</p>
+<p>Learn more about NexentaEdge at <a href="http://nexentaedge.io">http://nexentaedge.io</a>.</p>
+
+    </article>
+</section>
+
+</section>
+<footer>
+    <section class="container container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            Nexenta Systems, Inc.
+        </section>
+    </section>
+</footer>
+</body>
+<script>
+    if (window.location.hostname !== 'localhost') {
+        (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', '', 'nexenta.github.io');
+        ga('send', 'pageview');
+    }
+</script>
+</html>
