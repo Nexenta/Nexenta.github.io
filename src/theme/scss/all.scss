@@ -184,10 +184,11 @@ header {
       display: flex;
       justify-content: space-between;
 
-      .logo {
-        margin: 22px 12px 0 0;
-        height: 60px;
-        float: left;
+      h1#nexentaedge {
+        background: url('/resources/images/logo-nexenta-edge.png') no-repeat 0 21px;
+        background-size: 60px;
+        padding-left: 75px;
+        min-height: 55px;
       }
 
       .screenshot {
