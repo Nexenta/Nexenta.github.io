@@ -19,4 +19,4 @@ There is a simple way for any data-center to offer this type of leased service:
 * Offer to lease any N of these ports by the hour/day/month.
 * Bundle the leased ports into a VLAN, using any method of creating a VLAN supported by your switch core. Do **not** provide any form of IP Address Management to these ports beyond assuring that the L2 MAC addresses are unique. Using the hardware L2 MAC addresses is a very simple way to do this. Let the end user manage L3 and up on the leased port and just collect the rent.
 
-There is a static configuration of the L2 switch core, and dynamic assigment of ports to specific virtual lans. Assigning VLANs merely restricts what ports can talk to which ports. If the core switch core was already desiged to meet SLA X then each virtual network will comply with SLA X.
+There is a static configuration of the L2 switch core, and dynamic assignment of ports to specific virtual lans. Assigning VLANs merely restricts what ports can talk to which ports. If the core switch core was already desiged to meet SLA X then each virtual network will comply with SLA X.
