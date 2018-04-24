@@ -5,29 +5,37 @@ author: Caitlin Bestler
 sidebar_label: Multi-Tenant and Kubernetes
 tags: {NexentaEdge,CCOW,Peer-to-Peer Storage,IPFS,Multi-Tenant,Kubernetes}
 ---
-Kubernetes is currently capable of scheduling a storage cluster which provides storage services to a flat namespace. It can also create multiple tenant clusters with isolated pods which cannot accept connections from nodes of other tenants. This proposal addresses the ability of storge clusters to offer storage services to tenant isolated access pods.
+Kubernetes is currently capable of scheduling a storage cluster which provides storage services to a flat namespace. It can also create multiple tenant clusters with isolated pods which cannot accept connections from nodes of other tenants. This proposal addresses the ability of storage clusters to offer storage services to tenant isolated access pods.
 
 This document proposes a convention for provisioning a storage cluster using Kubernetes and then independently provisioning multiple tenant access networks to access this same storage cluster.
 
 Under this proposal each tenant will have their own access network and their own storage namespace on a common backend storage cluster. The storage cluster will typically have a common backend storage network which serves all tenants. The storage cluster is in control of allocation of resources to different tenants. While it is not required to fully provision storage resources to each tenant it will typically enforce quota limitations on each tenant.
 
-This proposal is intended to work with any storge cluster, but obviously we have very specific knowlede of NexentaEdge.
+This proposal is intended to work with any storage cluster, but obviously we have very specific knowledge of NexentaEdge.
 
 ## Isolated Tenant Access Networks
 
-For the frontend tenant access networks the goal is to provide isolated pods that are all connected to the same tenant access netowrk. Any underlying technology that prevents Tenant B clients from connecting to Tenant A pods can be selected. VLAN, VxLAN and firewall methods all work. What Kubernetes is lacking is a uniform strategy to allow multiple tenants to each have isolated networks to access a shared backend storage cluster.
+For the frontend tenant access networks the goal is to provide isolated pods that are all connected to the same tenant access network. Any underlying technology that prevents Tenant B clients from connecting to Tenant A pods can be selected. VLAN, VxLAN and firewall methods all work. What Kubernetes is lacking is a uniform strategy to allow multiple tenants to each have isolated networks to access a shared backend storage cluster.
 
 A typical virtual tenant access network has Client Pods, supporting tenant-specific services such as AD or LDAP and pods providing the tenant access to storage services provided by the backend storage cluster.
 
 This feature would enable a single backend storage cluster to provide storage services to multiple tenants from a single set of resources while maintaining strict tenant isolation. There would be zero or more tenant access networks which could be added/dropped as required and a backend storage network connecting backend storage Pods.
 
 ## Shared Backend Storage Cluster
+What is the objective of having multiple tenants access a single storage cluster?
 
-Note that the type of storage cluster being discussed here is providing persistence storage services using storage resources provided to it, not merely accessing a SAN that provides its own persistence service. Such a storage backend will accept new resources when allocated, but manages fail-overs to existing resources on its own when storage servers, disk drives fail and/or a corrupt replica is protected.
+Having separate tenants access a shared storage cluster over tenant-specific networks allows for either the network or the storage cluster to throttle overly greedy clients without having to enforce rigid division of bandwidth and IOPs capacities. Each tenant can burst their traffic at the full capacity of the cluster if no other tenant is competing for those resources.
+
+Storage traffic, especially for active document archives, is very bursty. Sharing raw resources is very cost effective.
+
+This is especially true for the type of storage cluster being discussed here, namely those providing persistence storage services using storage resources provided to. This is in contrast to metadata servers that access persistent storage via  a SAN that provides persistence. The type of  storage backend represented by NexentaEdge and others will gladly accept new resources when allocated, but manages fail-overs to existing resources on its own when storage servers, disk drives fail and/or a corrupt replica is protected.
 
 While creating a storage cluster to provide service to a single tenant or a flat namespace. Providing a shared storage cluster enables economies of scale in providing persistent storage services. It no more has resources assigned to it for a specific tenant than a Bank has your cash pre-identified for you to withdraw. Serving multiple users from a single set of resources is efficient.
 
-But these economies would be shunned if they can at the cost of exposing one tenants assets to any other tenant. Presumably the backend storage cluster would also be capable of throttling requests in a tenant specific way so that no single tenant could monopolize the cluster resources.
+## Limitations on Sharing
+The economies of a shared storage cluster would be shunned if they can at the cost of exposing one tenants assets to any other tenant. Sharing costs is great, sharing data is not.
+
+Presumably the backend storage cluster would also be capable of throttling requests in a tenant specific way so that no single tenant could monopolize the cluster resources without statically dividing physical resources into isolated pools incapable of lending idle resources to meet usage bursts.
 
 All requests for the backend storage network Pods are tied to an authenticated tenant. So the backend pod can apportion its provisioned storage and network resources according to its own policies so that it can offer QoS guarantees to its Tenants.
 
@@ -92,16 +100,16 @@ If the performance demands for a given Tenant Access Pod were high enough the Ac
 
 When a Tenant C is added those pods would register with the Backend Storage Service Pod. It would the mix the interfaces with the Tenant C Pods to the list of interfaces it was polling. Load-balancing and prioritizing among Tenants A, B and C would be left to the discretion of the backend pod.
 
-What isimportant is that the backend pod be able to determine which Tenant is behind each request, and that only approved Tenant Access Pods can try to access it.
+What is important is that the backend pod be able to determine which Tenant is behind each request, and that only approved Tenant Access Pods can try to access it.
 
 ## Summary
 The steps required for dynamic multiple tenant support are:
-* Schedule the Storage Cluster on N machines. Mark those that are eligible to act as gatewya/proxy machines as being access hosts for this specific Storge Service.
+* Schedule the Storage Cluster on N machines. Mark those that are eligible to act as gateway/proxy machines as being access hosts for this specific Storage Service.
 * To add a Tenant Access Network:
   * Schedule Tenant Access Pods on hosts marked as providing Storage Service X.
   * Configure these Pods to access a Virtual Access Network which includes external clients and required Tenant-specific support services (such as AD/LDAP).
   * When launched the Tenant Access Pod will register with the Backend Storage Service Pod authenticating itself as working for the specific tenant.
-  * The Backend Storage Service Pod will now prpvide service via IPC, or a communication path setup using IPC, to access Tenant-specific storage services. For example, each Tenant accessing NFS services would oly have access to mount points defined by the tenant.
+  * The Backend Storage Service Pod will now prpvide service via IPC, or a communication path setup using IPC, to access Tenant-specific storage services. For example, each Tenant accessing NFS services would only have access to mount points defined by the tenant.
 * To drop a Tenant Access service:
   * Logoff the Backend Storage Service Pod using the IPC channel.
   * Shutdown the Tenant Access Pod.
