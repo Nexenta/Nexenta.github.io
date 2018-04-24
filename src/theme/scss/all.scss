@@ -5,8 +5,8 @@ $colorGray: #777777;
 $colorBorder: #dddddd;
 $colorBorderLight: #eeeeee;
 
-$maxContentWidth: 1050px;
-$maxContentWidthMedia: 1120px;
+$maxContentWidth: 1000px;
+$maxContentWidthMedia: 1070px;
 
 // --- layout ---
 
@@ -91,7 +91,7 @@ pre {
 
 .container {
   @media (max-width: $maxContentWidthMedia) {
-    padding: 0 2em;
+    padding: 0 3em;
   }
 }
 
@@ -154,24 +154,25 @@ header {
 }
 
 .band {
-  padding: 80px 0;
+  padding: 60px 0 50px;
 
   &.band-first {
-    background-color: #f0f0f0;
+    background-color: #ffffff;
   }
   &.band-second {
-    background-color: #d8d8d8;
+    background-color: #eaeaea;
   }
   &.band-third {
-    background-color: #e8e8e8;
+    background-color: #f4f4f4;
   }
 
   h1 {
-    font-size: 2.5em;
+    font-size: 2.6em;
+    padding-top: 30px;
   }
 
   p {
-    font-size: 1.1em;
+    font-size: 1.4em;
   }
 
   .container {
@@ -183,18 +184,32 @@ header {
       display: flex;
       justify-content: space-between;
 
-      .image {
-        padding: 50px 0 0 50px;
+      .screenshot {
+        margin: -5px 0 0 30px;
 
         img {
-          max-width: 190px;
+          width: 500px;
+          border: 1px solid $colorBorder;
+          box-shadow: 3px 3px 4px 1px $colorBorder;
+        }
+      }
+
+      .image {
+        padding: 20px 0 0 50px;
+
+        img {
+          max-width: 160px;
+
+          &.big {
+            max-width: 250px;
+          }
         }
       }
     }
 
     .action {
       text-align: center;
-      padding-top: 25px;
+      padding-top: 40px;
 
       a {
         display: inline-block;

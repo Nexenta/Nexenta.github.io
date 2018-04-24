@@ -47,6 +47,11 @@ gulp.task('css', () => {
 });
 
 gulp.task('renderer-index', () => {
+  gulp
+    .src(path.join(THEME_PATH, '/resources/**/*'))
+    .pipe(gulp.dest(path.join(BUILD_PATH, '/resources/')))
+    .pipe(browserSync.reload({stream: true}));
+
   return gulp
     .src(path.join(THEME_PATH, '/templates/pages/index.html'))
     .pipe(
