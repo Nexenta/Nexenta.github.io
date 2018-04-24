@@ -10,7 +10,8 @@
 <p>This strategy allows NexentaEdge to provide guarantees beyond making thing consistent &quot;eventually&quot;:</p>
 <ul>
 <li>Any client will never retrieve a version older than the most recent version that the client has put itself.
-The changes in any version will never be automatically erased. * A version will only be expunged according to policy and after a version that is a successor to it is published.</li>
+The changes in any version will never be automatically erased.</li>
+<li>A version will only be expunged according to policy and after a version that is a successor to it is published.</li>
 <li>No network partition will prevent a client from putting a new object version. Indeed no client will ever prevent another client from putting a new object version.</li>
 </ul>
 <p>Never blocking a new object version because of the actions of another client is a feature, not a bug or limitation.  Transactional systems can only guarantee non-overlapping edits after reaching a consensus. The consensus may be on which updater has the exclusive right to update an object now (distributed locking) or on which of multiple conflicting updates can be committed (MVCC or multi-version consensus control). Effectively the cluster must be serialized either before the update is initiated or before it can be completed. Distributed locking is more efficient when conflicting attempted edits are common, MVCC for the far more common situation where conflicts are rare.</p>
