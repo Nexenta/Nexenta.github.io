@@ -8,6 +8,7 @@ const rename = require('gulp-rename');
 const merge = require('merge-stream');
 const cleanCss = require('gulp-clean-css');
 const nunjucksRender = require('gulp-nunjucks-render');
+const del = require('del');
 
 const THEME_PATH = path.join('.', 'theme');
 const BUILD_PATH = path.join('.', 'build');
@@ -26,6 +27,8 @@ nunjucksRender.setDefaults({
     autoescape: false
   }
 });
+
+gulp.task('clean', () => del([path.join(BUILD_PATH, './*')]));
 
 gulp.task('css', () => {
   const scssStream = gulp
@@ -46,7 +49,7 @@ gulp.task('css', () => {
     .pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('renderer-index', () => {
+gulp.task('renderer-static', () => {
   gulp
     .src(path.join(THEME_PATH, '/resources/**/*'))
     .pipe(gulp.dest(path.join(BUILD_PATH, '/resources/')))
@@ -64,7 +67,7 @@ gulp.task('renderer-index', () => {
     .pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('watch', ['css', 'renderer-index'], function() {
+gulp.task('watch', ['clean', 'css', 'renderer-static'], function() {
   browserSync({
     server: {
       baseDir: BUILD_PATH
@@ -75,8 +78,8 @@ gulp.task('watch', ['css', 'renderer-index'], function() {
   gulp.watch([THEME_PATH + '/scss/*.scss', './node_modules/normalize.css/normalize.css'], ['css']);
   gulp.watch(
     [THEME_PATH + '/**/*.html', THEME_PATH + '/**/*.xml', THEME_PATH + '/*.html'],
-    ['renderer-index']
+    ['renderer-static']
   );
 });
 
-gulp.task('default', ['css', 'renderer-index']);
+gulp.task('default', ['clean', 'css', 'renderer-static']);
