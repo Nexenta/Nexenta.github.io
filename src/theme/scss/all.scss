@@ -202,13 +202,19 @@ header {
       }
 
       .image {
+        display: flex;
         padding: 20px 0 0 50px;
 
         img {
-          max-width: 160px;
+          height: 100px;
 
-          &.big {
-            max-width: 250px;
+          &.image-openstack {
+            height: 107px;
+          }
+
+          &.image-kubernetes {
+            margin: 10px 0 0 20px;
+            height: 80px;
           }
         }
       }
