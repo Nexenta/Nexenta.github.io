@@ -4,6 +4,7 @@ $colorText: #333333;
 $colorGray: #777777;
 $colorBorder: #dddddd;
 $colorBorderLight: #eeeeee;
+$colorBorderTable: #aaaaaa;
 
 $maxContentWidth: 1000px;
 $maxContentWidthMedia: 1070px;
@@ -53,14 +54,6 @@ a {
   }
 }
 
-hr {
-  border: 0;
-  border-bottom: 1px solid $colorBorder;
-  height: 0;
-  width: 100%;
-  clear: both;
-}
-
 h1 {
   font-size: 2em;
   margin: 0;
@@ -69,8 +62,9 @@ h1 {
 }
 
 h2 {
-  font-size: 1.6em;
+  font-size: 1.7em;
   margin: 35px 0 0 0;
+  color: #666;
 }
 
 h3 {
@@ -85,6 +79,28 @@ pre {
   padding: 12px 15px;
   border-radius: 5px;
   margin: 0 0 2em 0;
+}
+
+ul {
+  li {
+    list-style-type: square;
+    padding: 5px;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    font-weight: bold;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border: 1px solid $colorBorderTable;
+  }
 }
 
 // --- structure ---
@@ -165,14 +181,59 @@ header {
   &.band-third {
     background-color: #f4f4f4;
   }
+  &.band-forth {
+    background-color: #ececec;
+  }
 
   h1 {
     font-size: 2.6em;
     margin-top: 5px;
+
+    &.nexentaedge {
+      background: url('/resources/images/logo-nexenta-edge.png') no-repeat 0 0;
+      background-size: 60px;
+      padding: 10px 0 0 75px;
+      min-height: 55px;
+    }
+
+    &.nexentastor {
+      background: url('/resources/images/logo-nexenta-stor.svg') no-repeat 0 0;
+      background-size: 60px;
+      padding: 10px 0 0 75px;
+      min-height: 55px;
+    }
+  }
+
+  h2 {
+    margin-top: 0;
+
+    &.nexentaedge {
+      background: url('/resources/images/logo-nexenta-edge.png') no-repeat 0 1px;
+      background-size: 30px;
+      padding: 0 0 0 35px;
+    }
+
+    &.nexentastor {
+      background: url('/resources/images/logo-nexenta-stor.svg') no-repeat 0 1px;
+      background-size: 30px;
+      padding: 0 0 0 35px;
+    }
   }
 
   p {
     font-size: 1.4em;
+  }
+
+  ul {
+    li {
+      font-size: 1.1em;
+      margin-left: 15px;
+      padding: 6px;
+    }
+  }
+
+  table {
+    font-size: 1.1em;
   }
 
   .container {
@@ -184,11 +245,9 @@ header {
       display: flex;
       justify-content: space-between;
 
-      h1#nexentaedge {
-        background: url('/resources/images/logo-nexenta-edge.png') no-repeat 0 27px;
-        background-size: 60px;
-        padding: 35px 0 0 75px;
-        min-height: 55px;
+      h1.nexentaedge {
+        background-position-y: 27px;
+        padding-top: 35px;
       }
 
       .screenshot {

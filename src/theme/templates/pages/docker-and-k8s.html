@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="band band-first">
+    <section class="container">
+        <section class="description">
+            <h1 style="margin-bottom: 20px">Docker Drivers</h1>
+            <img src="/resources/images/logo-docker.svg" style="height: 100px;">
+        </section>
+        <br/>
+        <h2 class="nexentastor">NexentaStor 5.x (Docker v16)</h2>
+        <ul>
+            <li>
+                <a href="https://store.docker.com/plugins/nexentastor-docker-nfs-volume-plug-in/plans/1972d0a4-9364-40e5-a7e0-0fb9e7fc1eeb?tab=instructions">
+                    NFS Volume Plugin
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/Nexenta/nexenta-docker-driver">
+                    NFS Volume Driver
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=c1aP4qaldjE">
+                    How To Video
+                </a>
+            </li>
+        </ul>
+        <br/>
+        <h2 class="nexentaedge">NexentaEdge 2.x (Docker v13)</h2>
+        <ul>
+            <li>
+                <a href="https://github.com/Nexenta/nedge-docker-volume">
+                    Volume Driver for NexentaEdge NBD
+                </a>
+            </li>
+        </ul>
+        <br/>
+        <h2 class="nexentaedge">NexentaEdge 2.x (Docker v17)</h2>
+        <ul>
+            <li>
+                <a href="https://store.docker.com/plugins/nexentaedge-docker-nfs-volume-plug-in/plans/3efad869-d0d7-4797-8304-4afc9df0f381?tab=instructions">
+                    NFS Volume Plugin
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/Nexenta/nedge-docker-nfs">
+                    Volume Driver for NexentaEdge NBD
+                </a>
+            </li>
+        </ul>
+    </section>
+</section>
+<section class="band band-second">
+    <section class="container">
+        <section class="description">
+            <h1 style="margin-bottom: 20px">K8s Drivers</h1>
+            <img src="/resources/images/logo-kubernetes-with-botder.svg" style="height: 90px">
+        </section>
+        <br>
+        <h2 class="nexentastor">NexentaStor 5.x</h2>
+        <ul>
+            <li>
+                <a href="https://github.com/Nexenta/k8s-nexentastor5-nfs">
+                    NFS Volume Driver
+                </a>
+            </li>
+        </ul>
+    </section>
+</section>
+{% endblock %}

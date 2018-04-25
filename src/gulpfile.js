@@ -55,6 +55,28 @@ gulp.task('renderer-static', () => {
     .pipe(gulp.dest(path.join(BUILD_PATH, '/resources/')))
     .pipe(browserSync.reload({stream: true}));
 
+  gulp
+    .src(path.join(THEME_PATH, '/templates/pages/docker-and-k8s.html'))
+    .pipe(
+      nunjucksRender({
+        data: {config}
+      })
+    )
+    .pipe(rename('index.html'))
+    .pipe(gulp.dest(path.join(BUILD_PATH, 'docker-and-k8s')))
+    .pipe(browserSync.reload({stream: true}));
+
+  gulp
+    .src(path.join(THEME_PATH, '/templates/pages/openstack.html'))
+    .pipe(
+      nunjucksRender({
+        data: {config}
+      })
+    )
+    .pipe(rename('index.html'))
+    .pipe(gulp.dest(path.join(BUILD_PATH, 'openstack')))
+    .pipe(browserSync.reload({stream: true}));
+
   return gulp
     .src(path.join(THEME_PATH, '/templates/pages/index.html'))
     .pipe(
