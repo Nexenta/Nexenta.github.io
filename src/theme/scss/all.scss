@@ -185,9 +185,9 @@ header {
       justify-content: space-between;
 
       h1#nexentaedge {
-        background: url('/resources/images/logo-nexenta-edge.png') no-repeat 0 40px;
+        background: url('/resources/images/logo-nexenta-edge.png') no-repeat 0 27px;
         background-size: 60px;
-        padding: 50px 0 0 75px;
+        padding: 35px 0 0 75px;
         min-height: 55px;
       }
 
@@ -195,7 +195,7 @@ header {
         margin: -5px 0 0 30px;
 
         img {
-          width: 500px;
+          width: 525px;
           border: 1px solid $colorBorder;
           box-shadow: 3px 3px 4px 1px $colorBorder;
         }
