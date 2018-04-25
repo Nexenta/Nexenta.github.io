@@ -168,7 +168,6 @@ header {
 
   h1 {
     font-size: 2.6em;
-    padding-top: 30px;
   }
 
   p {
@@ -185,9 +184,9 @@ header {
       justify-content: space-between;
 
       h1#nexentaedge {
-        background: url('/resources/images/logo-nexenta-edge.png') no-repeat 0 21px;
+        background: url('/resources/images/logo-nexenta-edge.png') no-repeat 0 40px;
         background-size: 60px;
-        padding-left: 75px;
+        padding: 50px 0 0 75px;
         min-height: 55px;
       }
 
@@ -203,7 +202,7 @@ header {
 
       .image {
         display: flex;
-        padding: 25px 0 0 50px;
+        padding: 10px 0 0 50px;
 
         img {
           height: 120px;
