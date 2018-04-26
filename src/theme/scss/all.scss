@@ -186,7 +186,7 @@ header {
   }
 
   h1 {
-    font-size: 2.6em;
+    font-size: 42px;
     margin-top: 5px;
 
     &.nexentaedge {
@@ -210,25 +210,39 @@ header {
     &.nexentaedge {
       background: url('/resources/images/logo-nexenta-edge.png') no-repeat 0 1px;
       background-size: 30px;
-      padding: 0 0 0 35px;
+      padding: 0 0 0 39px;
     }
 
     &.nexentastor {
       background: url('/resources/images/logo-nexenta-stor.svg') no-repeat 0 1px;
       background-size: 30px;
-      padding: 0 0 0 35px;
+      padding: 0 0 0 39px;
     }
   }
 
   p {
-    font-size: 1.4em;
+    font-size: 22px;
   }
 
   ul {
+    margin-left: 25px;
+
     li {
-      font-size: 1.1em;
-      margin-left: 15px;
-      padding: 6px;
+      padding: 10px 0;
+
+      b {
+        font-size: 18px;
+      }
+
+      ul {
+        padding-top: 10px;
+        margin-left: 0;
+
+        li {
+          list-style-type: circle;
+          padding: 3px 0;
+        }
+      }
     }
   }
 
