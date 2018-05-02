@@ -54,17 +54,19 @@ a {
   }
 }
 
+h1, h2, h3, h4, h5, h6 {
+  color: $colorPrimary;
+}
+
 h1 {
   font-size: 2em;
   margin: 0;
   padding: 5px 0 0 0;
-  color: #666;
 }
 
 h2 {
   font-size: 1.7em;
   margin: 35px 0 0 0;
-  color: #666;
 }
 
 h3 {
