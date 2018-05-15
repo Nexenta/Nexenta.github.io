@@ -34,63 +34,13 @@
         <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html class="active"><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Escalating Issue to Support</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading 4.x to 5.x</p></a></li></ul></li></ul></nav>
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">NexentaStor 4.x</h1>
-            <h2>Supported OpenStack Releases</h2>
-<ul>
-<li>NexentaStor 4.x - Juno+</li>
-<li>NexentaStor 5.x - Juno+</li>
-<li>NexentaEdge 1.2 - Newton+</li>
-</ul>
-<h2>Feature List</h2>
-<table>
-<thead>
-<tr><th>Feature</th><th>NexentaStror 4</th><th>NexentaStror 5.1</th><th>NexentaEdge 2.1</th><th>Required</th></tr>
-</thead>
-<tbody>
-<tr><td>Create volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Delete volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Attach volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Detach volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Extend volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Create snapshot</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Delete snapshot</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Create volume from snapshot</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Create volume from image</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Clone volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Create image from volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Volume stats</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Migrate volume</td><td>implemented</td><td>implemented (NFS only)</td><td>not implemented</td><td>no</td></tr>
-<tr><td>Retype volume</td><td>implemented</td><td>not implemented</td><td>not implemented</td><td>no</td></tr>
-<tr><td>Volume replication</td><td>not implemented</td><td>not implemented</td><td>not implemented</td><td>no</td></tr>
-<tr><td>Consistency groups</td><td>not implemented</td><td>not implemented</td><td>not implemented</td><td>no</td></tr>
-<tr><td>iSCSI LUN Mapping</td><td>not implemented</td><td>not implemented</td><td>not implemented</td><td>no</td></tr>
-<tr><td>QoS (rate limit)</td><td>not implemented</td><td>not implemented</td><td>not implemented</td><td>no</td></tr>
-<tr><td>Extend volume while attached</td><td>implemented?</td><td>implemented?</td><td>implemented?</td><td>no</td></tr>
-<tr><td>Snapshot Revert</td><td>not implemented</td><td>implemented in Pike and later</td><td>not implemented</td><td>no</td></tr>
-</tbody>
-</table>
-<h2>Cinder Driver Prerequisites</h2>
-<h3>NexentaStor 4.0</h3>
+            <h2>Cinder Driver Prerequisites</h2>
 <ul>
 <li>Storage appliance must be configured and licensed</li>
 <li>Volume (zpool) must be created</li>
 <li>HA configured and VIP available</li>
 <li>(NFS only) NFS share created</li>
 <li>Storage Network configured between NS Appliance and OpenStack Hypervisors (Recommended 10GBE, MTU 9000)</li>
-</ul>
-<h3>NexentaStor 5.0</h3>
-<ul>
-<li>Storage appliance must be configured and licensed</li>
-<li>Pool (zpool) must be created</li>
-<li>(iSCSI only) - Volume group must be created</li>
-<li>(NFS only) - File System must be created and shared over NFS</li>
-<li>Storage Network configured between NS Appliance and OpenStack Hypervisors (Recommended 10GBE, MTU 9000)</li>
-</ul>
-<h3>NexentaEdge 1.2</h3>
-<ul>
-<li>System must be initialized and licensed</li>
-<li>Cluster/Tenant/Bucket creates</li>
-<li>NFS or iSCSI Gateway configured</li>
-<li>Storage Network configured between NexentaEdge Gateway and OpenStack Hypervisors (Recommended 10GBE, MTU 9000)</li>
 </ul>
 <h2>Where to get Cinder Drivers?</h2>
 <p>It’s recommended to get the latest driver from Nexenta’s repository: <a href="https://github.com/Nexenta/cinder">https://github.com/Nexenta/cinder</a></p>
