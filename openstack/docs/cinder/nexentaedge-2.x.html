@@ -57,8 +57,8 @@
 <ol>
 <li>Determine cinder driver location path used in your environment</li>
 <li>Clone or download the correct version of the drivers, unzip if downloaded and copy to the cinder location. For example drivers for Mitaka release:
-<pre><code>$ git clone -b stable/newton <span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/github.com/</span>Nexenta/cinder nexenta-cinder
-$ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">python2</span>.7/<span class="hljs-title">dist</span>-<span class="hljs-title">packages</span>/<span class="hljs-title">cinder</span>/<span class="hljs-title">volume</span>/<span class="hljs-title">drivers</span></span>
+<pre><code class="language-bash">$ git <span class="hljs-built_in">clone</span> -b stable/newton https://github.com/Nexenta/cinder nexenta-cinder
+$ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/lib/python2.7/dist-packages/cinder/volume/drivers
 </code></pre></li>
 <li>Configure cinder.conf</li>
 <li>Restart Cinder Service
@@ -91,52 +91,52 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 </tbody>
 </table>
 <h3>NexentaEdge 1.2 iSCSI cinder.conf minimal config</h3>
-<pre><code><span class="hljs-section">[nedge_iscsi]</span>
-<span class="hljs-attr">volume_driver</span>=cinder.volume.drivers.nexenta.nexentaedge.iscsi.NexentaEdgeISCSIDriver
-<span class="hljs-attr">volume_backend_name</span> = nedge
-<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
-<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8080</span>
-<span class="hljs-attr">nexenta_rest_protocol</span> = http
-<span class="hljs-attr">nexenta_iscsi_target_portal_port</span> = <span class="hljs-number">3260</span>
-<span class="hljs-attr">nexenta_rest_user</span> = admin
-<span class="hljs-attr">nexenta_rest_password</span> = nexenta
-<span class="hljs-attr">nexenta_lun_container</span> = cl/tn/bk
-<span class="hljs-attr">nexenta_iscsi_service</span> = iscsi
-<span class="hljs-attr">nexenta_client_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.1</span>
+<pre><code class="language-bash">[nedge_iscsi]
+volume_driver=cinder.volume.drivers.nexenta.nexentaedge.iscsi.NexentaEdgeISCSIDriver
+volume_backend_name = nedge
+nexenta_rest_address = 10.0.0.1
+nexenta_rest_port = 8080
+nexenta_rest_protocol = http
+nexenta_iscsi_target_portal_port = 3260
+nexenta_rest_user = admin
+nexenta_rest_password = nexenta
+nexenta_lun_container = cl/tn/bk
+nexenta_iscsi_service = iscsi
+nexenta_client_address = 10.0.1.1
 </code></pre>
 <p>After configuring the cinder.conf, restart the cinder-volume service</p>
 <p><code>sudo service cinder-volume restart</code> (may differ depending on OS)</p>
 <h2>iSCSI Multipath</h2>
 <p>Openstack Nova provides the ability to use iSCSI Multipath. To enable Multipath you need to add following line into nova.conf in the [libvirt] section:</p>
-<pre><code><span class="hljs-section">[libvirt]</span>
-<span class="hljs-attr">iscsi_use_multipath</span> = <span class="hljs-literal">True</span>
+<pre><code class="language-bash">[libvirt]
+iscsi_use_multipath = True
 </code></pre>
 <p>For this change to take place you need to restart nova-compute service: <code>$ sudo service restart nova-compute</code></p>
 <h2>Backup</h2>
 <p>This section describes how to configure the cinder-backup service and cinder NFS driver on top NexentaStor NFS share. Official documentation link: <a href="https://docs.openstack.org/newton/config-reference/block-storage/backup/nfs-backup-driver.html">NFS backup driver</a>
 Example section for cinder.conf:</p>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">backup_driver</span> = cinder.backup.drivers.nfs
-<span class="hljs-attr">backup_share</span> = <span class="hljs-number">10.1</span>.<span class="hljs-number">1.1</span>:/pool/nfs/backup
-<span class="hljs-attr">backup_mount_options</span> = vers=<span class="hljs-number">4</span>
+<pre><code class="language-bash">[DEFAULT]
+backup_driver = cinder.backup.drivers.nfs
+backup_share = 10.1.1.1:/pool/nfs/backup
+backup_mount_options = vers=4
 </code></pre>
 <p>Note: 10.1.1.1 - IP address of NexentaStor, /pool/nfs/backup - NFS share path.</p>
 <p>Steps for NexentaStor 4.x:</p>
-<pre><code>nmc<span class="hljs-meta">@host</span><span class="hljs-number">1:</span><span class="hljs-regexp">/$ create folder pool/</span>nfs/backup
-nmc<span class="hljs-meta">@host</span><span class="hljs-number">1:</span><span class="hljs-regexp">/$ share folder pool/</span>nfs/backup nfs
-Auth <span class="hljs-string">Type            :</span> sys
-<span class="hljs-string">Anonymous            :</span> <span class="hljs-literal">false</span>
-Read-<span class="hljs-string">Write           :</span>
-Read-<span class="hljs-string">Only            :</span>
-<span class="hljs-string">Root                 :</span>
-Extra <span class="hljs-string">Options        :</span> uidmap=*:<span class="hljs-string">root:</span>@<span class="hljs-number">10.1</span><span class="hljs-number">.1</span><span class="hljs-number">.2</span>
-<span class="hljs-string">Recursive            :</span> <span class="hljs-literal">true</span>
+<pre><code class="language-bash">nmc@host1:/$ create folder pool/nfs/backup
+nmc@host1:/$ share folder pool/nfs/backup nfs
+Auth Type            : sys
+Anonymous            : <span class="hljs-literal">false</span>
+Read-Write           :
+Read-Only            :
+Root                 :
+Extra Options        : uidmap=*:root:@10.1.1.2
+Recursive            : <span class="hljs-literal">true</span>
 Modifed NFS share <span class="hljs-keyword">for</span> folder <span class="hljs-string">'pool/nfs/backup'</span>
 </code></pre>
 <p>Note: 10.1.1.2 - IP address of Openstack Cinder host.</p>
 <p>Steps for NexentaStor 5.x:</p>
-<pre><code>CLI<span class="hljs-meta">@host</span>&gt; filesystem create -p pool<span class="hljs-regexp">/nfs/</span>backup
-CLI<span class="hljs-meta">@host</span>&gt; nfs share -o uidMap=<span class="hljs-string">'*:root:@10.1.1.2'</span> pool<span class="hljs-regexp">/nfs/</span>backup
+<pre><code class="language-bash">CLI@host&gt; filesystem create -p pool/nfs/backup
+CLI@host&gt; nfs share -o uidMap=<span class="hljs-string">'*:root:@10.1.1.2'</span> pool/nfs/backup
 </code></pre>
 <p>Note: 10.1.1.2 - IP address of Openstack Cinder host.</p>
 <h2>Cinder and Replication</h2>
