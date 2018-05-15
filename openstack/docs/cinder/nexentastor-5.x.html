@@ -76,8 +76,8 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <tr><td>nas_host</td><td></td><td></td><td>Data IP address (VIP in case of HA)</td></tr>
 <tr><td>nexenta_rest_port</td><td>0</td><td></td><td>HTTP(S) port to connect to Nexenta REST API server. If it is equal to zero, 8443 for HTTPS and 8080 for HTTP is used</td></tr>
 <tr><td>nexenta_use_https</td><td>True</td><td>Boolean</td><td>Use secure HTTP for REST connection</td></tr>
-<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to Nexenta SA,</td></tr>
-<tr><td>nexenta_password</td><td>nexenta</td><td></td><td>Password to connect to Nexenta SA</td></tr>
+<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to NexentaStor,</td></tr>
+<tr><td>nexenta_password</td><td>nexenta</td><td></td><td>Password to connect to NexentaStor</td></tr>
 <tr><td>nexenta_dataset_compression</td><td>lz4</td><td>[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,  gzip-9, lzjb, zle, lz4]</td><td>Compression value for new ZFS datasets.</td></tr>
 <tr><td>nexenta_dataset_description</td><td></td><td></td><td>Human-readable description for the folder.</td></tr>
 <tr><td>nexenta_mount_point_base</td><td>$state_path/mnt</td><td></td><td>Base directory that contains NFS share mount points</td></tr>
@@ -144,11 +144,11 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 </thead>
 <tbody>
 <tr><td>nexenta_rest_address</td><td></td><td></td><td>IP address of NexentaStor management REST API endpoint, can have multiple comma separated values</td></tr>
-<tr><td>nexenta_host</td><td></td><td></td><td>IP address of Nexenta SA</td></tr>
+<tr><td>nexenta_host</td><td></td><td></td><td>IP address of NexentaStor</td></tr>
 <tr><td>nexenta_rest_port</td><td>0</td><td></td><td>HTTP(S) port to connect to Nexenta REST API server. If it is equal zero, 8443 for HTTPS and 8080 for HTTP is used</td></tr>
 <tr><td>nexenta_use_https</td><td>True</td><td>Boolean</td><td>Use secure HTTP for REST connection</td></tr>
-<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to Nexenta SA,</td></tr>
-<tr><td>nexenta_password</td><td>nexenta</td><td></td><td>Password to connect to Nexenta SA</td></tr>
+<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to NexentaStor,</td></tr>
+<tr><td>nexenta_password</td><td>nexenta</td><td></td><td>Password to connect to NexentaStor</td></tr>
 <tr><td>nexenta_dataset_compression</td><td>lz4</td><td>[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,  gzip-9, lzjb, zle, lz4]</td><td>Compression value for new ZFS datasets.</td></tr>
 <tr><td>nexenta_dataset_description</td><td></td><td></td><td>Human-readable description for the folder.</td></tr>
 <tr><td>nexenta_ns5_blocksize</td><td>32 (kilobytes)</td><td></td><td>Block size for datasets (Nstor5)</td></tr>
@@ -156,7 +156,7 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <tr><td>nexenta_iscsi_target_portal_port</td><td>3260</td><td></td><td>Nexenta target portal port</td></tr>
 <tr><td>nexenta_volume</td><td>cinder</td><td></td><td>SA Pool that holds all volumes</td></tr>
 <tr><td>nexenta_target_prefix</td><td>iqn.1986-03.com.sun:02:cinder-</td><td></td><td>IQN prefix for iSCSI targets</td></tr>
-<tr><td>nexenta_target_group_prefix</td><td>cinder</td><td></td><td>Prefix for iSCSI target groups on SA</td></tr>
+<tr><td>nexenta_target_group_prefix</td><td>cinder</td><td></td><td>Prefix for iSCSI target groups on NexentaStor</td></tr>
 <tr><td>nexenta_volume_group</td><td>iscsi</td><td></td><td>Volume group for NStor5</td></tr>
 <tr><td>nexenta_iscsi_target_portals</td><td></td><td></td><td></td></tr>
 </tbody>
