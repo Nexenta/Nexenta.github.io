@@ -38,312 +38,34 @@
 <ul>
 <li>NexentaStor 4.x - Juno+</li>
 <li>NexentaStor 5.x - Juno+</li>
-<li>NexentaEdge 1.2 - Newton+</li>
+<li>NexentaEdge 2.1.x - Newton+</li>
 </ul>
 <h2>Feature List</h2>
 <table>
 <thead>
-<tr><th>Feature</th><th>NexentaStror 4</th><th>NexentaStror 5.1</th><th>NexentaEdge 2.1</th><th>Required</th></tr>
+<tr><th>Feature</th><th>NexentaStor 4</th><th>NexentaStor 5.1</th><th>NexentaEdge 2.1</th></tr>
 </thead>
 <tbody>
-<tr><td>Create volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Delete volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Attach volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Detach volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Extend volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Create snapshot</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Delete snapshot</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Create volume from snapshot</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Create volume from image</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Clone volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Create image from volume</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Volume stats</td><td>implemented</td><td>implemented</td><td>implemented</td><td>yes</td></tr>
-<tr><td>Migrate volume</td><td>implemented</td><td>implemented (NFS only)</td><td>not implemented</td><td>no</td></tr>
-<tr><td>Retype volume</td><td>implemented</td><td>not implemented</td><td>not implemented</td><td>no</td></tr>
-<tr><td>Volume replication</td><td>not implemented</td><td>not implemented</td><td>not implemented</td><td>no</td></tr>
-<tr><td>Consistency groups</td><td>not implemented</td><td>not implemented</td><td>not implemented</td><td>no</td></tr>
-<tr><td>iSCSI LUN Mapping</td><td>not implemented</td><td>not implemented</td><td>not implemented</td><td>no</td></tr>
-<tr><td>QoS (rate limit)</td><td>not implemented</td><td>not implemented</td><td>not implemented</td><td>no</td></tr>
-<tr><td>Extend volume while attached</td><td>implemented?</td><td>implemented?</td><td>implemented?</td><td>no</td></tr>
-<tr><td>Snapshot Revert</td><td>not implemented</td><td>implemented in Pike and later</td><td>not implemented</td><td>no</td></tr>
-</tbody>
-</table>
-<h2>Cinder Driver Prerequisites</h2>
-<h3>NexentaStor 4.0</h3>
-<ul>
-<li>Storage appliance must be configured and licensed</li>
-<li>Volume (zpool) must be created</li>
-<li>HA configured and VIP available</li>
-<li>(NFS only) NFS share created</li>
-<li>Storage Network configured between NS Appliance and OpenStack Hypervisors (Recommended 10GBE, MTU 9000)</li>
-</ul>
-<h3>NexentaStor 5.0</h3>
-<ul>
-<li>Storage appliance must be configured and licensed</li>
-<li>Pool (zpool) must be created</li>
-<li>(iSCSI only) - Volume group must be created</li>
-<li>(NFS only) - File System must be created and shared over NFS</li>
-<li>Storage Network configured between NS Appliance and OpenStack Hypervisors (Recommended 10GBE, MTU 9000)</li>
-</ul>
-<h3>NexentaEdge 1.2</h3>
-<ul>
-<li>System must be initialized and licensed</li>
-<li>Cluster/Tenant/Bucket creates</li>
-<li>NFS or iSCSI Gateway configured</li>
-<li>Storage Network configured between NexentaEdge Gateway and OpenStack Hypervisors (Recommended 10GBE, MTU 9000)</li>
-</ul>
-<h2>Where to get Cinder Drivers?</h2>
-<p>It’s recommended to get the latest driver from Nexenta’s repository: <a href="https://github.com/Nexenta/cinder">https://github.com/Nexenta/cinder</a></p>
-<p>The branches in the repository correspond with Openstack releases.</p>
-<p>To following command can be used to download the exact version w/o having to switch branches</p>
-<p><code>git clone -b stable/mitaka</code> - this will download the exact version, no need to switch</p>
-<p>Nexenta Drivers are located under the following path:
-<a href="https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta">https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta</a></p>
-<p>The path includes driver for NexentaStor 4.x, NexentaStor 5.x and NexnetaEdge 2.0. Make sure to copy the whole folder.</p>
-<h2>Installation Steps</h2>
-<ol>
-<li>Determine cinder driver location path used in your environment</li>
-<li>Clone or download the correct version of the drivers, unzip if downloaded and copy to the cinder location. For example drivers for Mitaka release:
-<pre><code>$ git clone -b stable/mitaka <span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/github.com/</span>Nexenta/cinder nexenta-cinder
-$ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">python2</span>.7/<span class="hljs-title">dist</span>-<span class="hljs-title">packages</span>/<span class="hljs-title">cinder</span>/<span class="hljs-title">volume</span>/<span class="hljs-title">drivers</span></span>
-</code></pre></li>
-<li>Configure cinder.conf</li>
-<li>Restart Cinder Service
-<ul>
-<li>Systemd based system:
-<code>$ sudo systemctl restart openstack-cinder-volume.service</code></li>
-<li>Upstart/SysV based system:
-<code>$ sudo service cinder-volume restart</code></li>
-</ul></li>
-</ol>
-<h2>NexentaStor 4.x NFS - List of all available options</h2>
-<table>
-<thead>
-<tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>nexenta_dataset_compression</td><td>on</td><td>[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,  gzip-9, lzjb, zle, lz4]</td><td>Compression value for new ZFS folders.</td></tr>
-<tr><td>nexenta_dataset_description</td><td></td><td></td><td>Human-readable description for the folder.</td></tr>
-<tr><td>nexenta_sparse</td><td>False</td><td>Boolean</td><td>Enables or disables the creation of sparse datasets</td></tr>
-<tr><td>nexenta_rrmgr_compression</td><td>0</td><td>1…9</td><td>Enable stream compression, level 1…9. 1 - gives best speed; 9 - gives best compression.</td></tr>
-<tr><td>nexenta_rrmgr_tcp_buf_size</td><td>4096</td><td></td><td>TCP Buffer size in KiloBytes.</td></tr>
-<tr><td>nexenta_rrmgr_connections</td><td>2</td><td></td><td>Number of TCP connections.</td></tr>
-<tr><td>nexenta_shares_config</td><td>/etc/cinder/nfs_shares</td><td></td><td>File with the list of available nfs shares (NexentaStor 4 only)</td></tr>
-<tr><td>nexenta_mount_point_base</td><td>$state_path/mnt</td><td></td><td>Base directory that contains NFS share mount points</td></tr>
-<tr><td>nexenta_sparsed_volumes</td><td>True</td><td>Boolean</td><td>Enables or disables the creation of volumes as sparsed files that take no space. If disabled (False), volume is created as a regular file, which takes a long time.</td></tr>
-<tr><td>nexenta_nms_cache_volroot</td><td>True</td><td>Boolean</td><td>If set True cache NexentaStor appliance volroot option value.</td></tr>
-</tbody>
-</table>
-<h3>NexentaStor 4.x NFS minimal cinder.conf</h3>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
-<span class="hljs-section">
-[ns_nfs]</span>
-<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.nfs.NexentaNfsDriver
-<span class="hljs-attr">volume_backend_name</span> = ns_nfs
-<span class="hljs-attr">nexenta_shares_config</span> = /etc/cinder/shares.cfg
-<span class="hljs-attr">nfs_shares_config</span> = /etc/cinder/shares.cfg
-<span class="hljs-attr">nas_secure_file_operations</span> = <span class="hljs-literal">False</span>
-</code></pre>
-<p><strong>Note:</strong> For NexentaStor 4.x NFS driver a shares config file must be present. This file should consist of 1 or multiple lines with 2 columns separated by a space. The first column represents the NFS filesystem path for the mount command, and the second is url for Rest calls. Example:</p>
-<pre><code><span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.1</span>:/volumes/Vol1/nfs_share http://admin:nexenta@<span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.1</span>:<span class="hljs-number">8457</span>
-<span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.100</span>:/volumes/Vol2/cinder-volumes http://admin:secret@<span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.100</span>:<span class="hljs-number">8457</span>
-</code></pre>
-<h2>NexentaStor 4.x iSCSI - List of all available options</h2>
-<table>
-<thead>
-<tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>nexenta_host</td><td></td><td></td><td>IP address of Nexenta SA</td></tr>
-<tr><td>nexenta_rest_port</td><td>0</td><td></td><td>HTTP(S) port to connect to Nexenta REST API server. If it is equal zero, 8443 for HTTPS and 8080 for HTTP is used</td></tr>
-<tr><td>nexenta_rest_protocol</td><td>auto</td><td>[http, https, auto]</td><td>Use http or https for REST connection</td></tr>
-<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to Nexenta SA,</td></tr>
-<tr><td>nexenta_password</td><td>nexenta</td><td></td><td>Password to connect to Nexenta SA</td></tr>
-<tr><td>nexenta_dataset_compression</td><td>on</td><td>[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,  gzip-9, lzjb, zle, lz4]</td><td>Compression value for new ZFS folders.</td></tr>
-<tr><td>nexenta_dataset_description</td><td></td><td></td><td>Human-readable description for the folder.</td></tr>
-<tr><td>nexenta_blocksize</td><td>4096</td><td></td><td>Block size for datasets (NStor4)</td></tr>
-<tr><td>nexenta_sparse</td><td>False</td><td>Boolean</td><td>Enables or disables the creation of sparse datasets</td></tr>
-<tr><td>nexenta_rrmgr_compression</td><td>0</td><td>1…9</td><td>Enable stream compression, level 1…9. 1 - gives best speed; 9 - gives best compression.</td></tr>
-<tr><td>nexenta_rrmgr_tcp_buf_size</td><td>4096</td><td></td><td>TCP Buffer size in KiloBytes.</td></tr>
-<tr><td>nexenta_rrmgr_connections</td><td>2</td><td></td><td>Number of TCP connections.</td></tr>
-<tr><td>nexenta_iscsi_target_portal_port</td><td>3260</td><td></td><td>Nexenta target portal port</td></tr>
-<tr><td>nexenta_volume</td><td>cinder</td><td></td><td>SA Pool that holds all volumes</td></tr>
-<tr><td>nexenta_target_prefix</td><td>iqn.1986-03.com.sun:02:cinder-</td><td></td><td>IQN prefix for iSCSI targets</td></tr>
-<tr><td>nexenta_target_group_prefix</td><td>cinder</td><td></td><td>Prefix for iSCSI target groups on SA</td></tr>
-</tbody>
-</table>
-<h3>NexentaStor 4.x iSCSI minimal cinder.conf</h3>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
-<span class="hljs-section">
-[ns_iscsi]</span>
-<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.iscsi.NexentaISCSIDriver
-<span class="hljs-attr">volume_backend_name</span> = ns_iscsi
-<span class="hljs-attr">nexenta_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
-<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8457</span>
-<span class="hljs-attr">nexenta_user</span> = admin
-<span class="hljs-attr">nexenta_password</span> = nexenta
-<span class="hljs-attr">nexenta_volume</span> = tank
-</code></pre>
-<h2>NexentaStor 5.x NFS - List of all available options</h2>
-<table>
-<thead>
-<tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>nexenta_rest_address</td><td></td><td></td><td>IP address of NexentaEdge management REST API endpoint, can have multiple comma separated values</td></tr>
-<tr><td>nas_host</td><td></td><td></td><td>Data IP address (VIP in case of HA)</td></tr>
-<tr><td>nexenta_rest_port</td><td>0</td><td></td><td>HTTP(S) port to connect to Nexenta REST API server. If it is equal to zero, 8443 for HTTPS and 8080 for HTTP is used</td></tr>
-<tr><td>nexenta_use_https</td><td>True</td><td>Boolean</td><td>Use secure HTTP for REST connection</td></tr>
-<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to Nexenta SA,</td></tr>
-<tr><td>nexenta_password</td><td>nexenta</td><td></td><td>Password to connect to Nexenta SA</td></tr>
-<tr><td>nexenta_dataset_compression</td><td>lz4</td><td>[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,  gzip-9, lzjb, zle, lz4]</td><td>Compression value for new ZFS datasets.</td></tr>
-<tr><td>nexenta_dataset_description</td><td></td><td></td><td>Human-readable description for the folder.</td></tr>
-<tr><td>nexenta_mount_point_base</td><td>$state_path/mnt</td><td></td><td>Base directory that contains NFS share mount points</td></tr>
-<tr><td>nexenta_sparsed_volumes</td><td>True</td><td>Boolean</td><td>Enables or disables the creation of volumes as sparsed files that take no space. If disabled (False), volume is created as a regular file, which takes a long time.</td></tr>
-</tbody>
-</table>
-<h3>NexentaStor 5.x NFS minimal cinder.conf</h3>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
-<span class="hljs-section">
-[ns5_nfs]</span>
-<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
-<span class="hljs-attr">volume_backend_name</span> = ns5_nfs
-<span class="hljs-attr">nas_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
-<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.1</span>
-<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
-<span class="hljs-attr">nas_share_path</span> = pool1/nfs_share
-<span class="hljs-attr">nexenta_user</span> = admin
-<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
-<span class="hljs-attr">nas_mount_options</span> = vers=<span class="hljs-number">4</span>
-<span class="hljs-attr">nas_secure_file_operations</span> = <span class="hljs-literal">False</span>
-</code></pre>
-<h3>NexentaStor 5.x NFS HA cinder.conf</h3>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
-<span class="hljs-section">
-[ns5_nfs]</span>
-<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
-<span class="hljs-attr">volume_backend_name</span> = ns5_nfs
-<span class="hljs-attr">nas_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
-<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.1</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">1.2</span>
-<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
-<span class="hljs-attr">nas_share_path</span> = pool1/nfs_share
-<span class="hljs-attr">nexenta_user</span> = admin
-<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
-<span class="hljs-attr">nas_mount_options</span> = vers=<span class="hljs-number">4</span>
-<span class="hljs-attr">nexenta_sparsed_volumes</span> = <span class="hljs-literal">True</span>
-<span class="hljs-attr">nas_secure_file_operations</span> = <span class="hljs-literal">False</span>
-</code></pre>
-<h2>NexentaStor 5.x iSCSI - List of all available options</h2>
-<table>
-<thead>
-<tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>nexenta_rest_address</td><td></td><td></td><td>IP address of NexentaStor management REST API endpoint, can have multiple comma separated values</td></tr>
-<tr><td>nexenta_host</td><td></td><td></td><td>IP address of Nexenta SA</td></tr>
-<tr><td>nexenta_rest_port</td><td>0</td><td></td><td>HTTP(S) port to connect to Nexenta REST API server. If it is equal zero, 8443 for HTTPS and 8080 for HTTP is used</td></tr>
-<tr><td>nexenta_use_https</td><td>True</td><td>Boolean</td><td>Use secure HTTP for REST connection</td></tr>
-<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to Nexenta SA,</td></tr>
-<tr><td>nexenta_password</td><td>nexenta</td><td></td><td>Password to connect to Nexenta SA</td></tr>
-<tr><td>nexenta_dataset_compression</td><td>lz4</td><td>[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,  gzip-9, lzjb, zle, lz4]</td><td>Compression value for new ZFS datasets.</td></tr>
-<tr><td>nexenta_dataset_description</td><td></td><td></td><td>Human-readable description for the folder.</td></tr>
-<tr><td>nexenta_ns5_blocksize</td><td>32 (kilobytes)</td><td></td><td>Block size for datasets (Nstor5)</td></tr>
-<tr><td>nexenta_sparse</td><td>False</td><td>Boolean</td><td>Enables or disables the creation of sparse datasets</td></tr>
-<tr><td>nexenta_iscsi_target_portal_port</td><td>3260</td><td></td><td>Nexenta target portal port</td></tr>
-<tr><td>nexenta_volume</td><td>cinder</td><td></td><td>SA Pool that holds all volumes</td></tr>
-<tr><td>nexenta_target_prefix</td><td>iqn.1986-03.com.sun:02:cinder-</td><td></td><td>IQN prefix for iSCSI targets</td></tr>
-<tr><td>nexenta_target_group_prefix</td><td>cinder</td><td></td><td>Prefix for iSCSI target groups on SA</td></tr>
-<tr><td>nexenta_volume_group</td><td>iscsi</td><td></td><td>Volume group for NStor5</td></tr>
-<tr><td>nexenta_iscsi_target_portals</td><td></td><td></td><td></td></tr>
-</tbody>
-</table>
-<h3>NexentaStor 5.x iSCSI cinder.conf minimal config</h3>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
-<span class="hljs-section">
-[ns5_iscsi]</span>
-<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.iscsi.NexentaISCSIDriver
-<span class="hljs-attr">volume_backend_name</span> = ns5_iscsi
-<span class="hljs-attr">nexenta_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
-<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.1</span>
-<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
-<span class="hljs-attr">nexenta_user</span> = admin
-<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
-<span class="hljs-attr">nexenta_volume</span> = pool1
-<span class="hljs-attr">nexenta_volume_group</span> = iscsi
-</code></pre>
-<h3>NexentaStor 5.x iSCSI cinder.conf HA config</h3>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
-<span class="hljs-section">
-[ns5_iscsi]</span>
-<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.iscsi.NexentaISCSIDriver
-<span class="hljs-attr">volume_backend_name</span> = ns5_iscsi
-<span class="hljs-attr">nexenta_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
-<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.1</span>,<span class="hljs-number">10.1</span>.<span class="hljs-number">1.2</span>
-<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
-<span class="hljs-attr">nexenta_user</span> = admin
-<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
-<span class="hljs-attr">nexenta_volume</span> = pool1
-<span class="hljs-attr">nexenta_volume_group</span> = iscsi
-<span class="hljs-attr">nexenta_iscsi_target_portals</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.2</span>:<span class="hljs-number">3260</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">0.3</span>:<span class="hljs-number">3261</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">0.4</span>
-<span class="hljs-attr">nexenta_target_prefix</span> = iqn.<span class="hljs-number">2005</span>-<span class="hljs-number">07</span>.com.nexenta:<span class="hljs-number">02</span>:cinder
-<span class="hljs-attr">nexenta_target_group_prefix</span> = cinder
-<span class="hljs-attr">nexenta_host_group_prefix</span> = cinder
-<span class="hljs-attr">nexenta_luns_per_target</span> = <span class="hljs-number">128</span>
-</code></pre>
-<h2>NexentaEdge 1.2 iSCSI - List of all available options</h2>
-<table>
-<thead>
-<tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>nexenta_rest_address</td><td></td><td></td><td>IP address of NexentaEdge management REST API endpoint</td></tr>
-<tr><td>nexenta_rest_port</td><td>0</td><td></td><td>HTTP(S) port to connect to Nexenta REST API server. If it is equal zero, 8443 for HTTPS and 8080 for HTTP is used</td></tr>
-<tr><td>nexenta_rest_protocol</td><td>auto</td><td>[http, https, auto]</td><td>Use http or https for REST connection</td></tr>
-<tr><td>nexenta_blocksize</td><td>4096</td><td></td><td>Block size for datasets (NStor4)</td></tr>
-<tr><td>nexenta_nbd_symlinks_dir</td><td>/dev/disk/by-path</td><td></td><td>NexentaEdge logical path of directory to store symbolic links to NBDs.</td></tr>
-<tr><td>nexenta_rest_user</td><td>admin</td><td></td><td>User name to connect to NexentaEdge</td></tr>
-<tr><td>nexenta_rest_password</td><td>nexenta</td><td></td><td>Password to connect to NexentaEdge</td></tr>
-<tr><td>nexenta_replication_count</td><td>3</td><td></td><td>NexentaEdge iSCSI LUN object replication count.</td></tr>
-<tr><td>nexenta_encryption</td><td>False</td><td></td><td>Defines whether NexentaEdge iSCSI LUN object has encryption enabled.</td></tr>
-<tr><td>nexenta_lun_container</td><td></td><td></td><td>NexentaEdge logical path of bucket for LUNs</td></tr>
-<tr><td>nexenta_iscsi_service</td><td></td><td></td><td>NexentaEdge iSCSI service name</td></tr>
-<tr><td>nexenta_client_address</td><td></td><td></td><td>NexentaEdge iSCSI Gateway client address for non-VIP service</td></tr>
-<tr><td>nexenta_chunksize</td><td>32768</td><td></td><td>NexentaEdge iSCSI LUN object chunk size</td></tr>
-</tbody>
-</table>
-<h3>NexentaEdge 1.2 iSCSI cinder.conf minimal config</h3>
-<pre><code><span class="hljs-section">[nedge_iscsi]</span>
-<span class="hljs-attr">volume_driver</span>=cinder.volume.drivers.nexenta.nexentaedge.iscsi.NexentaEdgeISCSIDriver
-<span class="hljs-attr">volume_backend_name</span> = nedge
-<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
-<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8080</span>
-<span class="hljs-attr">nexenta_rest_protocol</span> = http
-<span class="hljs-attr">nexenta_iscsi_target_portal_port</span> = <span class="hljs-number">3260</span>
-<span class="hljs-attr">nexenta_rest_user</span> = admin
-<span class="hljs-attr">nexenta_rest_password</span> = nexenta
-<span class="hljs-attr">nexenta_lun_container</span> = cl/tn/bk
-<span class="hljs-attr">nexenta_iscsi_service</span> = iscsi
-<span class="hljs-attr">nexenta_client_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.1</span>
-</code></pre>
-<p>After configuring the cinder.conf, restart the cinder-volume service</p>
-<p><code>sudo service cinder-volume restart</code> (may differ depending on OS)</p>
-<h2>NexentaStor 4.x vs. 5.x Options Conversion Table</h2>
-<table>
-<thead>
-<tr><th>4.x param</th><th>5.x param</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>uses same param for rest and data (nexenta_host)</td><td>nexenta_rest_address</td><td>4.x does not have separate value for Rest API management</td></tr>
-<tr><td>nexenta_rest_protocol</td><td>nexenta_use_https</td><td></td></tr>
-<tr><td>nexenta_folder</td><td>volume_group</td><td>iSCSI only for 5.x, both protocols for 4.x</td></tr>
-<tr><td>nfs_shares_config</td><td>nas_share_path</td><td>5.x does not use shares.cfg</td></tr>
-<tr><td>nexenta_iscsi_target_portal_groups</td><td>nexenta_iscsi_target_portals and nexenta_iscsi_target_portal_port</td><td>4.x exposes TPGs while 5.x creates them using list of portals (IPs)</td></tr>
+<tr><td>Create volume</td><td>implemented</td><td>implemented</td><td>implemented</td></tr>
+<tr><td>Delete volume</td><td>implemented</td><td>implemented</td><td>implemented</td></tr>
+<tr><td>Attach volume</td><td>implemented</td><td>implemented</td><td>implemented</td></tr>
+<tr><td>Detach volume</td><td>implemented</td><td>implemented</td><td>implemented</td></tr>
+<tr><td>Extend volume</td><td>implemented</td><td>implemented</td><td>implemented</td></tr>
+<tr><td>Create snapshot</td><td>implemented</td><td>implemented</td><td>implemented</td></tr>
+<tr><td>Delete snapshot</td><td>implemented</td><td>implemented</td><td>implemented</td></tr>
+<tr><td>Create volume from snapshot</td><td>implemented</td><td>implemented</td><td>implemented</td></tr>
+<tr><td>Create volume from image</td><td>implemented</td><td>implemented</td><td>implemented</td></tr>
+<tr><td>Clone volume</td><td>implemented</td><td>implemented</td><td>implemented</td></tr>
+<tr><td>Create image from volume</td><td>implemented</td><td>implemented</td><td>implemented</td></tr>
+<tr><td>Volume stats</td><td>implemented</td><td>implemented</td><td>implemented</td></tr>
+<tr><td>Migrate volume</td><td>implemented</td><td>implemented (NFS only)</td><td>not implemented</td></tr>
+<tr><td>Retype volume</td><td>implemented</td><td>not implemented</td><td>not implemented</td></tr>
+<tr><td>Volume replication</td><td>not implemented</td><td>not implemented</td><td>not implemented</td></tr>
+<tr><td>Consistency groups</td><td>not implemented</td><td>not implemented</td><td>not implemented</td></tr>
+<tr><td>iSCSI LUN Mapping</td><td>not implemented</td><td>not implemented</td><td>not implemented</td></tr>
+<tr><td>QoS (rate limit)</td><td>not implemented</td><td>not implemented</td><td>not implemented</td></tr>
+<tr><td>Extend volume while attached</td><td>implemented?</td><td>implemented?</td><td>implemented?</td></tr>
+<tr><td>Snapshot Revert</td><td>not implemented</td><td>implemented in Pike and later</td><td>not implemented</td></tr>
 </tbody>
 </table>
 <h2>iSCSI Multipath</h2>
