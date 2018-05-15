@@ -1,2 +1,0 @@
-# nexenta
-Technical Marketing
