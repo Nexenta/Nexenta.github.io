@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/all.css" rel="stylesheet">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+<header>
+    <section class="container-normal container-flex">
+        
+<section class="title">
+    <a href="https://nexenta.com" title="nexenta.com">
+        <img src="/resources/images/logo-nexenta-with-title.png"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search"/>
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="band band-first">
+    <section class="container-normal">
+        <section class="description">
+            <h1 style="margin-bottom: 20px">NexentaFusion</h1>
+            <img src="/resources/images/logo-nexenta-fusion.svg" style="height: 100px;margin-top: -18px;">
+        </section>
+
+        <p style="margin-top:60px">
+            This utility will walk you through installing NexentaFusion to run as a Docker container. The required information will be requested and minimums confirmed.
+            <br/>
+            <br/>
+            To execute the utility paste the following into terminal:
+        </p>
+
+        <pre><code>curl https://raw.githubusercontent.com/Nexenta/fusion-installation-wizard/master/nexenta-fusion-installer.sh -o nexenta-fusion-installer.sh
+chmod +x ./nexenta-fusion-installer.sh
+./nexenta-fusion-installer.sh</code></pre>
+
+        <p>To stop and remove the container use these commands:</p>
+
+        <pre><code>docker stop nexenta-fusion
+docker rm nexenta-fusion</code></pre>
+    </section>
+</section>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            Nexenta Systems, Inc.
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+<script>
+  if (window.location.hostname !== 'localhost') {
+    (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', '', 'nexenta.github.io');
+    ga('send', 'pageview');
+  }
+</script>
+</html>
