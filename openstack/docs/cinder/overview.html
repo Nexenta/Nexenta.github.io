@@ -35,7 +35,7 @@
     
 <section class="docs">
     <section class="container-docs">
-        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html class="active"><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading 4.x to 5.x</p></a></li></ul></li></ul></nav>
+        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html class="active"><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading 4.x to 5.x</p></a></li></ul></li></ul></nav>
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Nexenta Drivers for OpenStack Cinder</h1>
             <h2>Supported OpenStack Releases</h2>
@@ -72,39 +72,6 @@
 <tr><td>Snapshot Revert</td><td>—</td><td>✔ (in Pike and later)</td><td>✔</td></tr>
 </tbody>
 </table>
-<h2>iSCSI Multipath</h2>
-<p>Openstack Nova provides the ability to use iSCSI Multipath. To enable Multipath you need to add following line into nova.conf in the [libvirt] section:</p>
-<pre><code><span class="hljs-section">[libvirt]</span>
-<span class="hljs-attr">iscsi_use_multipath</span> = <span class="hljs-literal">True</span>
-</code></pre>
-<p>For this change to take place you need to restart nova-compute service: <code>$ sudo service restart nova-compute</code></p>
-<h2>Backup</h2>
-<p>This section describes how to configure the cinder-backup service and cinder NFS driver on top NexentaStor NFS share. Official documentation link: <a href="https://docs.openstack.org/newton/config-reference/block-storage/backup/nfs-backup-driver.html">NFS backup driver</a>
-Example section for cinder.conf:</p>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">backup_driver</span> = cinder.backup.drivers.nfs
-<span class="hljs-attr">backup_share</span> = <span class="hljs-number">10.1</span>.<span class="hljs-number">1.1</span>:/pool/nfs/backup
-<span class="hljs-attr">backup_mount_options</span> = vers=<span class="hljs-number">4</span>
-</code></pre>
-<p>Note: 10.1.1.1 - IP address of NexentaStor, /pool/nfs/backup - NFS share path.</p>
-<p>Steps for NexentaStor 4.x:</p>
-<pre><code>nmc<span class="hljs-meta">@host</span><span class="hljs-number">1:</span><span class="hljs-regexp">/$ create folder pool/</span>nfs/backup
-nmc<span class="hljs-meta">@host</span><span class="hljs-number">1:</span><span class="hljs-regexp">/$ share folder pool/</span>nfs/backup nfs
-Auth <span class="hljs-string">Type            :</span> sys
-<span class="hljs-string">Anonymous            :</span> <span class="hljs-literal">false</span>
-Read-<span class="hljs-string">Write           :</span>
-Read-<span class="hljs-string">Only            :</span>
-<span class="hljs-string">Root                 :</span>
-Extra <span class="hljs-string">Options        :</span> uidmap=*:<span class="hljs-string">root:</span>@<span class="hljs-number">10.1</span><span class="hljs-number">.1</span><span class="hljs-number">.2</span>
-<span class="hljs-string">Recursive            :</span> <span class="hljs-literal">true</span>
-Modifed NFS share <span class="hljs-keyword">for</span> folder <span class="hljs-string">'pool/nfs/backup'</span>
-</code></pre>
-<p>Note: 10.1.1.2 - IP address of Openstack Cinder host.</p>
-<p>Steps for NexentaStor 5.x:</p>
-<pre><code>CLI<span class="hljs-meta">@host</span>&gt; filesystem create -p pool<span class="hljs-regexp">/nfs/</span>backup
-CLI<span class="hljs-meta">@host</span>&gt; nfs share -o uidMap=<span class="hljs-string">'*:root:@10.1.1.2'</span> pool<span class="hljs-regexp">/nfs/</span>backup
-</code></pre>
-<p>Note: 10.1.1.2 - IP address of Openstack Cinder host.</p>
 <h2>Cinder and Replication</h2>
 <ul>
 <li>Replication on Consistency group level</li>

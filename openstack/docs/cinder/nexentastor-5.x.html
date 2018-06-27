@@ -35,7 +35,7 @@
     
 <section class="docs">
     <section class="container-docs">
-        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html class="active"><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading 4.x to 5.x</p></a></li></ul></li></ul></nav>
+        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html class="active"><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading 4.x to 5.x</p></a></li></ul></li></ul></nav>
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">NexentaStor 5.x</h1>
             <h2>Cinder Driver Prerequisites</h2>
@@ -43,7 +43,10 @@
 <li>Storage appliance must be configured and licensed</li>
 <li>Pool (zpool) must be created</li>
 <li>(iSCSI only) - Volume group must be created</li>
-<li>(NFS only) - File System must be created and shared over NFS</li>
+<li>(NFS only) - File System must be created and shared over NFS, for example:
+<pre><code><span class="hljs-meta">CLI@host&gt;</span><span class="bash"> filesystem create -p pool/nfs  </span>
+<span class="hljs-meta">CLI@host&gt;</span><span class="bash"> nfs share -o uidMap=<span class="hljs-string">'*:root:@10.1.1.1'</span> pool/nfs</span>
+</code></pre></li>
 <li>Storage Network configured between NS Appliance and OpenStack Hypervisors (Recommended 10GBE, MTU 9000)</li>
 </ul>
 <h2>Where to get Cinder Drivers?</h2>
