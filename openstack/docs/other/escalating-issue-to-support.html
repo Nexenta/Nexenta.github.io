@@ -39,49 +39,104 @@
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Troubleshooting and Support Request</h1>
             <h1>Troubleshooting</h1>
-<p>grep for “Traceback” in your Openstack logs folder, default is</p>
-<p><em>/var/log/openstack-project</em>, for example: <code>/var/log/cinder/cinder-volume.log</code></p>
-<p>Most of the errors related to storage are in Cinder or Nova logs.</p>
+<p>Check Openstack log files for error messages. Most of the errors related to storage are in Cinder or Nova logs.</p>
+<p><strong>Location of Openstack log files for SysV distros:</strong></p>
+<table>
+<thead>
+<tr><th>Project</th><th>Directory</th><th>Log Files</th></tr>
+</thead>
+<tbody>
+<tr><td>Cinder API</td><td>/var/log/cinder</td><td>cinder-api.log</td></tr>
+<tr><td>Cinder Backup</td><td>/var/log/cinder</td><td>cinder-backup.log</td></tr>
+<tr><td>Cinder Scheduler</td><td>/var/log/cinder</td><td>cinder-scheduler.log</td></tr>
+<tr><td>Cinder Volume</td><td>/var/log/cinder</td><td>cinder-volume.log</td></tr>
+<tr><td>Nova Compute</td><td>/var/log/nova</td><td>nova-compute.log</td></tr>
+</tbody>
+</table>
+<p>Shell command to check errors:</p>
+<pre><code><span class="hljs-meta">$</span><span class="bash"> grep -r Traceback /var/<span class="hljs-built_in">log</span>/{cinder,nova}/*.<span class="hljs-built_in">log</span></span>
+</code></pre>
+<p><strong>Location of Openstack log files for systemd distros:</strong></p>
+<table>
+<thead>
+<tr><th>Project</th><th>Service name (CentOS/Fedora/SUSE/RedHat)</th><th>Service name (Debian/Ubuntu)</th></tr>
+</thead>
+<tbody>
+<tr><td>Cinder API</td><td>openstack-cinder-api</td><td>cinder-api</td></tr>
+<tr><td>Cinder Backup</td><td>openstack-cinder-backup</td><td>cinder-backup</td></tr>
+<tr><td>Cinder Scheduler</td><td>openstack-cinder-scheduler</td><td>cinder-scheduler</td></tr>
+<tr><td>Cinder Volume</td><td>openstack-cinder-volume</td><td>cinder-volume</td></tr>
+<tr><td>Nova Compute</td><td>openstack-nova-compute</td><td>nova-compute</td></tr>
+</tbody>
+</table>
+<p>Shell command to check error:</p>
+<pre><code>$ journalctl -a -u cinder-<span class="hljs-keyword">volume</span><span class="bash"> | grep Traceback
+</span></code></pre>
+<p>Note: the most effective way to find Python tracebacks from text is the <a href="https://pypi.org/project/tbgrep/">tbgrep</a> command-line tool:</p>
+<pre><code><span class="hljs-meta">$</span><span class="bash"> sudo pip install tbgrep</span>
+<span class="hljs-meta">$</span><span class="bash"> tbgrep /var/<span class="hljs-built_in">log</span>/{cinder,nova}/*.<span class="hljs-built_in">log</span></span>
+<span class="hljs-meta">$</span><span class="bash"> journalctl -a -u cinder-volume | tbgrep</span>
+</code></pre>
 <p>If the error is not self explanatory, enable the debug logging, restart the service and try to reproduce the error. Debug loggings will trace all calls to Nexenta, which allows to narrow down the possible cause of the error.</p>
 <p>To enable debug in cinder, add the following line to cinder.conf:</p>
 <pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">debug</span>=<span class="hljs-literal">True</span>
+<span class="hljs-attr">debug</span> = <span class="hljs-literal">True</span>
 </code></pre>
-<p>And restart cinder-volume: <code>sudo service cinder-volume restart</code></p>
+<p>And restart cinder volume service.</p>
+<p>SysV distros: <code>sudo service cinder-volume restart</code></p>
+<p>Systemd distros: <code>sudo systemctl restart cinder-volume</code> or <code>sudo systemctl restart openstack-cinder-volume</code></p>
 <h1>Support Request</h1>
 <p>When creating a support request please provide the following information:</p>
 <ul>
-<li>NexentaStor/NexentaEdge version</li>
-<li>OpenStack version ( e.g. Icehouse, Juno, Kilo, Liberty, Mitaka)</li>
-<li>nova-manage version (for reference use - <a href="https://wiki.openstack.org/wiki/Releases">https://wiki.openstack.org/wiki/Releases</a>)</li>
-<li>Cinder driver version
+<li><p>NexentaStor/NexentaEdge version</p></li>
+<li><p>Support bundle collected from NexentaStor/NexentaEdge</p></li>
+<li><p>OpenStack version (e.g. Icehouse, Juno, Kilo, Liberty, Mitaka, Newton, Ocata, Pike or Queens)</p></li>
+<li><p>nova-manage version (for reference use - <a href="https://wiki.openstack.org/wiki/Releases">https://wiki.openstack.org/wiki/Releases</a>)</p></li>
+<li><p>Cinder driver version: go to appropriate driver location and copy-paste comments from the top of file:</p>
+<table>
+<thead>
+<tr><th>Nexenta Version</th><th>Backend</th><th>Driver Location</th></tr>
+</thead>
+<tbody>
+<tr><td>NexentaStor4</td><td>NFS</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/nfs.py</td></tr>
+<tr><td>NexentaStor4</td><td>iSCSI</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/iscsi.py</td></tr>
+<tr><td>NexentaStor5</td><td>NFS</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/ns5/nfs.py</td></tr>
+<tr><td>NexentaStor5</td><td>iSCSI</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/ns5/iscsi.py</td></tr>
+<tr><td>NexentaEdge</td><td>iSCSI</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/nexentaedge/iscsi.py</td></tr>
+<tr><td>NexentaEdge</td><td>NBD</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/nexentaedge/nbd.py</td></tr>
+</tbody>
+</table>
+</li>
+<li><p>Openstack service type (e.g. Cinder, Glance, Manila or Swift)</p></li>
+<li><p>Collect OS version (e.g. Ubuntu 14.04, RHEL 7.0.x, CentOS 7.0.x) and OS specific information:</p>
 <ul>
-<li>go to &lt;cinder_lib_location&gt;/cinder/volume/drivers/nexenta/nfs.py (or /iscsi.py): comments on top have version</li>
+<li><code>cat cat /etc/lsb-release</code></li>
+<li><code>uname -a</code></li>
+<li><code>dpkg -l</code> or <code>rpm -qa</code></li>
 </ul></li>
-<li>Openstack service type ( e.g. Cinder, Glance, Manila, Swift)</li>
-<li>OS version (e.g. Ubuntu 14.04, RHEL 7.0.x, CentOS 7.0.x)
+<li><p>Collect copy of Cinder drivers folder</p>
 <ul>
-<li>cat /etc/system-release</li>
+<li>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta</li>
 </ul></li>
-<li>HA configuration ( HA, active-active) ; provide cluster status info using nmc - c “show group rsf-cluster”</li>
-<li>Collector bundle</li>
-<li>Copy of Cinder drivers folder
-<ul>
-<li>cinder/volumes/drivers/</li>
-</ul></li>
-<li>Cinder.conf file
+<li><p>Collect Cinder configuration file:</p>
 <ul>
 <li>/etc/cinder/cinder.conf (default path)</li>
 </ul></li>
-<li>Cinder volume log
+<li><p>Collect Cinder and Nova log files:</p>
 <ul>
-<li>/var/log/scheduler.log (default path)</li>
+<li>For SysV distros: <code>/var/log/cinder</code> and <code>/var/log/nova</code></li>
+<li>For Debian/Ubuntu and systemd:
+<pre><code><span class="hljs-keyword">for</span> <span class="hljs-built_in">log</span> <span class="hljs-keyword">in</span> cinder-api cinder-backup cinder-scheduler cinder-volume nova-compute; <span class="hljs-keyword">do</span> 
+    journalctl -a -u <span class="hljs-variable">$log</span> &gt; <span class="hljs-variable">$log</span>.txt
+<span class="hljs-keyword">done</span>
+</code></pre></li>
+<li>For CentOS/Fedora/SUSE/RedHat and systemd:
+<pre><code><span class="hljs-keyword">for</span> <span class="hljs-built_in">log</span> <span class="hljs-keyword">in</span> openstack-cinder-api openstack-cinder-backup openstack-cinder-scheduler cinder-volume openstack-nova-compute; <span class="hljs-keyword">do</span>
+  journalctl -a -u <span class="hljs-variable">$log</span> &gt; <span class="hljs-variable">$log</span>.txt
+<span class="hljs-keyword">done</span>
+</code></pre></li>
 </ul></li>
-<li>Cinder scheduler log
-<ul>
-<li>/var/log/scheduler.log (default path)</li>
-</ul></li>
-<li>Steps to reproduce the issue, screenshot of console log, any custom scripts that customer ran, etc</li>
+<li><p>Steps to reproduce the issue, screenshot of console log, any custom scripts that customer ran, etc</p></li>
 </ul>
 
         </article>
