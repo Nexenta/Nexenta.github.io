@@ -70,7 +70,7 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <code>$ sudo service cinder-volume restart</code></li>
 </ul></li>
 </ol>
-<h3>NexentaStor 4.x NFS minimal cinder.conf</h3>
+<h3>NexentaStor 4.x NFS minimal recommended cinder.conf</h3>
 <pre><code><span class="hljs-section">[DEFAULT]</span>
 <span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
 <span class="hljs-section">
@@ -78,12 +78,11 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.nfs.NexentaNfsDriver
 <span class="hljs-attr">volume_backend_name</span> = ns_nfs
 <span class="hljs-attr">nexenta_shares_config</span> = /etc/cinder/shares.cfg
-<span class="hljs-attr">nfs_shares_config</span> = /etc/cinder/shares.cfg
-<span class="hljs-attr">nas_secure_file_operations</span> = <span class="hljs-literal">False</span>
+<span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
 </code></pre>
 <p><strong>Note:</strong> For NexentaStor 4.x NFS driver a shares config file must be present. This file should consist of 1 or multiple lines with 2 columns separated by a space. The first column represents the NFS filesystem path for the mount command, and the second is url for Rest calls. Example:</p>
-<pre><code><span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.1</span>:/volumes/Vol1/nfs_share http://admin:nexenta@<span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.1</span>:<span class="hljs-number">8457</span>
-<span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.100</span>:/volumes/Vol2/cinder-volumes http://admin:secret@<span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.100</span>:<span class="hljs-number">8457</span>
+<pre><code><span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.1</span>:/volumes/tank1/nfs_share http://admin:nexenta@<span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.1</span>:<span class="hljs-number">8457</span>
+<span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.100</span>:/volumes/tank2/cinder-volumes http://admin:secret@<span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.100</span>:<span class="hljs-number">8457</span>
 </code></pre>
 <h2>NexentaStor 4.x NFS - List of all available options</h2>
 <table>
@@ -101,9 +100,13 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <tr><td>nexenta_mount_point_base</td><td>$state_path/mnt</td><td></td><td>Base directory that contains NFS share mount points</td></tr>
 <tr><td>nexenta_sparsed_volumes</td><td>True</td><td>Boolean</td><td>Enables or disables the creation of volumes as sparsed files that take no space. If disabled (False), volume is created as a regular file, which takes a long time.</td></tr>
 <tr><td>nexenta_nms_cache_volroot</td><td>True</td><td>Boolean</td><td>If set True cache NexentaStor appliance volroot option value.</td></tr>
+<tr><td>nfs_mount_attempts</td><td>3</td><td>Integer</td><td>The number of attempts to mount NFS shares before raising an error.</td></tr>
+<tr><td>nfs_mount_options</td><td>None</td><td>String</td><td>Mount options passed to the NFS client.</td></tr>
+<tr><td>nfs_qcow2_volumes</td><td>False</td><td>Boolean</td><td>Create volumes as QCOW2 files rather than raw files.</td></tr>
 </tbody>
 </table>
-<h3>NexentaStor 4.x iSCSI minimal cinder.conf</h3>
+<p>Note: As of the Icehouse release, the NFS based drivers will attempt to mount shares using version 4.1 of the NFS protocol (including pNFS). If the mount attempt is unsuccessful due to a lack of client or server support, a subsequent mount attempt that requests the default behavior of the mount.nfs command will be performed. On most distributions, the default behavior is to attempt mounting first with NFS v4.0, then silently fall back to NFS v3.0 if necessary. If the <code>nfs_mount_options</code> configuration option contains a request for a specific version of NFS to be used the mount will be attempted as requested with no subsequent attempts.</p>
+<h3>NexentaStor 4.x iSCSI minimal recommended cinder.conf</h3>
 <pre><code><span class="hljs-section">[DEFAULT]</span>
 <span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
 <span class="hljs-section">
@@ -159,15 +162,26 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <span class="hljs-attr">iscsi_use_multipath</span> = <span class="hljs-literal">True</span>
 </code></pre>
 <p>For this change to take place you need to restart nova-compute service: <code>$ sudo service restart nova-compute</code></p>
+<h2>NFS options for Nova</h2>
+<p>Openstack Nova provides the ability to use custom NFS options passed to the NFS client. Recommended options for nova.conf:</p>
+<pre><code><span class="hljs-section">[libvirt]</span>
+<span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
+</code></pre>
 <h2>Backup</h2>
 <p>This section describes how to configure the cinder-backup service and cinder NFS driver on top NexentaStor NFS share. Official documentation link: <a href="https://docs.openstack.org/newton/config-reference/block-storage/backup/nfs-backup-driver.html">NFS backup driver</a>
 Example section for cinder.conf:</p>
 <pre><code><span class="hljs-section">[DEFAULT]</span>
 <span class="hljs-attr">backup_driver</span> = cinder.backup.drivers.nfs
 <span class="hljs-attr">backup_share</span> = <span class="hljs-number">10.1</span>.<span class="hljs-number">1.1</span>:/pool/nfs/backup
-<span class="hljs-attr">backup_mount_options</span> = vers=<span class="hljs-number">4</span>
+<span class="hljs-attr">backup_mount_options</span> = vers=<span class="hljs-number">3</span>,noatime
 </code></pre>
-<p>Note: 10.1.1.1 - IP address of NexentaStor, /pool/nfs/backup - NFS share path.</p>
+<p>Notes:</p>
+<ul>
+<li><code>cinder.backup.drivers.nfs</code> - NFS backup driver name</li>
+<li><code>10.1.1.1</code> - IP address or virtual IP address of NexentaStor appliance</li>
+<li><code>/pool/nfs/backup</code> - NFS share path</li>
+<li><code>vers=3,noatime</code> - recommended NFS mount options</li>
+</ul>
 <p>Steps for NexentaStor 4.x:</p>
 <pre><code>nmc<span class="hljs-meta">@host</span><span class="hljs-number">1:</span><span class="hljs-regexp">/$ create folder pool/</span>nfs/backup
 nmc<span class="hljs-meta">@host</span><span class="hljs-number">1:</span><span class="hljs-regexp">/$ share folder pool/</span>nfs/backup nfs
