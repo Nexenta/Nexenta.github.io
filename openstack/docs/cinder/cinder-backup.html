@@ -44,9 +44,15 @@ Example section for cinder.conf:</p>
 <pre><code><span class="hljs-section">[DEFAULT]</span>
 <span class="hljs-attr">backup_driver</span> = cinder.backup.drivers.nfs
 <span class="hljs-attr">backup_share</span> = <span class="hljs-number">10.1</span>.<span class="hljs-number">1.1</span>:/pool/nfs/backup
-<span class="hljs-attr">backup_mount_options</span> = vers=<span class="hljs-number">4</span>
+<span class="hljs-attr">backup_mount_options</span> = vers=<span class="hljs-number">3</span>,noatime
 </code></pre>
-<p>Note: 10.1.1.1 - IP address of NexentaStor, /pool/nfs/backup - NFS share path.</p>
+<p>Notes:</p>
+<ul>
+<li><code>cinder.backup.drivers.nfs</code> - NFS backup driver name</li>
+<li><code>10.1.1.1</code> - IP address or virtual IP address of NexentaStor appliance</li>
+<li><code>/pool/nfs/backup</code> - NFS share path</li>
+<li><code>vers=3,noatime</code> - recommended NFS mount options</li>
+</ul>
 <p>Steps for NexentaStor 4.x:</p>
 <pre><code>nmc<span class="hljs-meta">@host</span><span class="hljs-number">1:</span><span class="hljs-regexp">/$ create folder pool/</span>nfs/backup
 nmc<span class="hljs-meta">@host</span><span class="hljs-number">1:</span><span class="hljs-regexp">/$ share folder pool/</span>nfs/backup nfs
