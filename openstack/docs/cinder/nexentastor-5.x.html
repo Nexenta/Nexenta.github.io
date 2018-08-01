@@ -73,7 +73,7 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <code>$ sudo service cinder-volume restart</code></li>
 </ul></li>
 </ol>
-<h3>NexentaStor 5.x NFS HA cinder.conf</h3>
+<h3>NexentaStor 5.x NFS HA recommended cinder.conf</h3>
 <pre><code><span class="hljs-section">[DEFAULT]</span>
 <span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
 <span class="hljs-section">
@@ -86,9 +86,8 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <span class="hljs-attr">nas_share_path</span> = pool1/nfs_share
 <span class="hljs-attr">nexenta_user</span> = admin
 <span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
-<span class="hljs-attr">nas_mount_options</span> = vers=<span class="hljs-number">4</span>
+<span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
 <span class="hljs-attr">nexenta_sparsed_volumes</span> = <span class="hljs-literal">True</span>
-<span class="hljs-attr">nas_secure_file_operations</span> = <span class="hljs-literal">False</span>
 </code></pre>
 <h2>NexentaStor 5.x NFS - List of all available options</h2>
 <table>
@@ -106,9 +105,13 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <tr><td>nexenta_dataset_description</td><td></td><td></td><td>Human-readable description for the folder.</td></tr>
 <tr><td>nexenta_mount_point_base</td><td>$state_path/mnt</td><td></td><td>Base directory that contains NFS share mount points</td></tr>
 <tr><td>nexenta_sparsed_volumes</td><td>True</td><td>Boolean</td><td>Enables or disables the creation of volumes as sparsed files that take no space. If disabled (False), volume is created as a regular file, which takes a long time.</td></tr>
+<tr><td>nfs_mount_attempts</td><td>3</td><td>Integer</td><td>The number of attempts to mount NFS shares before raising an error.</td></tr>
+<tr><td>nfs_mount_options</td><td>None</td><td>String</td><td>Mount options passed to the NFS client.</td></tr>
+<tr><td>nfs_qcow2_volumes</td><td>False</td><td>Boolean</td><td>Create volumes as QCOW2 files rather than raw files.</td></tr>
 </tbody>
 </table>
-<h3>NexentaStor 5.x NFS minimal cinder.conf</h3>
+<p>Note: As of the Icehouse release, the NFS based drivers will attempt to mount shares using version 4.1 of the NFS protocol (including pNFS). If the mount attempt is unsuccessful due to a lack of client or server support, a subsequent mount attempt that requests the default behavior of the mount.nfs command will be performed. On most distributions, the default behavior is to attempt mounting first with NFS v4.0, then silently fall back to NFS v3.0 if necessary. If the <code>nfs_mount_options</code> configuration option contains a request for a specific version of NFS to be used the mount will be attempted as requested with no subsequent attempts.</p>
+<h3>NexentaStor 5.x NFS minimal recommended cinder.conf</h3>
 <pre><code><span class="hljs-section">[DEFAULT]</span>
 <span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
 <span class="hljs-section">
@@ -121,8 +124,7 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <span class="hljs-attr">nas_share_path</span> = pool1/nfs_share
 <span class="hljs-attr">nexenta_user</span> = admin
 <span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
-<span class="hljs-attr">nas_mount_options</span> = vers=<span class="hljs-number">4</span>
-<span class="hljs-attr">nas_secure_file_operations</span> = <span class="hljs-literal">False</span>
+<span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
 </code></pre>
 <h3>NexentaStor 5.x iSCSI cinder.conf HA config</h3>
 <pre><code><span class="hljs-section">[DEFAULT]</span>
@@ -182,6 +184,17 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
 <span class="hljs-attr">nexenta_volume</span> = pool1
 <span class="hljs-attr">nexenta_volume_group</span> = iscsi
+</code></pre>
+<h2>iSCSI Multipath</h2>
+<p>Openstack Nova provides the ability to use iSCSI Multipath. To enable Multipath you need to add following line into nova.conf in the [libvirt] section:</p>
+<pre><code><span class="hljs-section">[libvirt]</span>
+<span class="hljs-attr">iscsi_use_multipath</span> = <span class="hljs-literal">True</span>
+</code></pre>
+<p>For this change to take place you need to restart nova-compute service: <code>$ sudo service restart nova-compute</code></p>
+<h2>NFS options for Nova</h2>
+<p>Openstack Nova provides the ability to use custom NFS options passed to the NFS client. Recommended options for nova.conf:</p>
+<pre><code><span class="hljs-section">[libvirt]</span>
+<span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
 </code></pre>
 
         </article>
