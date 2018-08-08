@@ -35,10 +35,10 @@
     
 <section class="docs">
     <section class="container-docs">
-        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html class="active"><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading 4.x to 5.x</p></a></li></ul></li></ul></nav>
+        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html class="active"><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading 4.x to 5.x</p></a></li></ul></li></ul></nav>
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">NexentaStor 5.x</h1>
-            <h2>Cinder Driver Prerequisites</h2>
+            <h3>Cinder Driver Prerequisites</h3>
 <ul>
 <li>Storage appliance must be configured and licensed</li>
 <li>Pool (zpool) must be created</li>
@@ -49,7 +49,7 @@
 </code></pre></li>
 <li>Storage Network configured between NS Appliance and OpenStack Hypervisors (Recommended 10GBE, MTU 9000)</li>
 </ul>
-<h2>Where to get Cinder Drivers?</h2>
+<h3>Where to get Cinder Drivers?</h3>
 <p>It’s recommended to get the latest driver from Nexenta’s repository: <a href="https://github.com/Nexenta/cinder">https://github.com/Nexenta/cinder</a></p>
 <p>The branches in the repository correspond with Openstack releases.</p>
 <p>To following command can be used to download the exact version w/o having to switch branches</p>
@@ -57,7 +57,7 @@
 <p>Nexenta Drivers are located under the following path:
 <a href="https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta">https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta</a></p>
 <p>The path includes driver for NexentaStor 4.x, NexentaStor 5.x and NexnetaEdge 2.0. Make sure to copy the whole folder.</p>
-<h2>Installation Steps</h2>
+<h3>Installation Steps</h3>
 <ol>
 <li>Determine cinder driver location path used in your environment</li>
 <li>Clone or download the correct version of the drivers, unzip if downloaded and copy to the cinder location. For example drivers for Mitaka release:
@@ -73,23 +73,8 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <code>$ sudo service cinder-volume restart</code></li>
 </ul></li>
 </ol>
-<h3>NexentaStor 5.x NFS HA recommended cinder.conf</h3>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
-<span class="hljs-section">
-[ns5_nfs]</span>
-<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
-<span class="hljs-attr">volume_backend_name</span> = ns5_nfs
-<span class="hljs-attr">nas_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
-<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.1</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">1.2</span>
-<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
-<span class="hljs-attr">nas_share_path</span> = pool1/nfs_share
-<span class="hljs-attr">nexenta_user</span> = admin
-<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
-<span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
-<span class="hljs-attr">nexenta_sparsed_volumes</span> = <span class="hljs-literal">True</span>
-</code></pre>
-<h2>NexentaStor 5.x NFS - List of all available options</h2>
+<h2>NFS driver</h2>
+<h3>NexentaStor 5.x NFS - List of all available options</h3>
 <table>
 <thead>
 <tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
@@ -111,6 +96,22 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 </tbody>
 </table>
 <p>Note: As of the Icehouse release, the NFS based drivers will attempt to mount shares using version 4.1 of the NFS protocol (including pNFS). If the mount attempt is unsuccessful due to a lack of client or server support, a subsequent mount attempt that requests the default behavior of the mount.nfs command will be performed. On most distributions, the default behavior is to attempt mounting first with NFS v4.0, then silently fall back to NFS v3.0 if necessary. If the <code>nfs_mount_options</code> configuration option contains a request for a specific version of NFS to be used the mount will be attempted as requested with no subsequent attempts.</p>
+<h3>NexentaStor 5.x NFS HA recommended cinder.conf</h3>
+<pre><code><span class="hljs-section">[DEFAULT]</span>
+<span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
+<span class="hljs-section">
+[ns5_nfs]</span>
+<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
+<span class="hljs-attr">volume_backend_name</span> = ns5_nfs
+<span class="hljs-attr">nas_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
+<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.1</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">1.2</span>
+<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
+<span class="hljs-attr">nas_share_path</span> = pool1/nfs_share
+<span class="hljs-attr">nexenta_user</span> = admin
+<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
+<span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
+<span class="hljs-attr">nexenta_sparsed_volumes</span> = <span class="hljs-literal">True</span>
+</code></pre>
 <h3>NexentaStor 5.x NFS minimal recommended cinder.conf</h3>
 <pre><code><span class="hljs-section">[DEFAULT]</span>
 <span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
@@ -126,27 +127,8 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
 <span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
 </code></pre>
-<h3>NexentaStor 5.x iSCSI cinder.conf HA config</h3>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
-<span class="hljs-section">
-[ns5_iscsi]</span>
-<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.iscsi.NexentaISCSIDriver
-<span class="hljs-attr">volume_backend_name</span> = ns5_iscsi
-<span class="hljs-attr">nexenta_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
-<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.1</span>,<span class="hljs-number">10.1</span>.<span class="hljs-number">1.2</span>
-<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
-<span class="hljs-attr">nexenta_user</span> = admin
-<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
-<span class="hljs-attr">nexenta_volume</span> = pool1
-<span class="hljs-attr">nexenta_volume_group</span> = iscsi
-<span class="hljs-attr">nexenta_iscsi_target_portals</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.2</span>:<span class="hljs-number">3260</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">0.3</span>:<span class="hljs-number">3261</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">0.4</span>
-<span class="hljs-attr">nexenta_target_prefix</span> = iqn.<span class="hljs-number">2005</span>-<span class="hljs-number">07</span>.com.nexenta:<span class="hljs-number">02</span>:cinder
-<span class="hljs-attr">nexenta_target_group_prefix</span> = cinder
-<span class="hljs-attr">nexenta_host_group_prefix</span> = cinder
-<span class="hljs-attr">nexenta_luns_per_target</span> = <span class="hljs-number">128</span>
-</code></pre>
-<h2>NexentaStor 5.x iSCSI - List of all available options</h2>
+<h2>NFS driver</h2>
+<h3>NexentaStor 5.x iSCSI - List of all available options</h3>
 <table>
 <thead>
 <tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
@@ -167,9 +149,29 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <tr><td>nexenta_target_prefix</td><td>iqn.1986-03.com.sun:02:cinder-</td><td></td><td>IQN prefix for iSCSI targets</td></tr>
 <tr><td>nexenta_target_group_prefix</td><td>cinder</td><td></td><td>Prefix for iSCSI target groups on NexentaStor</td></tr>
 <tr><td>nexenta_volume_group</td><td>iscsi</td><td></td><td>Volume group for NStor5</td></tr>
-<tr><td>nexenta_iscsi_target_portals</td><td></td><td></td><td></td></tr>
+<tr><td>nexenta_iscsi_target_portals</td><td></td><td></td><td>Comma separated list of portals for NexentaStor5, in format of IP1:port1,IP2:port2. Port is optional, default=3260. Example: 10.10.10.1:3267,10.10.1.2</td></tr>
 </tbody>
 </table>
+<h3>NexentaStor 5.x iSCSI cinder.conf HA config</h3>
+<pre><code><span class="hljs-section">[DEFAULT]</span>
+<span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
+<span class="hljs-section">
+[ns5_iscsi]</span>
+<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.iscsi.NexentaISCSIDriver
+<span class="hljs-attr">volume_backend_name</span> = ns5_iscsi
+<span class="hljs-attr">nexenta_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
+<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.1</span>,<span class="hljs-number">10.1</span>.<span class="hljs-number">1.2</span>
+<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
+<span class="hljs-attr">nexenta_user</span> = admin
+<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
+<span class="hljs-attr">nexenta_volume</span> = pool1
+<span class="hljs-attr">nexenta_volume_group</span> = iscsi
+<span class="hljs-attr">nexenta_iscsi_target_portals</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.2</span>:<span class="hljs-number">3260</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">0.3</span>:<span class="hljs-number">3261</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">0.4</span>
+<span class="hljs-attr">nexenta_target_prefix</span> = iqn.<span class="hljs-number">2005</span>-<span class="hljs-number">07</span>.com.nexenta:<span class="hljs-number">02</span>:cinder
+<span class="hljs-attr">nexenta_target_group_prefix</span> = cinder
+<span class="hljs-attr">nexenta_host_group_prefix</span> = cinder
+<span class="hljs-attr">nexenta_luns_per_target</span> = <span class="hljs-number">128</span>
+</code></pre>
 <h3>NexentaStor 5.x iSCSI cinder.conf minimal config</h3>
 <pre><code><span class="hljs-section">[DEFAULT]</span>
 <span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
@@ -196,6 +198,92 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <pre><code><span class="hljs-section">[libvirt]</span>
 <span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
 </code></pre>
+<h2>Multi-backend cinder.conf</h2>
+<pre><code><span class="hljs-section">[DEFAULT]</span>
+<span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
+<span class="hljs-section">
+[ns5_nfs-1]</span>
+<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
+<span class="hljs-attr">volume_backend_name</span> = ns5_nfs-thin
+<span class="hljs-attr">nas_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
+<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.1</span>
+<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
+<span class="hljs-attr">nas_share_path</span> = pool1/nfs_share
+<span class="hljs-attr">nexenta_user</span> = admin
+<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
+<span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
+<span class="hljs-attr">nexenta_sparsed_volumes</span> = <span class="hljs-literal">True</span>
+<span class="hljs-attr">nexenta_compression</span> = <span class="hljs-literal">on</span>
+<span class="hljs-section">
+[ns5_nfs-2]</span>
+<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
+<span class="hljs-attr">volume_backend_name</span> = ns5_nfs-thick
+<span class="hljs-attr">nas_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
+<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.1</span>
+<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
+<span class="hljs-attr">nas_share_path</span> = pool1/nfs_share
+<span class="hljs-attr">nexenta_user</span> = admin
+<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
+<span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
+<span class="hljs-attr">nexenta_sparsed_volumes</span> = <span class="hljs-literal">False</span>
+<span class="hljs-attr">nexenta_compression</span> = <span class="hljs-literal">off</span>
+<span class="hljs-section">
+[ns5_nfs-pool1]</span>
+<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
+<span class="hljs-attr">volume_backend_name</span> = ns5
+<span class="hljs-attr">nas_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
+<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.11</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">1.12</span>
+<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
+<span class="hljs-attr">nas_share_path</span> = pool1/nfs_share
+<span class="hljs-attr">nexenta_user</span> = admin
+<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
+<span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
+<span class="hljs-attr">nexenta_sparsed_volumes</span> = <span class="hljs-literal">False</span>
+<span class="hljs-attr">nexenta_compression</span> = <span class="hljs-literal">off</span>
+<span class="hljs-section">
+[ns5_nfs-pool2-other-nfs-folder]</span>
+<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
+<span class="hljs-attr">volume_backend_name</span> = ns5
+<span class="hljs-attr">nas_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.2</span>
+<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.11</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">1.12</span>
+<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
+<span class="hljs-attr">nas_share_path</span> = pool2/another_nfs_folder
+<span class="hljs-attr">nexenta_user</span> = admin
+<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
+<span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
+<span class="hljs-attr">nexenta_sparsed_volumes</span> = <span class="hljs-literal">False</span>
+<span class="hljs-attr">nexenta_compression</span> = <span class="hljs-literal">on</span>
+<span class="hljs-section">
+[ns5_nfs-pool2]</span>
+<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
+<span class="hljs-attr">volume_backend_name</span> = ns5
+<span class="hljs-attr">nas_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.2</span>
+<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">2.101</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">2.102</span>
+<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
+<span class="hljs-attr">nas_share_path</span> = data/nfs
+<span class="hljs-attr">nexenta_user</span> = admin
+<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
+<span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
+<span class="hljs-attr">nexenta_sparsed_volumes</span> = <span class="hljs-literal">False</span>
+<span class="hljs-attr">nexenta_compression</span> = <span class="hljs-literal">off</span>
+<span class="hljs-section">
+[ns5_iscsi]</span>
+<span class="hljs-attr">volume_driver</span> = cinder.volume.drivers.nexenta.ns5.iscsi.NexentaISCSIDriver
+<span class="hljs-attr">volume_backend_name</span> = ns5
+<span class="hljs-attr">nexenta_host</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>
+<span class="hljs-attr">nexenta_rest_address</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">1.1</span>,<span class="hljs-number">10.1</span>.<span class="hljs-number">1.2</span>
+<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
+<span class="hljs-attr">nexenta_user</span> = admin
+<span class="hljs-attr">nexenta_password</span> = Nexenta@<span class="hljs-number">1</span>
+<span class="hljs-attr">nexenta_volume</span> = pool1
+<span class="hljs-attr">nexenta_volume_group</span> = iscsi
+<span class="hljs-attr">nexenta_iscsi_target_portals</span> = <span class="hljs-number">10.0</span>.<span class="hljs-number">0.2</span>:<span class="hljs-number">3260</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">0.3</span>:<span class="hljs-number">3261</span>,<span class="hljs-number">10.0</span>.<span class="hljs-number">0.4</span>
+<span class="hljs-attr">nexenta_target_prefix</span> = iqn.<span class="hljs-number">2005</span>-<span class="hljs-number">07</span>.com.nexenta:<span class="hljs-number">02</span>:cinder
+<span class="hljs-attr">nexenta_target_group_prefix</span> = cinder
+<span class="hljs-attr">nexenta_host_group_prefix</span> = cinder
+<span class="hljs-attr">nexenta_luns_per_target</span> = <span class="hljs-number">128</span>
+</code></pre>
+<p>Note that in last 4 examples we have the same volume_backend_name, even though they are not all on the same appliance. This is the case when you have multiple endpoints, but you do not necessary need control of picking which one will be used to create a volume. Endpoints can be different folders/volumeGroups, pools, protocols or even different NexentaStor appliances. In any of those cases you need a separate backend section for each endpoint.</p>
 
         </article>
     </section>
