@@ -70,12 +70,12 @@
 </tbody>
 </table>
 <p>Shell command to check error:</p>
-<pre><code>$ journalctl -a -u cinder-<span class="hljs-keyword">volume</span><span class="bash"> | grep Traceback
-</span></code></pre>
+<pre><code><span class="hljs-meta">$</span><span class="bash"> journalctl -a -u service_name | grep Traceback</span>
+</code></pre>
 <p>Note: the most effective way to find Python tracebacks from text is the <a href="https://pypi.org/project/tbgrep/">tbgrep</a> command-line tool:</p>
 <pre><code><span class="hljs-meta">$</span><span class="bash"> sudo pip install tbgrep</span>
 <span class="hljs-meta">$</span><span class="bash"> tbgrep /var/<span class="hljs-built_in">log</span>/{cinder,nova}/*.<span class="hljs-built_in">log</span></span>
-<span class="hljs-meta">$</span><span class="bash"> journalctl -a -u cinder-volume | tbgrep</span>
+<span class="hljs-meta">$</span><span class="bash"> journalctl -a -u service_name | tbgrep</span>
 </code></pre>
 <p>If the error is not self explanatory, enable the debug logging, restart the service and try to reproduce the error. Debug loggings will trace all calls to Nexenta, which allows to narrow down the possible cause of the error.</p>
 <p>To enable debug in cinder, add the following line to cinder.conf:</p>
@@ -136,7 +136,14 @@
 <span class="hljs-keyword">done</span>
 </code></pre></li>
 </ul></li>
-<li><p>Steps to reproduce the issue, screenshot of console log, any custom scripts that customer ran, etc</p></li>
+<li><p>Collect log files and commands output from Nova Compute node(s):</p>
+<ul>
+<li><code>dmesg</code> command output (possible system errors)</li>
+<li><code>iscsiadm -m node -P1</code> command output (list iSCSI targets)</li>
+<li><code>iscsiadm -m session -P3</code> command output (list active iSCSI sessions and connections)</li>
+<li><code>iscsid</code> service log file (depend on host OS and log settings: <code>/var/log/messages</code> file or <code>journalctl | grep iscsid</code> command output)</li>
+</ul></li>
+<li><p>Steps to reproduce the issue, VM’s and volumes names, time frames, any custom scripts that customer ran, etc</p></li>
 </ul>
 
         </article>
