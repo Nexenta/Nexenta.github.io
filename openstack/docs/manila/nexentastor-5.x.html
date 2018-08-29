@@ -35,115 +35,94 @@
     
 <section class="docs">
     <section class="container-docs">
-        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html class="active"><p>NexentaStor 5.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading 4.x to 5.x</p></a></li></ul></li></ul></nav>
+        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/nexentastor-5.x.html class="active"><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading 4.x to 5.x</p></a></li></ul></li></ul></nav>
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">NexentaStor 5.x</h1>
             <h2>Overview</h2>
-<p>ToDo</p>
-<h2>Supported operations are:</h2>
+<p>Manila provides file services for applications running on top of OpenStack. NexentaStor Manila driver allows Manila to provision NFS shares over REST API to be consumed by applications.</p>
+<h3>Supported operations are (currently only NFS is supported)</h3>
 <ul>
-<li>Create NFS share.</li>
-<li>Delete NFS share.</li>
-<li>Extend NFS share</li>
-<li>Allow NFS share access.</li>
-<li>Only IP access type is supported for NFS.</li>
-<li>RW and RO access is supported.</li>
-<li>Deny NFS share access</li>
+<li>Create share</li>
+<li>Delete share</li>
+<li>Extend share</li>
+<li>Shrink share</li>
+<li>Allow share access (Only IP access type is supported - RW/RO)</li>
+<li>Deny share access</li>
 <li>Create snapshot</li>
 <li>Delete snapshot</li>
 <li>Create share from snapshot</li>
-<li>Thin/thick provisioning</li>
+<li>Share creation options - Thin/thick provisioning, compression</li>
 </ul>
-<h2>Requirements</h2>
+<h2>Installation</h2>
+<h3>Pre-requisites</h3>
 <ul>
-<li>NexentaStor Appliance pre-provisioned and licensed, etc</li>
-<li>OpenStack Preprovisioned with Manila Plugin</li>
+<li>NexentaStor 5.x Appliance pre-provisioned and licensed</li>
+<li>Pool and parent filesystem configured (this filesystem will contain all manila shares)</li>
+<li>Manila service provisioned</li>
 </ul>
-<h2>Deployment</h2>
-<p>Create DevStack user:</p>
-<pre><code><span class="hljs-meta">root#</span><span class="bash"> useradd -s /bin/bash -d /opt/stack -m stack</span>
-<span class="hljs-meta">root#</span><span class="bash"> <span class="hljs-built_in">echo</span> <span class="hljs-string">"stack ALL=(ALL) NOPASSWD: ALL"</span> | tee /etc/sudoers.d/stack</span>
-<span class="hljs-meta">root#</span><span class="bash"> passwd stack</span>
-</code></pre>
-<p>Deploy DevStack environment:</p>
-<pre><code><span class="hljs-keyword">stack</span>$ git clone https:<span class="hljs-comment">//git.openstack.org/openstack-dev/devstack</span>
-<span class="hljs-keyword">stack</span>$ <span class="hljs-keyword">cd</span> devstack
-<span class="hljs-keyword">stack</span>$ <span class="hljs-keyword">cat</span> <span class="hljs-keyword">local</span>.<span class="hljs-keyword">conf</span> &lt;&lt;'EOF'
-[[<span class="hljs-keyword">local</span>|localrc]]
-ADMIN_PASSWORD=secret
-DATABASE_PASSWORD=<span class="hljs-variable">$ADMIN_PASSWORD</span>
-RABBIT_PASSWORD=<span class="hljs-variable">$ADMIN_PASSWORD</span>
-SERVICE_PASSWORD=<span class="hljs-variable">$ADMIN_PASSWORD</span>
-USE_SCREEN=True
-RECLONE=True
-enable_plugin manila https:<span class="hljs-comment">//github.com/openstack/manila</span>
-EOF
-
-<span class="hljs-keyword">stack</span>$ ./<span class="hljs-keyword">stack</span>.<span class="hljs-keyword">sh</span>
-</code></pre>
+<h3>Download Driver</h3>
+<p>It’s recommended to get the latest driver from Nexenta’s repository: <a href="https://github.com/Nexenta/manila">https://github.com/Nexenta/manila</a></p>
+<p>The branches in the repository correspond with Openstack releases.</p>
+<p>To following command can be used to download the exact version w/o having to switch branches</p>
+<p><code>git clone -b stable/pike</code>  - this will download the exact version, no need to switch</p>
+<p>Nexenta Drivers are located under the following path: <a href="https://github.com/Nexenta/manila/tree/stable/pike/manila/share/drivers/nexenta">https://github.com/Nexenta/manila/tree/stable/pike/manila/share/drivers/nexenta</a></p>
+<p>The path includes drivers for NexentaStor 4.x and NexentaStor 5.x Make sure to copy the whole folder.</p>
+<h3>Installation Steps</h3>
+<ol>
+<li>Determine manila driver location path used in your environment</li>
+<li>Clone or download the correct version of the drivers, unzip if downloaded and copy to the cinder location. For example drivers for Pike release:
+<pre><code>$ git clone -b stable/pike <span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/github.com/</span>Nexenta/manila nexenta-manila
+$ cp -rf nexenta-manila/manila/share/drivers/nexenta /usr/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">python2</span>.7/<span class="hljs-title">dist</span>-<span class="hljs-title">packages</span>/<span class="hljs-title">manila</span>/<span class="hljs-title">share</span>/<span class="hljs-title">drivers</span></span>
+</code></pre></li>
+<li>Configure manila.conf</li>
+<li>Restart Manila Service
+<ul>
+<li>Systemd based system:
+<code>$ sudo systemctl restart openstack-manila-share.service</code></li>
+<li>Upstart/SysV based system:
+<code>$ sudo service manila-share restart</code></li>
+</ul></li>
+</ol>
 <p>manila.conf driver section examples:</p>
-<p>NStor4:</p>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">enabled_share_backends</span> = ns4_nfs
-<span class="hljs-attr">enabled_share_protocols</span> = NFS
-<span class="hljs-section">
-[ns4_nfs]</span>
-<span class="hljs-attr">service_instance_user</span> = manila
-<span class="hljs-attr">service_image_name</span> = manila-service-image
-<span class="hljs-attr">path_to_private_key</span> = /home/ubuntu/.ssh/id_rsa
-<span class="hljs-attr">path_to_public_key</span> = /home/ubuntu/.ssh/id_rsa.pub
-<span class="hljs-attr">share_backend_name</span> = &lt;backend name to be used in share_types&gt;
-<span class="hljs-attr">driver_handles_share_servers</span> = <span class="hljs-literal">False</span>
-<span class="hljs-attr">share_driver</span> = manila.share.drivers.nexenta.nexenta_nas.NexentaNasDriver
-<span class="hljs-attr">nexenta_host</span> = &lt;Nexenta appliance IP&gt;
-<span class="hljs-attr">nexenta_volume</span> = &lt;volume name <span class="hljs-literal">on</span> appliance&gt;
-<span class="hljs-attr">nexenta_nfs_share</span> = &lt;nfs_share_name&gt;
-<span class="hljs-attr">nexenta_user</span> = &lt;NexentaStor username&gt;
-<span class="hljs-attr">nexenta_password</span> = &lt;NexentaStor password&gt;
-<span class="hljs-attr">nexenta_thin_provisioning</span> = <span class="hljs-literal">False</span>/<span class="hljs-literal">True</span>
+<pre><code>
+<span class="hljs-symbol">NStor5:</span>
 </code></pre>
-<p>NStor5:</p>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">enabled_share_backends</span> = ns5_nfs
-<span class="hljs-attr">enabled_share_protocols</span> = NFS
-<span class="hljs-section">
-[ns5_nfs]</span>
-<span class="hljs-attr">service_instance_user</span> = manila
-<span class="hljs-attr">service_image_name</span> = manila-service-image
-<span class="hljs-attr">path_to_private_key</span> = /home/ubuntu/.ssh/id_rsa
-<span class="hljs-attr">path_to_public_key</span> = /home/ubuntu/.ssh/id_rsa.pub
-<span class="hljs-attr">share_backend_name</span> = &lt;backend name to be used in share_types&gt;
-<span class="hljs-attr">driver_handles_share_servers</span> = <span class="hljs-literal">False</span>
-<span class="hljs-attr">share_driver</span> = manila.share.drivers.nexenta.nexenta_nas.NexentaNasDriver
-<span class="hljs-attr">nexenta_host</span> = &lt;Nexenta appliance IP&gt;
-<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
-<span class="hljs-attr">nexenta_volume</span> = &lt;pool name <span class="hljs-literal">on</span> appliance&gt;
-<span class="hljs-attr">nexenta_share</span> = &lt;dataset name within the pool&gt;
-<span class="hljs-attr">nexenta_user</span> = &lt;NexentaStor username&gt;
-<span class="hljs-attr">nexenta_password</span> = &lt;NexentaStor password&gt;
-<span class="hljs-attr">nexenta_thin_provisioning</span> = <span class="hljs-literal">False</span>/<span class="hljs-literal">True</span>
-</code></pre>
-<p>List of all available options:</p>
-<table>
-<thead>
-<tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>nexenta_host</td><td></td><td></td><td>IP address of Nexenta storage appliance.</td></tr>
-<tr><td>nexenta_rest_port</td><td>8457</td><td></td><td>Port to connect to Nexenta REST API server.</td></tr>
-<tr><td>nexenta_retry_count</td><td>6</td><td></td><td>Number of retries for unsuccessful API calls.</td></tr>
-<tr><td>nexenta_rest_protocol</td><td>auto</td><td>[http, https, auto]</td><td>Use http or https for REST connection .</td></tr>
-<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to Nexenta SA.</td></tr>
-<tr><td>nexenta_password</td><td></td><td></td><td>Password to connect to Nexenta SA.</td></tr>
-<tr><td>nexenta_volume</td><td>volume1</td><td></td><td>Volume name on NexentaStor4</td></tr>
-<tr><td>nexenta_pool</td><td>pool1</td><td></td><td>Pool name on NexentaStor5.</td></tr>
-<tr><td>nexenta_mount_point_base</td><td>$state_path/mnt</td><td></td><td>Base directory that contains NFS share mount points.</td></tr>
-<tr><td>nexenta_nfs_share</td><td>nfs_share</td><td></td><td>Parent folder on NexentaStor that will contain all manila folders.</td></tr>
-<tr><td>nexenta_dataset_compression</td><td>on</td><td>[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,gzip-9, lzjb, zle, lz4]</td><td>Compression value for new ZFS folders.</td></tr>
-<tr><td>nexenta_dataset_dedupe</td><td>off</td><td>[on, off, sha256, verify]</td><td>Deduplication value for new ZFS folders.</td></tr>
-<tr><td>nexenta_thin_provisioning</td><td>True</td><td>Boolean</td><td>If True shares will not be space guaranteed and overprovisioning will be enabled.’</td></tr>
-</tbody>
-</table>
+<p>[DEFAULT]
+enabled_share_backends = ns5_nfs
+enabled_share_protocols = NFS</p>
+<p>[ns5_nfs]
+service_instance_user = manila
+service_image_name = manila-service-image
+path_to_private_key = /home/ubuntu/.ssh/id_rsa
+path_to_public_key = /home/ubuntu/.ssh/id_rsa.pub
+share_backend_name = <backend name to be used in share_types>
+driver_handles_share_servers = False
+share_driver = manila.share.drivers.nexenta.nexenta_nas.NexentaNasDriver
+nexenta_host = <Nexenta appliance IP>
+nexenta_rest_port = 8443
+nexenta_volume = <pool name on appliance>
+nexenta_share = <dataset name within the pool>
+nexenta_user = <NexentaStor username>
+nexenta_password = <NexentaStor password>
+nexenta_thin_provisioning = False/True</p>
+<pre><code>
+List of all available options:
+
+|<span class="hljs-string">Parameter name</span>|<span class="hljs-string">Default</span>|<span class="hljs-string">Choices</span>|<span class="hljs-string">Description</span>|
+|<span class="hljs-string">--- </span>|<span class="hljs-string">--- </span>|<span class="hljs-string">--- </span>|<span class="hljs-string">--- </span>|
+|<span class="hljs-string">nexenta_host</span>|||<span class="hljs-string">IP address of Nexenta storage appliance.</span>|
+|<span class="hljs-string">nexenta_rest_port</span>|<span class="hljs-string">8457</span>||<span class="hljs-string">Port to connect to Nexenta REST API server.</span>|
+|<span class="hljs-string">nexenta_retry_count</span>|<span class="hljs-string">6</span>||<span class="hljs-string">Number of retries for unsuccessful API calls.</span>|
+|<span class="hljs-string">nexenta_rest_protocol</span>|<span class="hljs-string">auto</span>|<span class="hljs-string">[http, https, auto]</span>|<span class="hljs-string">Use http or https for REST connection .</span>|
+|<span class="hljs-string">nexenta_user</span>|<span class="hljs-string">admin</span>||<span class="hljs-string">User name to connect to Nexenta SA.</span>|
+|<span class="hljs-string">nexenta_password</span>|||<span class="hljs-string">Password to connect to Nexenta SA.</span>|
+|<span class="hljs-string">nexenta_volume</span>|<span class="hljs-string">volume1</span>||<span class="hljs-string">Volume name on NexentaStor4</span>|
+|<span class="hljs-string">nexenta_pool</span>|<span class="hljs-string">pool1</span>||<span class="hljs-string">Pool name on NexentaStor5.</span>|
+|<span class="hljs-string">nexenta_mount_point_base</span>|<span class="hljs-string">$state_path/mnt</span>||<span class="hljs-string">Base directory that contains NFS share mount points.</span>|
+|<span class="hljs-string">nexenta_nfs_share</span>|<span class="hljs-string">nfs_share</span>||<span class="hljs-string">Parent folder on NexentaStor that will contain all manila folders.</span>|
+|<span class="hljs-string">nexenta_dataset_compression</span>|<span class="hljs-string">on</span>|<span class="hljs-string">[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,gzip-9, lzjb, zle, lz4]</span>|<span class="hljs-string">Compression value for new ZFS folders.</span>|
+|<span class="hljs-string">nexenta_dataset_dedupe</span>|<span class="hljs-string">off</span>|<span class="hljs-string">[on, off, sha256, verify]</span>|<span class="hljs-string">Deduplication value for new ZFS folders.</span>|
+|<span class="hljs-string">nexenta_thin_provisioning</span>|<span class="hljs-string">True</span>|<span class="hljs-string">Boolean</span>|<span class="hljs-string">If True shares will not be space guaranteed and overprovisioning will be enabled.'</span>|</code></pre>
 
         </article>
     </section>
