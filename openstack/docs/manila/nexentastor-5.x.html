@@ -129,11 +129,27 @@ nexenta_thin_provisioning = False/True
 </tbody>
 </table>
 <h2>Using Manila Driver</h2>
-<h3>Create type</h3>
+<h3>Create share type</h3>
+<pre><code>manila <span class="hljs-built_in">type</span>-<span class="hljs-built_in">create</span> my_type1 <span class="hljs-literal">false</span>
+</code></pre>
+<h3>Configure share type</h3>
+<pre><code>manila type-key my_type1 <span class="hljs-builtin-name">set</span> <span class="hljs-attribute">share_backend_name</span>=ns_nfs <span class="hljs-attribute">dataset_compression</span>=on <span class="hljs-attribute">thin_provisioning</span>=<span class="hljs-literal">true</span> <span class="hljs-attribute">snapshot_support</span>=<span class="hljs-literal">true</span> <span class="hljs-attribute">create_share_from_snapshot_support</span>=<span class="hljs-literal">true</span>
+</code></pre>
+<p>we have configured our share type to use ns_nfs backend with compression, thin provisioning and full snapshot support.</p>
 <h3>Create share (thick/thin/compression)</h3>
+<pre><code><span class="hljs-comment">manila</span> <span class="hljs-comment">create</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">share_type</span> <span class="hljs-comment">my_type1</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">name</span> <span class="hljs-comment">my_share1</span> <span class="hljs-comment">nfs</span> <span class="hljs-comment">10</span>
+</code></pre>
+<p>we have created a share of share type “my_type1” named my_share1 shared via NFS with 10 GB size.</p>
 <h3>Setup permissions</h3>
+<pre><code>manila access-allow --access-level ro my_share1<span class="hljs-built_in"> ip </span>10.0.1.1
+</code></pre>
+<p>note that default access level is rw.</p>
 <h3>Create snapshot</h3>
+<pre><code>manila snapshot-<span class="hljs-keyword">create</span> my_share1
+</code></pre>
 <h3>Copy from snapshot</h3>
+<pre><code>manila create --share_type my_type1 --snapshot dc9437db<span class="hljs-number">-83</span>ae<span class="hljs-number">-4443</span>-aecd<span class="hljs-number">-6840845482e7</span> --name my_share_from_snapshot<span class="hljs-number">-1</span> nfs <span class="hljs-number">20</span>
+</code></pre>
 
         </article>
     </section>
