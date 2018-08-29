@@ -38,13 +38,13 @@
         <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html class="active"><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading 4.x to 5.x</p></a></li></ul></li></ul></nav>
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Nexenta Drivers for OpenStack Cinder</h1>
-            <h2>Supported OpenStack Releases</h2>
+            <h3>Supported OpenStack Releases</h3>
 <ul>
 <li>NexentaStor 4.x - Juno+</li>
 <li>NexentaStor 5.x - Juno+</li>
 <li>NexentaEdge 2.1.x - Newton+</li>
 </ul>
-<h2>Feature List</h2>
+<h3>Feature List</h3>
 <table>
 <thead>
 <tr><th>Feature</th><th>NexentaStor 4</th><th>NexentaStor 5.1</th><th>NexentaEdge 2.1</th></tr>
@@ -72,13 +72,13 @@
 <tr><td>Snapshot Revert</td><td>—</td><td>✔ (in Pike and later)</td><td>✔</td></tr>
 </tbody>
 </table>
-<h2>Cinder and Replication</h2>
+<h3>Cinder and Replication</h3>
 <ul>
 <li>Replication on Consistency group level</li>
 <li>Replication of clones will result in a full filesystems (Not efficient from capacity perspective)</li>
 <li>Cinder snapshots are omitted in replication in 5.1.x (We expect fix in 5.2FP1)</li>
 </ul>
-<h2>Troubleshooting</h2>
+<h3>Troubleshooting</h3>
 <p>grep for “Traceback” in your Openstack logs folder, default is</p>
 <p><em>/var/log/openstack-project</em>, for example: <code>/var/log/cinder/cinder-volume.log</code></p>
 <p>Most of the errors related to storage are in Cinder or Nova logs.</p>

@@ -38,9 +38,9 @@
         <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html class="active"><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading 4.x to 5.x</p></a></li></ul></li></ul></nav>
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">NexentaStor 4.x</h1>
-            <h2>Overview</h2>
+            <h3>Overview</h3>
 <p>ToDo</p>
-<h2>Supported operations are:</h2>
+<h3>Supported operations are:</h3>
 <ul>
 <li>Create NFS share.</li>
 <li>Delete NFS share.</li>
@@ -54,12 +54,12 @@
 <li>Create share from snapshot</li>
 <li>Thin/thick provisioning</li>
 </ul>
-<h2>Requirements</h2>
+<h3>Requirements</h3>
 <ul>
 <li>NexentaStor Appliance pre-provisioned and licensed, etc</li>
 <li>OpenStack Preprovisioned with Manila Plugin</li>
 </ul>
-<h2>Deployment</h2>
+<h3>Deployment</h3>
 <p>Create DevStack user:</p>
 <pre><code><span class="hljs-meta">root#</span><span class="bash"> useradd -s /bin/bash -d /opt/stack -m stack</span>
 <span class="hljs-meta">root#</span><span class="bash"> <span class="hljs-built_in">echo</span> <span class="hljs-string">"stack ALL=(ALL) NOPASSWD: ALL"</span> | tee /etc/sudoers.d/stack</span>

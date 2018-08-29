@@ -38,7 +38,7 @@
         <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html class="active"><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading 4.x to 5.x</p></a></li></ul></li></ul></nav>
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">NexentaStor 4.x</h1>
-            <h2>Cinder Driver Prerequisites</h2>
+            <h3>Cinder Driver Prerequisites</h3>
 <ul>
 <li>Storage appliance must be configured and licensed</li>
 <li>Volume (zpool) must be created</li>
@@ -46,7 +46,7 @@
 <li>(NFS only) NFS share created</li>
 <li>Storage Network configured between NS Appliance and OpenStack Hypervisors (Recommended 10GBE, MTU 9000)</li>
 </ul>
-<h2>Where to get Cinder Drivers?</h2>
+<h3>Where to get Cinder Drivers?</h3>
 <p>It’s recommended to get the latest driver from Nexenta’s repository: <a href="https://github.com/Nexenta/cinder">https://github.com/Nexenta/cinder</a></p>
 <p>The branches in the repository correspond with Openstack releases.</p>
 <p>To following command can be used to download the exact version w/o having to switch branches</p>
@@ -54,7 +54,7 @@
 <p>Nexenta Drivers are located under the following path:
 <a href="https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta">https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta</a></p>
 <p>The path includes driver for NexentaStor 4.x, NexentaStor 5.x and NexnetaEdge 2.0. Make sure to copy the whole folder.</p>
-<h2>Installation Steps</h2>
+<h3>Installation Steps</h3>
 <ol>
 <li>Determine cinder driver location path used in your environment</li>
 <li>Clone or download the correct version of the drivers, unzip if downloaded and copy to the cinder location. For example drivers for Mitaka release:
@@ -70,7 +70,7 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <code>$ sudo service cinder-volume restart</code></li>
 </ul></li>
 </ol>
-<h3>NexentaStor 4.x NFS minimal recommended cinder.conf</h3>
+<h4>NexentaStor 4.x NFS minimal recommended cinder.conf</h4>
 <pre><code><span class="hljs-section">[DEFAULT]</span>
 <span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
 <span class="hljs-section">
@@ -84,7 +84,7 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <pre><code><span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.1</span>:/volumes/tank1/nfs_share http://admin:nexenta@<span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.1</span>:<span class="hljs-number">8457</span>
 <span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.100</span>:/volumes/tank2/cinder-volumes http://admin:secret@<span class="hljs-number">10.0</span><span class="hljs-meta">.0</span><span class="hljs-meta">.100</span>:<span class="hljs-number">8457</span>
 </code></pre>
-<h2>NexentaStor 4.x NFS - List of all available options</h2>
+<h3>NexentaStor 4.x NFS - List of all available options</h3>
 <table>
 <thead>
 <tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
@@ -106,7 +106,7 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 </tbody>
 </table>
 <p>Note: As of the Icehouse release, the NFS based drivers will attempt to mount shares using version 4.1 of the NFS protocol (including pNFS). If the mount attempt is unsuccessful due to a lack of client or server support, a subsequent mount attempt that requests the default behavior of the mount.nfs command will be performed. On most distributions, the default behavior is to attempt mounting first with NFS v4.0, then silently fall back to NFS v3.0 if necessary. If the <code>nfs_mount_options</code> configuration option contains a request for a specific version of NFS to be used the mount will be attempted as requested with no subsequent attempts.</p>
-<h3>NexentaStor 4.x iSCSI minimal recommended cinder.conf</h3>
+<h4>NexentaStor 4.x iSCSI minimal recommended cinder.conf</h4>
 <pre><code><span class="hljs-section">[DEFAULT]</span>
 <span class="hljs-attr">driver_ssl_cert_verify</span> = <span class="hljs-literal">False</span>
 <span class="hljs-section">
@@ -119,7 +119,7 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <span class="hljs-attr">nexenta_password</span> = nexenta
 <span class="hljs-attr">nexenta_volume</span> = tank
 </code></pre>
-<h2>NexentaStor 4.x iSCSI - List of all available options</h2>
+<h3>NexentaStor 4.x iSCSI - List of all available options</h3>
 <table>
 <thead>
 <tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
@@ -143,7 +143,7 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <tr><td>nexenta_target_group_prefix</td><td>cinder</td><td></td><td>Prefix for iSCSI target groups on SA</td></tr>
 </tbody>
 </table>
-<h2>NexentaStor 4.x vs. 5.x Options Conversion Table</h2>
+<h3>NexentaStor 4.x vs. 5.x Options Conversion Table</h3>
 <table>
 <thead>
 <tr><th>4.x param</th><th>5.x param</th><th>Description</th></tr>
@@ -156,18 +156,18 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/<span class="hljs-cla
 <tr><td>nexenta_iscsi_target_portal_groups</td><td>nexenta_iscsi_target_portals and nexenta_iscsi_target_portal_port</td><td>4.x exposes TPGs while 5.x creates them using list of portals (IPs)</td></tr>
 </tbody>
 </table>
-<h2>iSCSI Multipath</h2>
+<h3>iSCSI Multipath</h3>
 <p>Openstack Nova provides the ability to use iSCSI Multipath. To enable Multipath you need to add following line into nova.conf in the [libvirt] section:</p>
 <pre><code><span class="hljs-section">[libvirt]</span>
 <span class="hljs-attr">iscsi_use_multipath</span> = <span class="hljs-literal">True</span>
 </code></pre>
 <p>For this change to take place you need to restart nova-compute service: <code>$ sudo service restart nova-compute</code></p>
-<h2>NFS options for Nova</h2>
+<h3>NFS options for Nova</h3>
 <p>Openstack Nova provides the ability to use custom NFS options passed to the NFS client. Recommended options for nova.conf:</p>
 <pre><code><span class="hljs-section">[libvirt]</span>
 <span class="hljs-attr">nfs_mount_options</span> = vers=<span class="hljs-number">3</span>
 </code></pre>
-<h2>Backup</h2>
+<h3>Backup</h3>
 <p>This section describes how to configure the cinder-backup service and cinder NFS driver on top NexentaStor NFS share. Official documentation link: <a href="https://docs.openstack.org/newton/config-reference/block-storage/backup/nfs-backup-driver.html">NFS backup driver</a>
 Example section for cinder.conf:</p>
 <pre><code><span class="hljs-section">[DEFAULT]</span>
@@ -200,13 +200,13 @@ Modifed NFS share <span class="hljs-keyword">for</span> folder <span class="hljs
 CLI<span class="hljs-meta">@host</span>&gt; nfs share -o uidMap=<span class="hljs-string">'*:root:@10.1.1.2'</span> pool<span class="hljs-regexp">/nfs/</span>backup
 </code></pre>
 <p>Note: 10.1.1.2 - IP address of Openstack Cinder host.</p>
-<h2>Cinder and Replication</h2>
+<h3>Cinder and Replication</h3>
 <ul>
 <li>Replication on Consistency group level</li>
 <li>Replication of clones will result in a full filesystems (Not efficient from capacity perspective)</li>
 <li>Cinder snapshots are omitted in replication in 5.1.x (We expect fix in 5.2FP1)</li>
 </ul>
-<h2>Troubleshooting</h2>
+<h3>Troubleshooting</h3>
 <p>grep for “Traceback” in your Openstack logs folder, default is</p>
 <p><em>/var/log/openstack-project</em>, for example: <code>/var/log/cinder/cinder-volume.log</code></p>
 <p>Most of the errors related to storage are in Cinder or Nova logs.</p>
