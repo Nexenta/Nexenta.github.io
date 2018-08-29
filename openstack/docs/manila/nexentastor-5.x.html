@@ -66,7 +66,8 @@
 <p>To following command can be used to download the exact version w/o having to switch branches</p>
 <p><code>git clone -b stable/pike</code>  - this will download the exact version, no need to switch</p>
 <p>Nexenta Drivers are located under the following path: <a href="https://github.com/Nexenta/manila/tree/stable/pike/manila/share/drivers/nexenta">https://github.com/Nexenta/manila/tree/stable/pike/manila/share/drivers/nexenta</a></p>
-<p>The path includes drivers for NexentaStor 4.x and NexentaStor 5.x Make sure to copy the whole folder.</p>
+<p>The path includes drivers for NexentaStor 4.x and NexentaStor 5.x
+Make sure to copy the whole folder.</p>
 <h3>Installation Steps</h3>
 <ol>
 <li>Determine manila driver location path used in your environment</li>
@@ -84,45 +85,55 @@ $ cp -rf nexenta-manila/manila/share/drivers/nexenta /usr/<span class="hljs-clas
 </ul></li>
 </ol>
 <p>manila.conf driver section examples:</p>
-<pre><code>
-<span class="hljs-symbol">NStor5:</span>
-</code></pre>
-<p>[DEFAULT]
+<pre><code><span class="hljs-section">NStor5:</span>
+
+[DEFAULT]
 enabled_share_backends = ns5_nfs
-enabled_share_protocols = NFS</p>
-<p>[ns5_nfs]
+enabled_share_protocols = NFS
+
+[ns5_nfs]
 service_instance_user = manila
 service_image_name = manila-service-image
 path_to_private_key = /home/ubuntu/.ssh/id_rsa
 path_to_public_key = /home/ubuntu/.ssh/id_rsa.pub
-share_backend_name = <backend name to be used in share_types>
+share_backend_name = &lt;backend name to be used in share_types&gt;
 driver_handles_share_servers = False
 share_driver = manila.share.drivers.nexenta.nexenta_nas.NexentaNasDriver
-nexenta_host = <Nexenta appliance IP>
+nexenta_host = &lt;Nexenta appliance IP&gt;
 nexenta_rest_port = 8443
-nexenta_volume = <pool name on appliance>
-nexenta_share = <dataset name within the pool>
-nexenta_user = <NexentaStor username>
-nexenta_password = <NexentaStor password>
-nexenta_thin_provisioning = False/True</p>
-<pre><code>
-List of all available options:
-
-|<span class="hljs-string">Parameter name</span>|<span class="hljs-string">Default</span>|<span class="hljs-string">Choices</span>|<span class="hljs-string">Description</span>|
-|<span class="hljs-string">--- </span>|<span class="hljs-string">--- </span>|<span class="hljs-string">--- </span>|<span class="hljs-string">--- </span>|
-|<span class="hljs-string">nexenta_host</span>|||<span class="hljs-string">IP address of Nexenta storage appliance.</span>|
-|<span class="hljs-string">nexenta_rest_port</span>|<span class="hljs-string">8457</span>||<span class="hljs-string">Port to connect to Nexenta REST API server.</span>|
-|<span class="hljs-string">nexenta_retry_count</span>|<span class="hljs-string">6</span>||<span class="hljs-string">Number of retries for unsuccessful API calls.</span>|
-|<span class="hljs-string">nexenta_rest_protocol</span>|<span class="hljs-string">auto</span>|<span class="hljs-string">[http, https, auto]</span>|<span class="hljs-string">Use http or https for REST connection .</span>|
-|<span class="hljs-string">nexenta_user</span>|<span class="hljs-string">admin</span>||<span class="hljs-string">User name to connect to Nexenta SA.</span>|
-|<span class="hljs-string">nexenta_password</span>|||<span class="hljs-string">Password to connect to Nexenta SA.</span>|
-|<span class="hljs-string">nexenta_volume</span>|<span class="hljs-string">volume1</span>||<span class="hljs-string">Volume name on NexentaStor4</span>|
-|<span class="hljs-string">nexenta_pool</span>|<span class="hljs-string">pool1</span>||<span class="hljs-string">Pool name on NexentaStor5.</span>|
-|<span class="hljs-string">nexenta_mount_point_base</span>|<span class="hljs-string">$state_path/mnt</span>||<span class="hljs-string">Base directory that contains NFS share mount points.</span>|
-|<span class="hljs-string">nexenta_nfs_share</span>|<span class="hljs-string">nfs_share</span>||<span class="hljs-string">Parent folder on NexentaStor that will contain all manila folders.</span>|
-|<span class="hljs-string">nexenta_dataset_compression</span>|<span class="hljs-string">on</span>|<span class="hljs-string">[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,gzip-9, lzjb, zle, lz4]</span>|<span class="hljs-string">Compression value for new ZFS folders.</span>|
-|<span class="hljs-string">nexenta_dataset_dedupe</span>|<span class="hljs-string">off</span>|<span class="hljs-string">[on, off, sha256, verify]</span>|<span class="hljs-string">Deduplication value for new ZFS folders.</span>|
-|<span class="hljs-string">nexenta_thin_provisioning</span>|<span class="hljs-string">True</span>|<span class="hljs-string">Boolean</span>|<span class="hljs-string">If True shares will not be space guaranteed and overprovisioning will be enabled.'</span>|</code></pre>
+nexenta_volume = &lt;pool name on appliance&gt;
+nexenta_share = &lt;dataset name within the pool&gt;
+nexenta_user = &lt;NexentaStor username&gt;
+nexenta_password = &lt;NexentaStor password&gt;
+nexenta_thin_provisioning = False/True
+</code></pre>
+<p>List of all available options:</p>
+<table>
+<thead>
+<tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>nexenta_host</td><td></td><td></td><td>IP address of Nexenta storage appliance.</td></tr>
+<tr><td>nexenta_rest_port</td><td>8457</td><td></td><td>Port to connect to Nexenta REST API server.</td></tr>
+<tr><td>nexenta_retry_count</td><td>6</td><td></td><td>Number of retries for unsuccessful API calls.</td></tr>
+<tr><td>nexenta_rest_protocol</td><td>auto</td><td>[http, https, auto]</td><td>Use http or https for REST connection .</td></tr>
+<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to Nexenta SA.</td></tr>
+<tr><td>nexenta_password</td><td></td><td></td><td>Password to connect to Nexenta SA.</td></tr>
+<tr><td>nexenta_volume</td><td>volume1</td><td></td><td>Volume name on NexentaStor4</td></tr>
+<tr><td>nexenta_pool</td><td>pool1</td><td></td><td>Pool name on NexentaStor5.</td></tr>
+<tr><td>nexenta_mount_point_base</td><td>$state_path/mnt</td><td></td><td>Base directory that contains NFS share mount points.</td></tr>
+<tr><td>nexenta_nfs_share</td><td>nfs_share</td><td></td><td>Parent folder on NexentaStor that will contain all manila folders.</td></tr>
+<tr><td>nexenta_dataset_compression</td><td>on</td><td>[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,gzip-9, lzjb, zle, lz4]</td><td>Compression value for new ZFS folders.</td></tr>
+<tr><td>nexenta_dataset_dedupe</td><td>off</td><td>[on, off, sha256, verify]</td><td>Deduplication value for new ZFS folders.</td></tr>
+<tr><td>nexenta_thin_provisioning</td><td>True</td><td>Boolean</td><td>If True shares will not be space guaranteed and overprovisioning will be enabled.’</td></tr>
+</tbody>
+</table>
+<h2>Using Manila Driver</h2>
+<h3>Create type</h3>
+<h3>Create share (thick/thin/compression)</h3>
+<h3>Setup permissions</h3>
+<h3>Create snapshot</h3>
+<h3>Copy from snapshot</h3>
 
         </article>
     </section>
