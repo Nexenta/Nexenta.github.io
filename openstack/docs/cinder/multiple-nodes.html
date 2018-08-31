@@ -46,9 +46,9 @@
 <li><a href="https://docs.openstack.org/mitaka/config-reference/block-storage/volume-misc.html">Coordination configuration options</a></li>
 </ul>
 <p>For example, we can use existing Cinder database as backend for coordinated distributed lock systems:</p>
-<pre><code>$ cat <span class="hljs-regexp">/etc/</span>cinder/cinder.conf
+<pre><code>$ cat /etc/cinder/cinder.conf
 [COORDINATION]
-backend_url = <span class="hljs-string">driver:</span><span class="hljs-comment">//user:password@host/database?charset=utf8</span>
+backend_url = driver://user:password@host/database?charset=utf8
 </code></pre>
 <p>Available Openstack coordination backend drivers: file, etcd, redis, memcached, mysql, pgsql and zookeeper.</p>
 

@@ -39,8 +39,8 @@
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">iSCSI Multipath</h1>
             <p>Openstack Nova provides the ability to use iSCSI Multipath. To enable Multipath you need to add following line into nova.conf in the [libvirt] section:</p>
-<pre><code><span class="hljs-section">[libvirt]</span>
-<span class="hljs-attr">iscsi_use_multipath</span> = <span class="hljs-literal">True</span>
+<pre><code>[libvirt]
+iscsi_use_multipath = True
 </code></pre>
 <p>For this change to take place you need to restart nova-compute service: <code>$ sudo service restart nova-compute</code></p>
 

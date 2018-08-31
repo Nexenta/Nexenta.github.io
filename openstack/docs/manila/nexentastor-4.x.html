@@ -61,67 +61,67 @@
 </ul>
 <h3>Deployment</h3>
 <p>Create DevStack user:</p>
-<pre><code><span class="hljs-meta">root#</span><span class="bash"> useradd -s /bin/bash -d /opt/stack -m stack</span>
-<span class="hljs-meta">root#</span><span class="bash"> <span class="hljs-built_in">echo</span> <span class="hljs-string">"stack ALL=(ALL) NOPASSWD: ALL"</span> | tee /etc/sudoers.d/stack</span>
-<span class="hljs-meta">root#</span><span class="bash"> passwd stack</span>
+<pre><code>root<span class="hljs-comment"># useradd -s /bin/bash -d /opt/stack -m stack</span>
+root<span class="hljs-comment"># echo "stack ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/stack</span>
+root<span class="hljs-comment"># passwd stack</span>
 </code></pre>
 <p>Deploy DevStack environment:</p>
-<pre><code><span class="hljs-keyword">stack</span>$ git clone https:<span class="hljs-comment">//git.openstack.org/openstack-dev/devstack</span>
-<span class="hljs-keyword">stack</span>$ <span class="hljs-keyword">cd</span> devstack
-<span class="hljs-keyword">stack</span>$ <span class="hljs-keyword">cat</span> <span class="hljs-keyword">local</span>.<span class="hljs-keyword">conf</span> &lt;&lt;'EOF'
-[[<span class="hljs-keyword">local</span>|localrc]]
+<pre><code>stack$ git <span class="hljs-built_in">clone</span> https://git.openstack.org/openstack-dev/devstack
+stack$ <span class="hljs-built_in">cd</span> devstack
+stack$ cat local.conf &lt;&lt;<span class="hljs-string">'EOF'</span>
+[[<span class="hljs-built_in">local</span>|localrc]]
 ADMIN_PASSWORD=secret
 DATABASE_PASSWORD=<span class="hljs-variable">$ADMIN_PASSWORD</span>
 RABBIT_PASSWORD=<span class="hljs-variable">$ADMIN_PASSWORD</span>
 SERVICE_PASSWORD=<span class="hljs-variable">$ADMIN_PASSWORD</span>
 USE_SCREEN=True
 RECLONE=True
-enable_plugin manila https:<span class="hljs-comment">//github.com/openstack/manila</span>
+enable_plugin manila https://github.com/openstack/manila
 EOF
 
-<span class="hljs-keyword">stack</span>$ ./<span class="hljs-keyword">stack</span>.<span class="hljs-keyword">sh</span>
+stack$ ./stack.sh
 </code></pre>
 <p>manila.conf driver section examples:</p>
 <p>NStor4:</p>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">enabled_share_backends</span> = ns4_nfs
-<span class="hljs-attr">enabled_share_protocols</span> = NFS
-<span class="hljs-section">
-[ns4_nfs]</span>
-<span class="hljs-attr">service_instance_user</span> = manila
-<span class="hljs-attr">service_image_name</span> = manila-service-image
-<span class="hljs-attr">path_to_private_key</span> = /home/ubuntu/.ssh/id_rsa
-<span class="hljs-attr">path_to_public_key</span> = /home/ubuntu/.ssh/id_rsa.pub
-<span class="hljs-attr">share_backend_name</span> = &lt;backend name to be used in share_types&gt;
-<span class="hljs-attr">driver_handles_share_servers</span> = <span class="hljs-literal">False</span>
-<span class="hljs-attr">share_driver</span> = manila.share.drivers.nexenta.nexenta_nas.NexentaNasDriver
-<span class="hljs-attr">nexenta_host</span> = &lt;Nexenta appliance IP&gt;
-<span class="hljs-attr">nexenta_volume</span> = &lt;volume name <span class="hljs-literal">on</span> appliance&gt;
-<span class="hljs-attr">nexenta_nfs_share</span> = &lt;nfs_share_name&gt;
-<span class="hljs-attr">nexenta_user</span> = &lt;NexentaStor username&gt;
-<span class="hljs-attr">nexenta_password</span> = &lt;NexentaStor password&gt;
-<span class="hljs-attr">nexenta_thin_provisioning</span> = <span class="hljs-literal">False</span>/<span class="hljs-literal">True</span>
+<pre><code>[DEFAULT]
+enabled_share_backends = ns4_nfs
+enabled_share_protocols = NFS
+
+[ns4_nfs]
+service_instance_user = manila
+service_image_name = manila-service-image
+path_to_private_key = /home/ubuntu/.ssh/id_rsa
+path_to_public_key = /home/ubuntu/.ssh/id_rsa.pub
+share_backend_name = &lt;backend name to be used <span class="hljs-keyword">in</span> share_types&gt;
+driver_handles_share_servers = False
+share_driver = manila.share.drivers.nexenta.nexenta_nas.NexentaNasDriver
+nexenta_host = &lt;Nexenta appliance IP&gt;
+nexenta_volume = &lt;volume name on appliance&gt;
+nexenta_nfs_share = &lt;nfs_share_name&gt;
+nexenta_user = &lt;NexentaStor username&gt;
+nexenta_password = &lt;NexentaStor password&gt;
+nexenta_thin_provisioning = False/True
 </code></pre>
 <p>NStor5:</p>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">enabled_share_backends</span> = ns5_nfs
-<span class="hljs-attr">enabled_share_protocols</span> = NFS
-<span class="hljs-section">
-[ns5_nfs]</span>
-<span class="hljs-attr">service_instance_user</span> = manila
-<span class="hljs-attr">service_image_name</span> = manila-service-image
-<span class="hljs-attr">path_to_private_key</span> = /home/ubuntu/.ssh/id_rsa
-<span class="hljs-attr">path_to_public_key</span> = /home/ubuntu/.ssh/id_rsa.pub
-<span class="hljs-attr">share_backend_name</span> = &lt;backend name to be used in share_types&gt;
-<span class="hljs-attr">driver_handles_share_servers</span> = <span class="hljs-literal">False</span>
-<span class="hljs-attr">share_driver</span> = manila.share.drivers.nexenta.nexenta_nas.NexentaNasDriver
-<span class="hljs-attr">nexenta_host</span> = &lt;Nexenta appliance IP&gt;
-<span class="hljs-attr">nexenta_rest_port</span> = <span class="hljs-number">8443</span>
-<span class="hljs-attr">nexenta_volume</span> = &lt;pool name <span class="hljs-literal">on</span> appliance&gt;
-<span class="hljs-attr">nexenta_share</span> = &lt;dataset name within the pool&gt;
-<span class="hljs-attr">nexenta_user</span> = &lt;NexentaStor username&gt;
-<span class="hljs-attr">nexenta_password</span> = &lt;NexentaStor password&gt;
-<span class="hljs-attr">nexenta_thin_provisioning</span> = <span class="hljs-literal">False</span>/<span class="hljs-literal">True</span>
+<pre><code>[DEFAULT]
+enabled_share_backends = ns5_nfs
+enabled_share_protocols = NFS
+
+[ns5_nfs]
+service_instance_user = manila
+service_image_name = manila-service-image
+path_to_private_key = /home/ubuntu/.ssh/id_rsa
+path_to_public_key = /home/ubuntu/.ssh/id_rsa.pub
+share_backend_name = &lt;backend name to be used <span class="hljs-keyword">in</span> share_types&gt;
+driver_handles_share_servers = False
+share_driver = manila.share.drivers.nexenta.nexenta_nas.NexentaNasDriver
+nexenta_host = &lt;Nexenta appliance IP&gt;
+nexenta_rest_port = 8443
+nexenta_volume = &lt;pool name on appliance&gt;
+nexenta_share = &lt;dataset name within the pool&gt;
+nexenta_user = &lt;NexentaStor username&gt;
+nexenta_password = &lt;NexentaStor password&gt;
+nexenta_thin_provisioning = False/True
 </code></pre>
 <p>List of all available options:</p>
 <table>

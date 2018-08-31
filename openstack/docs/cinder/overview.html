@@ -84,8 +84,8 @@
 <p>Most of the errors related to storage are in Cinder or Nova logs.</p>
 <p>If the error is not self explanatory, enable the debug logging, restart the service and try to reproduce the error. Debug loggings will trace all calls to Nexenta, which allows to narrow down the possible cause of the error.</p>
 <p>To enable debug in cinder, add the following line to cinder.conf:</p>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">debug</span>=<span class="hljs-literal">True</span>
+<pre><code>[DEFAULT]
+debug=True
 </code></pre>
 <p>And restart cinder-volume: <code>sudo service cinder-volume restart</code></p>
 

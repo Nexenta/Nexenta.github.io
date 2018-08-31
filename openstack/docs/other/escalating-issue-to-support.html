@@ -54,7 +54,7 @@
 </tbody>
 </table>
 <p>Shell command to check errors:</p>
-<pre><code><span class="hljs-meta">$</span><span class="bash"> grep -r Traceback /var/<span class="hljs-built_in">log</span>/{cinder,nova}/*.<span class="hljs-built_in">log</span></span>
+<pre><code>$ grep -r Traceback /var/<span class="hljs-built_in">log</span>/{cinder,nova}/*.<span class="hljs-built_in">log</span>
 </code></pre>
 <p><strong>Location of Openstack log files for systemd distros:</strong></p>
 <table>
@@ -70,17 +70,17 @@
 </tbody>
 </table>
 <p>Shell command to check error:</p>
-<pre><code><span class="hljs-meta">$</span><span class="bash"> journalctl -a -u service_name | grep Traceback</span>
+<pre><code>$ journalctl -a -u service_name | grep Traceback
 </code></pre>
 <p>Note: the most effective way to find Python tracebacks from text is the <a href="https://pypi.org/project/tbgrep/">tbgrep</a> command-line tool:</p>
-<pre><code><span class="hljs-meta">$</span><span class="bash"> sudo pip install tbgrep</span>
-<span class="hljs-meta">$</span><span class="bash"> tbgrep /var/<span class="hljs-built_in">log</span>/{cinder,nova}/*.<span class="hljs-built_in">log</span></span>
-<span class="hljs-meta">$</span><span class="bash"> journalctl -a -u service_name | tbgrep</span>
+<pre><code>$ sudo pip install tbgrep
+$ tbgrep /var/<span class="hljs-built_in">log</span>/{cinder,nova}/*.<span class="hljs-built_in">log</span>
+$ journalctl -a -u service_name | tbgrep
 </code></pre>
 <p>If the error is not self explanatory, enable the debug logging, restart the service and try to reproduce the error. Debug loggings will trace all calls to Nexenta, which allows to narrow down the possible cause of the error.</p>
 <p>To enable debug in cinder, add the following line to cinder.conf:</p>
-<pre><code><span class="hljs-section">[DEFAULT]</span>
-<span class="hljs-attr">debug</span> = <span class="hljs-literal">True</span>
+<pre><code>[DEFAULT]
+debug = True
 </code></pre>
 <p>And restart cinder volume service.</p>
 <p>SysV distros: <code>sudo service cinder-volume restart</code></p>
