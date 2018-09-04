@@ -40,33 +40,45 @@
             <h1 itemprop="name">Troubleshooting and Support Request</h1>
             <h2>Troubleshooting</h2>
 <p>Check Openstack log files for error messages. Most of the errors related to storage are in Cinder or Nova logs.</p>
-<p><strong>Location of Openstack log files for SysV distros:</strong></p>
+<p><strong>Location of Openstack log files for Upstart and SysV based distros:</strong></p>
 <table>
 <thead>
 <tr><th>Project</th><th>Directory</th><th>Log Files</th></tr>
 </thead>
 <tbody>
-<tr><td>Cinder API</td><td>/var/log/cinder</td><td>cinder-api.log</td></tr>
-<tr><td>Cinder Backup</td><td>/var/log/cinder</td><td>cinder-backup.log</td></tr>
-<tr><td>Cinder Scheduler</td><td>/var/log/cinder</td><td>cinder-scheduler.log</td></tr>
-<tr><td>Cinder Volume</td><td>/var/log/cinder</td><td>cinder-volume.log</td></tr>
+<tr><td>Cinder API</td><td>/var/log/cinder</td><td>cinder-api.log or api.log</td></tr>
+<tr><td>Cinder Backup</td><td>/var/log/cinder</td><td>cinder-backup.log or backup.log</td></tr>
+<tr><td>Cinder Manage</td><td>/var/log/cinder</td><td>cinder-manage.log or manage.log</td></tr>
+<tr><td>Cinder Scheduler</td><td>/var/log/cinder</td><td>cinder-scheduler.log or scheduler.log</td></tr>
+<tr><td>Cinder Volume</td><td>/var/log/cinder</td><td>cinder-volume.log or volume.log</td></tr>
+<tr><td>Manila API</td><td>/var/log/manila</td><td>manila-api.log or api.log</td></tr>
+<tr><td>Manila Manage</td><td>/var/log/manila</td><td>manila-manage.log or manage.log</td></tr>
+<tr><td>Manila Scheduler</td><td>/var/log/manila</td><td>manila-scheduler.log or scheduler.log</td></tr>
+<tr><td>Manila Share</td><td>/var/log/manila</td><td>manila-share.log or share.log</td></tr>
+<tr><td>Manila Data</td><td>/var/log/manila</td><td>manila-data.log or data.log</td></tr>
 <tr><td>Nova Compute</td><td>/var/log/nova</td><td>nova-compute.log</td></tr>
 </tbody>
 </table>
 <p>Shell command to check errors:</p>
-<pre><code>$ grep -r Traceback /var/<span class="hljs-built_in">log</span>/{cinder,nova}/*.<span class="hljs-built_in">log</span>
+<pre><code>$ grep -r Traceback /var/<span class="hljs-built_in">log</span>/{cinder,manila,nova}/*.<span class="hljs-built_in">log</span>
 </code></pre>
-<p><strong>Location of Openstack log files for systemd distros:</strong></p>
+<p><strong>Location of Openstack log files for systemd based distros:</strong></p>
 <table>
 <thead>
 <tr><th>Project</th><th>Service name (CentOS/Fedora/SUSE/RedHat)</th><th>Service name (Debian/Ubuntu)</th></tr>
 </thead>
 <tbody>
-<tr><td>Cinder API</td><td>openstack-cinder-api</td><td>cinder-api</td></tr>
-<tr><td>Cinder Backup</td><td>openstack-cinder-backup</td><td>cinder-backup</td></tr>
-<tr><td>Cinder Scheduler</td><td>openstack-cinder-scheduler</td><td>cinder-scheduler</td></tr>
-<tr><td>Cinder Volume</td><td>openstack-cinder-volume</td><td>cinder-volume</td></tr>
-<tr><td>Nova Compute</td><td>openstack-nova-compute</td><td>nova-compute</td></tr>
+<tr><td>Cinder API</td><td>openstack-cinder-api or cinder-api</td><td>cinder-api</td></tr>
+<tr><td>Cinder Backup</td><td>openstack-cinder-backup or cinder-backup</td><td>cinder-backup</td></tr>
+<tr><td>Cinder Manage</td><td>openstack-cinder-manage or cinder-manage</td><td>cinder-manage</td></tr>
+<tr><td>Cinder Scheduler</td><td>openstack-cinder-scheduler or cinder-scheduler</td><td>cinder-scheduler</td></tr>
+<tr><td>Cinder Volume</td><td>openstack-cinder-volume or cinder-volume</td><td>cinder-volume</td></tr>
+<tr><td>Manila API</td><td>openstack-manila-api or manila-api</td><td>manila-api</td></tr>
+<tr><td>Manila Manage</td><td>openstack-manila-manage or manila-manage</td><td>manila-manage</td></tr>
+<tr><td>Manila Scheduler</td><td>openstack-manila-scheduler or manila-scheduler</td><td>manila-scheduler</td></tr>
+<tr><td>Manila Share</td><td>openstack-manila-share or manila-share</td><td>manila-share</td></tr>
+<tr><td>Manila Data</td><td>openstack-manila-data or manila-data</td><td>manila-data</td></tr>
+<tr><td>Nova Compute</td><td>openstack-nova-compute or nova-compute</td><td>nova-compute</td></tr>
 </tbody>
 </table>
 <p>Shell command to check error:</p>
@@ -74,7 +86,7 @@
 </code></pre>
 <p>Note: the most effective way to find Python tracebacks from text is the <a href="https://pypi.org/project/tbgrep/">tbgrep</a> command-line tool:</p>
 <pre><code>$ sudo pip install tbgrep
-$ tbgrep /var/<span class="hljs-built_in">log</span>/{cinder,nova}/*.<span class="hljs-built_in">log</span>
+$ tbgrep /var/<span class="hljs-built_in">log</span>/{cinder,manila,nova}/*.<span class="hljs-built_in">log</span>
 $ journalctl -a -u service_name | tbgrep
 </code></pre>
 <p>If the error is not self explanatory, enable the debug logging, restart the service and try to reproduce the error. Debug loggings will trace all calls to Nexenta, which allows to narrow down the possible cause of the error.</p>
@@ -82,9 +94,13 @@ $ journalctl -a -u service_name | tbgrep
 <pre><code>[DEFAULT]
 debug = True
 </code></pre>
-<p>And restart cinder volume service.</p>
-<p>SysV distros: <code>sudo service cinder-volume restart</code></p>
-<p>Systemd distros: <code>sudo systemctl restart cinder-volume</code> or <code>sudo systemctl restart openstack-cinder-volume</code></p>
+<p>To enable debug in manila, add the following line to manila.conf:</p>
+<pre><code>[DEFAULT]
+debug = True
+</code></pre>
+<p>And restart cinder volume or manila share service.</p>
+<p>Upstart and SysV based distros: <code>sudo service cinder-volume restart</code> or <code>sudo service manila-share restart</code></p>
+<p>Systemd based distros: <code>sudo systemctl restart cinder-volume</code> or <code>sudo systemctl restart openstack-cinder-volume</code>, <code>sudo systemctl restart manila-share</code> or <code>sudo systemctl restart openstack-manila-share</code></p>
 <h2>Support Request</h2>
 <p>When creating a support request please provide the following information:</p>
 <ul>
@@ -92,18 +108,20 @@ debug = True
 <li><p>Support bundle collected from NexentaStor/NexentaEdge</p></li>
 <li><p>OpenStack version (e.g. Icehouse, Juno, Kilo, Liberty, Mitaka, Newton, Ocata, Pike or Queens)</p></li>
 <li><p>nova-manage version (for reference use - <a href="https://wiki.openstack.org/wiki/Releases">https://wiki.openstack.org/wiki/Releases</a>)</p></li>
-<li><p>Cinder driver version: go to appropriate driver location and copy-paste comments from the top of file:</p>
+<li><p>Cinder or Manila driver version: go to appropriate driver location and copy-paste comments from the top of file:</p>
 <table>
 <thead>
-<tr><th>Nexenta Version</th><th>Backend</th><th>Driver Location</th></tr>
+<tr><th>Nexenta Version</th><th>Backend Type</th><th>Driver Location</th></tr>
 </thead>
 <tbody>
-<tr><td>NexentaStor4</td><td>NFS</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/nfs.py</td></tr>
-<tr><td>NexentaStor4</td><td>iSCSI</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/iscsi.py</td></tr>
-<tr><td>NexentaStor5</td><td>NFS</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/ns5/nfs.py</td></tr>
-<tr><td>NexentaStor5</td><td>iSCSI</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/ns5/iscsi.py</td></tr>
-<tr><td>NexentaEdge</td><td>iSCSI</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/nexentaedge/iscsi.py</td></tr>
-<tr><td>NexentaEdge</td><td>NBD</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/nexentaedge/nbd.py</td></tr>
+<tr><td>NexentaStor4</td><td>Cinder NFS</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/nfs.py</td></tr>
+<tr><td>NexentaStor4</td><td>Cinder iSCSI</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/iscsi.py</td></tr>
+<tr><td>NexentaStor4</td><td>Manila NFS</td><td>/usr/lib/python2.7/dist-packages/manila/share/drivers/nexenta/ns4/nexenta_nas.py</td></tr>
+<tr><td>NexentaStor5</td><td>Cinder NFS</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/ns5/nfs.py</td></tr>
+<tr><td>NexentaStor5</td><td>Cinder iSCSI</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/ns5/iscsi.py</td></tr>
+<tr><td>NexentaStor5</td><td>Manila NFS</td><td>/usr/lib/python2.7/dist-packages/manila/share/drivers/nexenta/ns5/nexenta_nas.py</td></tr>
+<tr><td>NexentaEdge</td><td>Cinder iSCSI</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/nexentaedge/iscsi.py</td></tr>
+<tr><td>NexentaEdge</td><td>Cinder NBD</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/nexentaedge/nbd.py</td></tr>
 </tbody>
 </table>
 </li>
@@ -114,33 +132,40 @@ debug = True
 <li><code>uname -a</code></li>
 <li><code>dpkg -l</code> or <code>rpm -qa</code></li>
 </ul></li>
-<li><p>Collect copy of Cinder drivers folder</p>
+<li><p>Collect copy of Cinder or Manila drivers folder</p>
 <ul>
 <li>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta</li>
+<li>/usr/lib/python2.7/dist-packages/manila/share/drivers/nexenta</li>
 </ul></li>
-<li><p>Collect Cinder configuration file:</p>
+<li><p>Collect Cinder or Manila configuration file:</p>
 <ul>
 <li>/etc/cinder/cinder.conf (default path)</li>
+<li>/etc/manila/manila.conf (default path)</li>
 </ul></li>
-<li><p>Collect Cinder and Nova log files:</p>
+<li><p>Collect Nova, Cinder or Manila log files:</p>
 <ul>
-<li>For SysV distros: <code>/var/log/cinder</code> and <code>/var/log/nova</code></li>
+<li>For Upstart and SysV based distros: <code>/var/log/nova</code>, <code>/var/log/cinder</code> or <code>/var/log/manila</code></li>
 <li>For Debian/Ubuntu and systemd:
-<pre><code><span class="hljs-keyword">for</span> <span class="hljs-built_in">log</span> <span class="hljs-keyword">in</span> cinder-api cinder-backup cinder-scheduler cinder-volume nova-compute; <span class="hljs-keyword">do</span> 
+<pre><code><span class="hljs-keyword">for</span> <span class="hljs-built_in">log</span> <span class="hljs-keyword">in</span> cinder-api cinder-backup cinder-manage cinder-scheduler cinder-volume \
+    manila-api manila-manage manila-scheduler manila-share manila-data nova-compute; <span class="hljs-keyword">do</span> 
     journalctl -a -u <span class="hljs-variable">$log</span> &gt; <span class="hljs-variable">$log</span>.txt
 <span class="hljs-keyword">done</span>
 </code></pre></li>
 <li>For CentOS/Fedora/SUSE/RedHat and systemd:
-<pre><code><span class="hljs-keyword">for</span> <span class="hljs-built_in">log</span> <span class="hljs-keyword">in</span> openstack-cinder-api openstack-cinder-backup openstack-cinder-scheduler cinder-volume openstack-nova-compute; <span class="hljs-keyword">do</span>
-  journalctl -a -u <span class="hljs-variable">$log</span> &gt; <span class="hljs-variable">$log</span>.txt
+<pre><code><span class="hljs-keyword">for</span> <span class="hljs-built_in">log</span> <span class="hljs-keyword">in</span> openstack-cinder-api openstack-cinder-backup openstack-cinder-manage \
+    openstack-cinder-scheduler openstack-cinder-volume openstack-manila-api \
+    openstack-manila-manage openstack-manila-scheduler openstack-manila-share \
+    openstack-manila-data openstack-nova-compute; <span class="hljs-keyword">do</span>
+    journalctl -a -u <span class="hljs-variable">$log</span> &gt; <span class="hljs-variable">$log</span>.txt
 <span class="hljs-keyword">done</span>
 </code></pre></li>
 </ul></li>
 <li><p>Collect log files and commands output from Nova Compute node(s):</p>
 <ul>
 <li><code>dmesg</code> command output (possible system errors)</li>
-<li><code>iscsiadm -m node -P1</code> command output (list iSCSI targets)</li>
-<li><code>iscsiadm -m session -P3</code> command output (list active iSCSI sessions and connections)</li>
+<li><code>mount</code> command output (list of mounted filesystems)</li>
+<li><code>iscsiadm -m node -P1</code> command output (list of iSCSI targets)</li>
+<li><code>iscsiadm -m session -P3</code> command output (list of active iSCSI sessions and connections)</li>
 <li><code>iscsid</code> service log file (depend on host OS and log settings: <code>/var/log/messages</code> file or <code>journalctl | grep iscsid</code> command output)</li>
 </ul></li>
 <li><p>Steps to reproduce the issue, VM’s and volumes names, time frames, any custom scripts that customer ran, etc</p></li>
