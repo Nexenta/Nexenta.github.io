@@ -99,10 +99,10 @@ path_to_public_key = /home/ubuntu/.ssh/id_rsa.pub
 share_backend_name = &lt;backend name to be used <span class="hljs-keyword">in</span> share_types&gt;
 driver_handles_share_servers = False
 share_driver = manila.share.drivers.nexenta.nexenta_nas.NexentaNasDriver
-nexenta_host = &lt;Nexenta appliance IP&gt;
+nexenta_rest_address = 10.3.1.1,10.3.1.2  <span class="hljs-comment"># Comma separated management IPs for host</span>
+nexenta_nas_host = 10.3.1.10  <span class="hljs-comment"># pool VIP</span>
 nexenta_rest_port = 8443
-nexenta_volume = &lt;pool name on appliance&gt;
-nexenta_share = &lt;dataset name within the pool&gt;
+nexenta_folder = &lt;dataset name within the pool&gt;
 nexenta_user = &lt;NexentaStor username&gt;
 nexenta_password = &lt;NexentaStor password&gt;
 nexenta_thin_provisioning = False/True
@@ -147,7 +147,7 @@ nexenta_thin_provisioning = False/True
 <h4>Create snapshot</h4>
 <pre><code>manila snapshot-create my_share1
 </code></pre>
-<h4>Copy from snapshot</h4>
+<h4>Create share from snapshot</h4>
 <pre><code>manila create --share_type my_type1 --snapshot dc9437db-83ae-4443-aecd-6840845482e7 --name my_share_from_snapshot-1 nfs 20
 </code></pre>
 
