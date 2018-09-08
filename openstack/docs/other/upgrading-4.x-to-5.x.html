@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title lang="en">Nexenta - Upgrading 4.x to 5.x</title>
+    <title lang="en">Nexenta - Upgrading NexentaStor4 to NexentaStor5</title>
     <meta name="description" content="Nexenta">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="author" content="">
@@ -35,22 +35,126 @@
     
 <section class="docs">
     <section class="container-docs">
-        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html class="active"><p>Upgrading 4.x to 5.x</p></a></li></ul></li></ul></nav>
+        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html class="active"><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li></ul></li></ul></nav>
         <article itemscope itemtype="http://schema.org/Article">
-            <h1 itemprop="name">Upgrading 4.x to 5.x</h1>
-            <h3>NexentaStor 4.x vs. 5.x Cinder Options Conversion Table</h3>
+            <h1 itemprop="name">Upgrading NexentaStor4 to NexentaStor5</h1>
+            <h3>Volumegroup specifics in NexentaStor5</h3>
+<p>NexentaStor5 has introduced significant changes in ZFS volumes management. In NexentaStor4, ZFS volumes could be located in any path of the dataset hierarchy. NexentaStor5 has introduced the datasets of specific types (which effectively are filesystems with specfic custom properties) called volumegroups. NexentaStor5 ZFS volumes could only be located inside volumegroups and cannot be located anywhere within regular filesystems or within the root of the pool. While upgrading from NexentaStor4 to NexentaStor5 upgrade scripts create NexentaStor5 volumegroups and move existing ZFS volumes there. The most significant concequence of this is that the dataset hierarchy of storage pools is being changed during the upgrade to NexentaStor5. iSCSI mappings are modified accordingly during the upgrade.</p>
+<h4>Migration behaviour for different Cinder volumes locations</h4>
 <table>
 <thead>
-<tr><th>4.x param</th><th>5.x param</th><th>Description</th></tr>
+<tr><th>Existing NexentaStor4 ZFS volume pat</th><th>Migration logic</th><th>New NexentaStor5 ZFS volume path</th></tr>
 </thead>
 <tbody>
-<tr><td>uses same param for rest and data (nexenta_host)</td><td>nexenta_rest_address</td><td>4.x does not have separate value for Rest API management</td></tr>
-<tr><td>nexenta_rest_protocol</td><td>nexenta_use_https</td><td></td></tr>
-<tr><td>nexenta_folder</td><td>volume_group</td><td>iSCSI only for 5.x, both protocols for 4.x</td></tr>
-<tr><td>nfs_shares_config</td><td>nas_share_path</td><td>5.x does not use shares.cfg</td></tr>
-<tr><td>nexenta_iscsi_target_portal_groups</td><td>nexenta_iscsi_target_portals and nexenta_iscsi_target_portal_port</td><td>4.x exposes TPGs while 5.x creates them using list of portals (IPs)</td></tr>
+<tr><td><code>pool/volume-b4f6bd24-1974-4343-88e0-f9a82affd56b</code></td><td>Create a new volume group <code>pool/pool-vg</code> and move existing Cinder volumes from root dataset to the created volume group</td><td><code>pool/pool-vg/volume-b4f6bd24-1974-4343-88e0-f9a82affd56b</code></td></tr>
+<tr><td><code>pool/san/volume-b4f6bd24-1974-4343-88e0-f9a82affd56b</code></td><td>Change properties of existing <code>pool/san</code> filesystem</td><td><code>pool/san/volume-b4f6bd24-1974-4343-88e0-f9a82affd56b</code></td></tr>
+<tr><td><code>pool/openstack/san/volume-b4f6bd24-1974-4343-88e0-f9a82affd56b</code></td><td>Create a new volume group <code>pool/openstack-san-vg</code> and move existing Cinder volumes from <code>pool/openstack/san</code> dataset to the created volume group</td><td><code>pool/openstack-san-vg/volume-b4f6bd24-1974-4343-88e0-f9a82affd56b</code></td></tr>
 </tbody>
 </table>
+<h3>Replication specifics in NexentaStor5</h3>
+<p>Nexenta Openstack Cinder driver has some specifics if used together with NexentaStor5 HPR. Please consider the following:</p>
+<ul>
+<li>Cinder volumes snapshots will not be replicated by HPR</li>
+<li>Cinder volumes will be replicated</li>
+<li>Cinder clones will be replicated as independent datasets</li>
+</ul>
+<h3>Upgrade steps</h3>
+<h5>Create openstack user</h5>
+<pre><code>CLI@host&gt; user create -p password -g other openstack
+</code></pre>
+<p><strong>Note</strong>: please repeat this step for all NexentaStor5 nodes</p>
+<h5>Backup and update existing Nexenta Cinder driver</h5>
+<pre><code>controller-node<span class="hljs-comment"># mv /usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta /usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta.bak</span>
+controller-node<span class="hljs-comment"># git clone -b stable/pike https://github.com/Nexenta/cinder /tmp/nexenta-cinder</span>
+controller-node<span class="hljs-comment"># cp -rf /tmp/nexenta-cinder/cinder/volume/drivers/nexenta /usr/lib/python2.7/dist-packages/cinder/volume/drivers</span>
+controller-node<span class="hljs-comment"># rm -rf /tmp/nexenta-cinder</span>
+</code></pre>
+<p><strong>Note</strong>: Please repeat this step for all Openstack controller/cinder nodes. And use the appropriate Cinder driver branch: queens, pike, ocata, newton, mitaka, liberty, kilo, juno or icehouse.</p>
+<h5>Create backup copy and modify Cinder configuration file /etc/cinder/cinder.conf</h5>
+<pre><code>controller-node<span class="hljs-comment"># cp /etc/cinder/cinder.conf /etc/cinder/cinder.conf.bak</span>
+controller-node<span class="hljs-comment"># vi /etc/cinder/cinder.conf</span>
+</code></pre>
+<p>For example, typical changes for the existing Cinder configuration file:</p>
+<table>
+<thead>
+<tr><th>NexentaStor4 Cinder configuration file</th><th>NexentaStor5 Cinder configuration file</th></tr>
+</thead>
+<tbody>
+<tr><td>[nexenta_iscsi]</td><td>[nexenta_iscsi]</td></tr>
+<tr><td>volume_driver = cinder.volume.drivers.nexenta.iscsi.NexentaISCSIDriver</td><td>volume_driver = cinder.volume.drivers.nexenta.ns5.iscsi.NexentaISCSIDriver</td></tr>
+<tr><td>volume_backend_name = nexenta_iscsi</td><td>volume_backend_name = nexenta_iscsi</td></tr>
+<tr><td>nexenta_volume = pool</td><td>nexenta_volume = pool</td></tr>
+<tr><td></td><td>nexenta_volume_group = pool-vg</td></tr>
+<tr><td>nexenta_user = openstack</td><td>nexenta_user = openstack</td></tr>
+<tr><td>nexenta_password = password</td><td>nexenta_password = password</td></tr>
+<tr><td>nexenta_rest_protocol = http</td><td>nexenta_use_https = True</td></tr>
+<tr><td>nexenta_rest_port = 8457</td><td>nexenta_rest_port = 8443</td></tr>
+<tr><td>nexenta_host = 192.168.1.1</td><td>nexenta_host = 192.168.1.1</td></tr>
+<tr><td></td><td>nexenta_rest_address = 10.1.1.1,10.1.1.2</td></tr>
+<tr><td></td><td></td></tr>
+<tr><td>[nexenta_nfs]</td><td>[nexenta_nfs]</td></tr>
+<tr><td>volume_driver = cinder.volume.drivers.nexenta.nfs.NexentaNfsDriver</td><td>volume_driver = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver</td></tr>
+<tr><td>volume_backend_name = nexenta_nfs</td><td>volume_backend_name = nexenta_nfs</td></tr>
+<tr><td>nexenta_shares_config = /etc/cinder/shares.cfg</td><td>nas_host = 192.168.1.1</td></tr>
+<tr><td></td><td>nexenta_rest_address = 10.1.1.1,10.1.1.2</td></tr>
+<tr><td></td><td>nexenta_rest_port = 8443</td></tr>
+<tr><td></td><td>nexenta_use_https = True</td></tr>
+<tr><td></td><td>nexenta_user = openstack</td></tr>
+<tr><td></td><td>nexenta_password = password</td></tr>
+<tr><td></td><td>nas_share_path = pool1/openstack</td></tr>
+<tr><td>nfs_mount_options = vers=3</td><td>nfs_mount_options = vers=3</td></tr>
+</tbody>
+</table>
+<h5>NexentaStor4 vs NexentaStor5 Cinder Options Conversion Table</h5>
+<table>
+<thead>
+<tr><th>NexentaStor4 parameter</th><th>NexentaStor5 parameter</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>uses same parameter nexenta_host for rest and data</td><td>nexenta_rest_address</td><td>NexentaStor4 does not have separate value for Rest API management</td></tr>
+<tr><td>nexenta_rest_protocol = &lt;auto,http,https&gt;</td><td>nexenta_use_https = &lt;True,False&gt;</td><td>NexentaStor4 uses http by default, NexentaStor5 uses https</td></tr>
+<tr><td>nexenta_folder</td><td>nexenta_volume_group</td><td>for backend iSCSI only</td></tr>
+<tr><td>nfs_shares_config</td><td>nas_host and nas_share_path</td><td>NexentaStor5 does not use separated shares configuration file</td></tr>
+<tr><td>nexenta_iscsi_target_portal_groups</td><td>nexenta_iscsi_target_portals and nexenta_iscsi_target_portal_port</td><td>NexentaStor4 exposes TPGs while NexentaStor5 creates them using list of portals (IPs)</td></tr>
+</tbody>
+</table>
+<h5>Restart cinder services: api, backup, scheduler and volume</h5>
+<p>For SysV or Upstart based distributions:</p>
+<pre><code><span class="hljs-comment">## service cinder-api restart</span>
+<span class="hljs-comment">## service cinder-scheduler restart</span>
+<span class="hljs-comment">## service cinder-volume restart</span>
+<span class="hljs-comment">## service cinder-backup restart</span>
+</code></pre>
+<p>For systemd based distributions:</p>
+<pre><code><span class="hljs-comment">## systemctl restart openstack-cinder-api.service</span>
+<span class="hljs-comment">## systemctl restart openstack-cinder-scheduler.service</span>
+<span class="hljs-comment">## systemctl restart openstack-cinder-volume.service</span>
+<span class="hljs-comment">## systemctl restart openstack-cinder-backup.service</span>
+</code></pre>
+<h3>Rollback steps</h3>
+<h5>Restore saved Cinder driver and Cinder configuration file</h5>
+<pre><code>controller-node<span class="hljs-comment"># rm -rf /usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta</span>
+controller-node<span class="hljs-comment"># mv /usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta.bak /usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta</span>
+controller-node<span class="hljs-comment"># cat /etc/cinder/cinder.conf.bak &gt; /etc/cinder/cinder.conf</span>
+</code></pre>
+<h5>Change Cinder configuration file</h5>
+<p>We need to change Cinder volumes location due to migration procedure. The consequences of migration can be solved using the parameter - <code>nexenta_folder</code></p>
+<pre><code>[nexenta_iscsi]
+nexenta_folder = pool-vg 
+</code></pre>
+<h5>Restart cinder services: api, backup, scheduler and volume</h5>
+<p>For SysV or Upstart based distributions:</p>
+<pre><code><span class="hljs-comment">## service cinder-api restart</span>
+<span class="hljs-comment">## service cinder-scheduler restart</span>
+<span class="hljs-comment">## service cinder-volume restart</span>
+<span class="hljs-comment">## service cinder-backup restart</span>
+</code></pre>
+<p>For systemd based distributions:</p>
+<pre><code><span class="hljs-comment">## systemctl restart openstack-cinder-api.service</span>
+<span class="hljs-comment">## systemctl restart openstack-cinder-scheduler.service</span>
+<span class="hljs-comment">## systemctl restart openstack-cinder-volume.service</span>
+<span class="hljs-comment">## systemctl restart openstack-cinder-backup.service</span>
+</code></pre>
 
         </article>
     </section>
