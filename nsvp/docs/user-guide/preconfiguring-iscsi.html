@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - Preconfiguring iSCSI</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/all.css?a" rel="stylesheet">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.com" title="nexenta.com">
+        <img src="/resources/images/logo-nexenta-with-title.png"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search"/>
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html class="active"><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">Preconfiguring iSCSI for Creating Volumes and VMFS/NFS Datastores</h1>
+            <p>This section covers the necessary steps you need to perform with the CLI on the NexentaStor appliance before creating
+iSCSI or Fibre Channel (FC) volumes or VMFS/NFS datastores.
+For more information, see the
+<a href="https://nexenta.com/products/downloads/nexentastor">NexentaStor 5.1.* CLI Reference Guide</a>.</p>
+<h2>Creating an iSCSI Target</h2>
+<p>An iSCSI target is a software only service that utilizes the iSCSI protocol to link data storage devices over the
+network.
+An iSCSI target is what an initiator connects to.
+You can create an iSCSI target to associate multiple portal addresses that the target will be bound to.
+When creating an iSCSI target you can also optionally configure the secure authentication.
+Challenge-Handshake Authentication Protocol (CHAP) is a scheme that the PPP protocol uses to authenticate the remote
+clients in the network.
+Secure authentication is optional.
+However, the following CHAP options ensure that only trusted hosts can access specified targets:</p>
+<ul>
+<li>Unidirectional CHAP – Unidirectional CHAP is the most commonly used iSCSI security level.
+It enhances data security and ensures that only authorized initiators access the data with unidirectional CHAP
+between a particular initiator and an iSCSI target on a peer-to-peer model</li>
+<li>Bidirectional CHAPRADIUS – Bidirectional CHAP provides a two-layer authentication protection.
+It requires that the target identifies an initiator, as well as the initiator identifies the target</li>
+</ul>
+<p>The CHAP credentials that you specify during the iSCSI Target creation are only relevant for bidirectional CHAP.
+For non-bidirectional CHAP authentication, specify the CHAP parameters for the initiator when configuring
+the initiator.</p>
+<pre><code>CLI@host&gt; <span class="hljs-comment"># `10.10.10.10` is IP on the NexentaStor appliance you want to use to share iSCSI over</span>
+CLI@host&gt; iscsitarget create 10.10.10.10
+</code></pre>
+<h2>Creating a Target Group</h2>
+<p>Target groups are necessary to manage LUN mappings.
+You can create multiple iSCSI targets on the same NexentaStor appliance for a multi-path scenario or unite these
+iSCSI targets in logical groups to control the access of initiator hosts.
+LUNs are mapped between a target group and a host group or initiator group.</p>
+<pre><code>CLI@host&gt; <span class="hljs-comment"># `test` is your group name</span>
+CLI@host&gt; <span class="hljs-comment"># `iqn.2010-08.org.illumos:02:58e0a636-7fac-ed18-d297-a788c0de3edf` is your target name</span>
+CLI@host&gt; targetgroup create <span class="hljs-built_in">test</span> iqn.2010-08.org.illumos:02:58e0a636-7fac-ed18-d297-a788c0de3edf
+</code></pre>
+<p>Now you can select the iSCSI group you created to create your iSCSI/FC volumes or datastores.</p>
+<p>See <a href="https://nexenta.com/products/downloads/nexentastor">NexentaStor 5.1.* CLI Configuration QuickStart guide</a> for
+more information on creating a Target and Target group.</p>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            Nexenta Systems, Inc.
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+<script>
+  if (window.location.hostname !== 'localhost') {
+    (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', '', 'nexenta.github.io');
+    ga('send', 'pageview');
+  }
+</script>
+</html>

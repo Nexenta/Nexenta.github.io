@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - Managing Datastores</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/all.css?a" rel="stylesheet">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.com" title="nexenta.com">
+        <img src="/resources/images/logo-nexenta-with-title.png"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search"/>
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html class="active"><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">Managing Datastores</h1>
+            <p>Depending on your storage needs, you can create a datastore on the following types: NFS (version 3) or VMFS
+(iSCSI / FC).
+You can set up VMFS datastores on any SCSI-based storage devices that the host discovers.
+Datastores can be created either on a single ESXi host or on an ESXi Cluster.</p>
+<h2>Prerequisites</h2>
+<p>Prior to creating or deleting datastores, verify that the following prerequisites are met:</p>
+<ol>
+<li>Create targets and a target group, as described in
+<a href="./preconfiguring-iscsi.html">Preconfiguring iSCSI for creating Volumes and VMFS/NFS Datastores</a></li>
+<li>You must have at least one pool configured.
+This was most likely done during the initial configuration of NexentaStor 5.1.x.
+For more informationm, see the
+<a href="https://nexenta.com/products/downloads/nexentastor">NexentaStor 5.1.x CLI Reference Guide</a></li>
+<li>For VMFS datastore creation, verify that the requirements are met:
+<ul>
+<li><strong>Fiber Channel (FC) Requirements:</strong>
+<ul>
+<li>Configure targets using NexentaStor CLI or API or using the NexentaFusion UI</li>
+<li>Configure target groups in the NexentaStor appliance</li>
+<li>Configure ESXi FC Initiator are configured</li>
+<li>Discover FC targets</li>
+</ul></li>
+<li><strong>iSCSI Requirements:</strong>
+<ul>
+<li>Configure targets on the NexentaStor appliance</li>
+<li>Configure target groups in NexentaStor</li>
+<li>Optional: Configure host groups in NexentaStor</li>
+<li>Configure ESXi iSCSI initiator</li>
+<li>Discover iSCSI targets</li>
+</ul></li>
+</ul></li>
+</ol>
+<h2>Creating Datastores</h2>
+<p>After verifying that the necessary Prerequisites have been met, go to the vSphere Client Home page to create
+a datastore.</p>
+<p>To create a datatore, do the following:</p>
+<ol>
+<li>Go to the <strong>Home</strong> page and click <strong>Hosts and Clusters</strong> in the right pane</li>
+<li>Right-click the host or cluster on which the datastore is to be created, and select <strong>NexentaStor vCenter Plugin</strong>
+from the drop-down list</li>
+<li>Click <strong>Create Datastore</strong></li>
+<li>Select the <strong>Location</strong> of the datastore, then select <strong>NFS Datastore</strong> for NFS or <strong>VMFS Datastore</strong> for
+NexentaStor zvols provisioned through iSCSI or FC</li>
+<li>Select the NexentaStor appliance from which to provision the datastore, then select the pool to be provisioned as
+a datastore</li>
+<li>Select the size for this datastore. For SAN and NAS datastores, select the size of blocks for files in a dataset</li>
+<li>Enable or disable Data reduction by toggling it <strong>ON</strong> or <strong>OFF</strong></li>
+<li>For an NFS datastore, select the IP address through which to mount the datastore.
+If a pool selected for provisioning as datastore is under HA protection, the VIP is chosen automatically and you
+are not allowed to edit it</li>
+<li>Click <strong>Next</strong>, move through the menus, filling in the appropriate fields</li>
+<li>Click <strong>Finish</strong></li>
+</ol>
+<p><center>
+<img src="./assets/nexentastor-create-datastore-wizard.png" alt="Create datastore wizard screenshot" />
+</center></p>
+<p>When you delete a datastore using the NexentaStor vCenter Plugin, you not only delete the datastore but also take
+care of other cleanup, such as unsharing datasets and deleting file systems and volumes.</p>
+<h2>Deleting Datastores</h2>
+<p>To delete a datastore, do the following:</p>
+<ol>
+<li>Go to the <strong>Home</strong> page and click the <strong>Storage</strong> icon in the right pane</li>
+<li>Right-click the datastore to be deleted, and select <strong>NexentaStor vCenter Plugin</strong> from the drop-down list</li>
+<li>Click <strong>Delete Nexenta Datastore</strong>, and then click <strong>OK</strong></li>
+</ol>
+<p><center>
+<img src="./assets/nexentastor-delete-datastore-action.png" alt="Delete datastore action screenshot" />
+</center></p>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            Nexenta Systems, Inc.
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+<script>
+  if (window.location.hostname !== 'localhost') {
+    (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', '', 'nexenta.github.io');
+    ga('send', 'pageview');
+  }
+</script>
+</html>

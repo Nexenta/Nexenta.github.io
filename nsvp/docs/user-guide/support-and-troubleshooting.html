@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - Support and Troubleshooting</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/all.css?a" rel="stylesheet">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.com" title="nexenta.com">
+        <img src="/resources/images/logo-nexenta-with-title.png"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search"/>
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html class="active"><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">Support and Troubleshooting</h1>
+            <h2>Monitoring NexentaStor Appliance Health</h2>
+<p><center>
+<img src="./assets/nexentastor-cluster-monitor-tab-service-health.png" alt="Clustered NexentaStor &gt; Monitor tab &gt; Service health screenshot" />
+</center></p>
+<p>Several views are available to monitor the system health of a single node or a clustered appliance.
+To view the health summary, navigate to the following interface:</p>
+<ol>
+<li>Click the <strong>Nexenta Storage Systems</strong> menu item from the left navigation bar</li>
+<li>Select the appliance you want to view</li>
+<li>Click the <strong>Monitor tab</strong></li>
+</ol>
+<p><em>Table “Health Monitoring Views”</em></p>
+<table>
+<thead>
+<tr><th>Role</th><th>Access Rights</th></tr>
+</thead>
+<tbody>
+<tr><td>Service Health summary</td><td>To get the health summary of all the services for each NexentaStor appliance:<br>– Click the <strong>Service Health</strong> subtab. You will see the list of pools, appliance services, and HPR replication services running on the appliance.</td></tr>
+<tr><td>Hardware health status</td><td>To view the hardware health status of individual NexentaStor appliances:<br>– Click <strong>Hardware</strong> subtab. The vSphere Client display will show hardware information such as the node’s CPUs, network adapters, disks, enclosures, and adapters</td></tr>
+<tr><td>Performance bottlenecks</td><td>To view the performance metrics of individual NexentaStor appliance that can indicate performance bottlenecks:<br>– Click Performance subtab. The chart displays the following metrics. Latency Throughput IOPs Cache Hit Network Throughput CPU Capacity Allocated Capacity Free<br>– Aggregated metrics for a single or a clustered pair of appliance. In the case of a clustered appliance, clicking on the Summary tab returns statistics for both member nodes as shown in Figure below. The resulting display shows  he CPU utilization, network usage, cache hits, data reduction factors, number of volumes and file systems</td></tr>
+</tbody>
+</table>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            Nexenta Systems, Inc.
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+<script>
+  if (window.location.hostname !== 'localhost') {
+    (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', '', 'nexenta.github.io');
+    ga('send', 'pageview');
+  }
+</script>
+</html>

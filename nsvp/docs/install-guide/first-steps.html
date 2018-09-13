@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - First Steps</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/all.css?a" rel="stylesheet">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.com" title="nexenta.com">
+        <img src="/resources/images/logo-nexenta-with-title.png"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search"/>
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html class="active"><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">Registering a NexentaStor Appliance</h1>
+            <p>To establish a connection between the vCenter management framework and the storage appliances that you want to manage,
+the first post-installation step is to register the NexentaStor 5.x nodes.
+You can either register a clustered appliance or a single node.
+To register a clustered appliance, you must have already configured HA cluster(s) and created VIP(s)
+For more information, see the
+<a href="https://prodpkg.nexenta.com/nstor/5.1.2.0/docs/NS-5.1-HA-CLI-QuickStart-RevA.pdf">NexentaStor 5.1 HA Guide</a></p>
+<p>To register a NexentaStor appliance, do the following:</p>
+<ol>
+<li>Log in to <code>https://&lt;vCenter_ip&gt;:9443/ui/</code></li>
+<li>Optionally, modify the vCenter server parameters, as follows:
+<ul>
+<li>Click <strong>Home</strong> then click on the <strong>Nexenta Storage Systems</strong> icon on the right frame</li>
+<li>In the Configuration window, click on the <strong>Settings</strong> tab</li>
+<li>As needed, edit the protocol and the vCenter IP address with your vSphere credentials</li>
+<li>Modify the Tenancy mode</li>
+<li>Click <strong>Save</strong></li>
+</ul></li>
+<li>To register a single (unclustered) node, do the following:
+<ul>
+<li>Go to <strong>Home &gt; Nexenta Storage Systems</strong> icon</li>
+<li>Go to <strong>NexentaStorage Systems &gt; Objects</strong></li>
+<li>Click the <strong>Register NexentaStor Appliance</strong> icon</li>
+<li>Fill in the required fields</li>
+<li>Click <strong>Register</strong></li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> If you inadvertently register a node as a single node that is actually a member of a cluster,
+the registration will fail</p>
+</blockquote></li>
+<li>To register a clustered pair of nodes, do the following:
+<ul>
+<li>Go to <strong>Home &gt; Nexenta Storage Systems</strong> icon</li>
+<li>Go to <strong>NexentaStorage Systems &gt; Objects</strong></li>
+<li>Click the <strong>Register NexentaStor Appliance</strong> icon</li>
+<li>Select the <strong>HA Cluster</strong> check box, and provide the IP address of both the nodes in the cluster</li>
+<li>Enter the Management IP address or the hostname</li>
+<li>Enter the NexentaStor user and password for both nodes for REST API authentication</li>
+<li>Fill in the required fields</li>
+<li>Click <strong>Register</strong></li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> If you inadvertently register a single unclustered node as a member of a cluster, the registration will fail.
+In both cases, the NexentaStor username you entered must have privileges to execute REST API request</p>
+</blockquote></li>
+<li>Continue with Navigating the NexentaStor vCenter Plugin Interface</li>
+</ol>
+<h2>Navigating the NexentaStor vCenter Plugin Interface</h2>
+<p>After deploying the NexentaStor vCenter Plugin and registering the appliances, you can perform the following tasks to
+verify your installation and also orient yourself by navigating through the vCenter user interface (UI):</p>
+<ul>
+<li>Access and view the Nexenta Plugin Manager dashboard</li>
+<li>Get a list of the registered NexentaStor appliances.
+Once you have registered a clustered NexentaStor appliance or a single node appliance, the NexentaStor appliance
+list is immediately populated and is displayed</li>
+<li>View software license and version for each registered appliance</li>
+<li>Access the system logs</li>
+</ul>
+<p>To use the vCenter UI to for NexentaStor appliances, do the following:</p>
+<ol>
+<li>Access the vCenter dashboard, in the following way:
+<ul>
+<li>Open a Web browser and enter the following URL: <code>https://&lt;vCenter_ip&gt;:9443/ui/</code></li>
+<li>Enter your administrator credentials to log in</li>
+<li>On the Home page, click the <strong>Nexenta Storage Systems</strong> icon
+<center>
+<img src="./assets/home-page-with-plugin-icon-screenshot.png" alt="Home page with plugin icon screenshot" />  <br />
+</center></li>
+</ul></li>
+<li>To view the list and status of the registered NexentaStor appliance(s), go to <strong>Dashboard &gt; Summary</strong> tab.
+The newly populated list of appliances shows the following information:
+<ul>
+<li>Status – The health status of the appliance</li>
+<li>Configured capacity – The sum of the free capacity and the used capacity of the pool after setting the redundancy
+type (RAID / mirror)</li>
+<li>Installed capacity – The sum of disk sizes installed in the appliance</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> Once you have registered a clustered NexentaStor appliance or a single node appliance, the NexentaStor
+appliance list is immediately populated and is displayed</p>
+</blockquote></li>
+<li>View the appliance license and version in the following way:
+<ul>
+<li>In the left frame click <strong>Nexenta Storage Systems</strong>, and select an appliance from the drop-down list.</li>
+<li>Click the <strong>Monitor</strong> tab</li>
+<li>Click the <strong>Hardware</strong> subtab</li>
+</ul></li>
+<li>View the system logs in the following way:
+<ul>
+<li>On the Home page, click the <strong>Nexenta Storage Systems</strong> icon</li>
+<li>In the left frame click <strong>Dashboard</strong></li>
+<li>Click the <strong>System Logs</strong> tab</li>
+<li>Select a log from the list to view the contents</li>
+<li>You can also export the system logs by selecting one from the drop down box and by clicking <strong>Export System Logs</strong>
+button</li>
+</ul></li>
+</ol>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            Nexenta Systems, Inc.
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+<script>
+  if (window.location.hostname !== 'localhost') {
+    (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', '', 'nexenta.github.io');
+    ga('send', 'pageview');
+  }
+</script>
+</html>

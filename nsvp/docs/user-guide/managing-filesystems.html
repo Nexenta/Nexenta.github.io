@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - Managing File Systems</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/all.css?a" rel="stylesheet">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.com" title="nexenta.com">
+        <img src="/resources/images/logo-nexenta-with-title.png"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search"/>
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html class="active"><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">Managing File Systems</h1>
+            <p>This section demonstrates how to create and share file systems.</p>
+<p><center>
+<img src="./assets/nexentastor-cluster-nas.png" alt="Managing filesystems UI screenshot" />
+</center></p>
+<h2>Adding and Configuring Pools</h2>
+<p>Before you create and share file systems in vCenter, you should have already added and configured pools using
+the NexentaStor CLI or NexentaFusion.
+For more information, see the
+<a href="https://nexenta.com/products/downloads/nexentastor">NexentaStor 5.1.* CLI Reference Guide</a> or
+<a href="https://nexenta.com/products/downloads/nexentastor">NexentaStor 5.1.* User Guide</a>.</p>
+<h2>Creating File Systems</h2>
+<p>Once you have created a pool, you can create a file system that you can then share using SMB or NFS.</p>
+<p>To create a file system, do the following:</p>
+<ol>
+<li>On the Home page, click the <strong>Nexenta Storage Systems</strong> icon</li>
+<li>Select an appliance, and click the <strong>Manage</strong> Tab</li>
+<li>Click the <strong>NAS</strong> button</li>
+<li>In the file systems window, click <strong>Create</strong>, and do the following:
+<ul>
+<li>Enter the file system name</li>
+<li>Select a pool</li>
+<li>Select either the NFS or SMB share type</li>
+<li>To set data reduction, record size (up to 1MB), capacity limit, and pool reservation, click the
+Advanced arrow in the Create File System dialog. Review the “File System Properties” table
+for more information</li>
+<li>Click <strong>Create</strong></li>
+</ul></li>
+</ol>
+<p><em>Table “File System Properties”</em></p>
+<table>
+<thead>
+<tr><th>Property</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Name</td><td>The descriptive name of the dataset that cannot be modified after its creation</td></tr>
+<tr><td>Pool</td><td>Select the pool under which you want to create the file system on</td></tr>
+<tr><td>Share Type</td><td>The options are NFS or SMB</td></tr>
+<tr><td>Advanced Settings</td><td>Advanced setting change depending on the share type that you selected</td></tr>
+<tr><td>Authentication Type (NFS only)</td><td>You can select from these two types:<br><em>System Users (AUTH_SYS)</em> – NFS server passes user and group IDs of UNIX users unauthenticated, this method does not require additional administration<br><em>No Identity (AUTH_NONE)</em> – NFS server maps NFS clients as an anonymous user nobody.<br>As a consequence, all users must log in as user nobody</td></tr>
+<tr><td>Anonymous Access</td><td>Enable or disable anonymous access for network clients. If enabled, unknown users are recognized as anonymous user nobody</td></tr>
+<tr><td>Share Access</td><td>Enter hosts or networks/subnets for root access</td></tr>
+<tr><td>Data Reduction</td><td>The compression algorithm. Select on to enable the data reduction functionality</td></tr>
+<tr><td>Reservation</td><td>Sets the minimum amount of disk space guaranteed to a dataset and its descendents. When the amount of disk space used is below this value, the dataset is treated as if it were using the amount of space specified by its reservation. Reservations are accounted for in the parent dataset’s disk space used, and count against the parent dataset’s quotas and reservations</td></tr>
+<tr><td>Record Size</td><td>Size of the file system blocks. The default value is 128K</td></tr>
+<tr><td>Capacity</td><td>Optionally, you may select the maximum size of the file system</td></tr>
+</tbody>
+</table>
+<h2>Sharing File Systems</h2>
+<p>This section demonstrates how to share NFS and SMB file systems.</p>
+<p>For SMB file systems, the Shared Folders Microsoft Management Console (MMC) must be shared with the admin user account
+if the domain is not configured.
+This allows the administrator to use the MMC to configure SMB shares.
+If domain is configured, then the domain administrator can mount the SMB shares.
+Also see the Enabling Multi-Tenancy section in this document.</p>
+<p>To share NFS or SMB file systems, do the following:</p>
+<ol>
+<li>Click the <strong>NAS</strong> button</li>
+<li>Select the file system you want</li>
+<li>Click <strong>Edit</strong></li>
+<li>Select the share type and <strong>Save</strong> entry</li>
+</ol>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            Nexenta Systems, Inc.
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+<script>
+  if (window.location.hostname !== 'localhost') {
+    (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', '', 'nexenta.github.io');
+    ga('send', 'pageview');
+  }
+</script>
+</html>

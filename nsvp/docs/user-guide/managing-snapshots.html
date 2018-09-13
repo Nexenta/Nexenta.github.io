@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - Managing Snapshots</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/all.css?a" rel="stylesheet">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.com" title="nexenta.com">
+        <img src="/resources/images/logo-nexenta-with-title.png"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search"/>
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html class="active"><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">Managing Snapshots</h1>
+            <p>As with other features, you may have already created and scheduled snapshots when you configured your
+NexentaStor 5.1.x appliance.
+The NexentaStor vCenter Web Client Plugin also provides the capability to create scheduled or unscheduled snapshots
+for datastores, file systems, and volumes.
+You can create a point-in-time representation of the NexentaStor datasets to preserve the state of the datasets.
+You can perform the following actions with a snapshot: clone from a snapshot to a new dataset, rollback a dataset to
+a snapshot, access the data.</p>
+<p><center>
+<img src="./assets/nexentastor-cluster-san-snapshots.png" alt="Managing snapshots UI screenshot" />
+</center></p>
+<h2>Managing Manual Snapshots Independent of a Data Protection Service</h2>
+<p>This section demonstrates how to manage snapshot creation manually, independent of Data Protection.
+For information on how to create scheduled snapshots, see
+&quot;Managing Scheduled Snapshots Using a Data Protection Service&quot;.</p>
+<p>To create manual snapshots for file systems or volumes, do the following:</p>
+<ol>
+<li>Go to the <strong>Home</strong> page and click <strong>Nexenta Storage Systems</strong> in the right pane</li>
+<li>Under the <strong>Nexenta Storage Systems</strong> from the left panel, select the appliance you want to work with and click
+the <strong>Manage</strong> tab</li>
+<li>Do one of the following:
+<ul>
+<li>Click the <strong>SAN</strong> button to provide snapshot capabilities on the Volumes</li>
+<li>Click the <strong>NAS</strong> button to provide snapshot capabilities on the File Systems
+<blockquote>
+<p><strong>Note:</strong> You cannot create more than one scheduled snapshot service for a dataset.
+However, you can always change the schedule for the snapshot service that already exists or add a new schedule
+to it</p>
+</blockquote></li>
+</ul></li>
+<li>Select the File System or Volume for managing snapshots, then select the <strong>Snapshots</strong> tab to access Snapshots</li>
+<li>Click <strong>Create</strong> button</li>
+</ol>
+<p>This creates a manual snapshot of the selected file system or volume that is independent of the policies of the
+protection service even if the dataset has replication service.
+Once you create the snapshot of the file system or volume, it can be managed from the action buttons listed under the
+Snapshots tab.
+For more information, see “Snapshot Operations” table.</p>
+<p><em>Table “Snapshot Operations”</em></p>
+<table>
+<thead>
+<tr><th>Action Button</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Revert</td><td>You can revert a file system, a volume, or a datastore to the state captured at the moment of snapshot creation. When you revert, select from the following options:<br>– Overwrite existing volume, file systems, or a datastore from the snapshot<br>– Clone from a snapshot to a new dataset</td></tr>
+<tr><td>Delete</td><td>You can delete any manual snapshots. Use with care when deleting any snapshots because you cannot restore snapshots after deletion. You can only delete snapshots that do not have clones.<br><strong>Note:</strong> Deleting snapshots that belong to a protection service may break the service</td></tr>
+</tbody>
+</table>
+<p>To create manual snapshots for datastores, do the following:</p>
+<ol>
+<li>Go to the <strong>Home</strong> page and click <strong>Storage</strong> in the right pane</li>
+<li>Select the datastore you want to work with and click the <strong>Manage</strong> tab</li>
+<li>Click the <strong>Data Protection</strong> tab, then the <strong>Snapshots</strong> tab</li>
+<li>Click <strong>Create</strong></li>
+</ol>
+<p>This creates a snapshot of the selected datastore that is independent of the policies of the protection service even
+if the dataset has replication service.
+Once you create the snapshot of the datastore, it can be managed from the action buttons listed under the Snapshots tab.
+For more information, “Snapshot Operations” table.</p>
+<p>To configure a scheduled snapshot, select the <strong>Protection Services</strong> tab.
+See Managing scheduled snapshot service for details on how to set up a scheduled snapshot.
+After you create a snapshot of a volume, a file system, or a datastore, you can manage them using the action buttons
+in the Data Protection interface.</p>
+<h2>Managing Scheduled Snapshots Using a Data Protection Service</h2>
+<p>You can create an automatic periodic snapshot service for a file system, a volume, or a datastore.
+The service automatically creates a point-in-time representation on a regular frequency
+(monthly, weekly, daily, hourly), creates snapshots of the datasets and its descendants, and assists in creating
+a retention policy.</p>
+<h3>For Volumes and File Systems</h3>
+<p>To create a scheduled snapshot service for volumes and file systems:</p>
+<ol>
+<li>Go to the <strong>Home</strong> page and click <strong>Nexenta Storage Systems</strong> in the right pane</li>
+<li>Select the appliance you want to work with and click the <strong>Manage</strong> tab</li>
+<li>Do one of the following:
+<ul>
+<li>Click the <strong>SAN</strong> button to provide snapshot capabilities on the Volumes</li>
+<li>Click the <strong>NAS</strong> button to provide scheduled snapshot capability on the File Systems</li>
+</ul></li>
+<li>Select the dataset, and then click on the <strong>Protection Services</strong> tab</li>
+<li>Click <strong>Add New Service</strong> button</li>
+<li>In the <strong>Create protection service</strong> window, select <strong>Scheduled Snapshots</strong> in the service type drop-down list</li>
+<li>To set a schedule for the snapshot service, click <strong>Add Schedule</strong> and fill in the required fields in the
+<strong>Add Schedule</strong> window</li>
+</ol>
+<p>Once you create a scheduled snapshot service, you can manage them using the interface shown in the following figure.</p>
+<h3>For Datastores</h3>
+<p>To create a scheduled snapshot service for datastores:</p>
+<ol>
+<li>Go to the <strong>Home</strong> page and click <strong>Storage</strong> in the right pane</li>
+<li>Select the datastore created with the NexentaStor vCenter plugin to provide snapshot capabilities</li>
+<li>Click the <strong>Manage &gt; Data Protection &gt; Snapshots</strong></li>
+<li>Click <strong>Create</strong>, then in the <strong>Create protection service</strong> window select <strong>Scheduled Snapshots</strong> from
+the <strong>service type</strong> drop-down list</li>
+<li>Click <strong>Add Schedule</strong> to set a schedule for the snapshot service</li>
+</ol>
+<p>Once you create the snapshot of the datastore, it can be managed from the action buttons listed under the Protection
+Services tab.
+For more information, see “Operations on Scheduled Snapshots Belonging to a Protection Service” table.</p>
+<p><em>Table “Operations on Scheduled Snapshots Belonging to a Protection Service”</em></p>
+<table>
+<thead>
+<tr><th>Action</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Run Now</td><td>Irrespective of the schedule set for the snapshot, you can run the service any time manually</td></tr>
+<tr><td>Enable</td><td>When you create a snapshot service, it is enabled by default</td></tr>
+<tr><td>Disable</td><td>You can temporarily disable snapshot services. When you disable a service, it stops creating snapshots for the selected dataset at the scheduled period</td></tr>
+<tr><td>Delete</td><td>You can delete the snapshot services that are no longer in use. When you delete a snapshot service, the information about the service is deleted from VMware vSphere. The snapshots created by this service are not deleted.<br><strong>Note:</strong> You cannot delete or disable a snapshot if the protection service is active</td></tr>
+</tbody>
+</table>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            Nexenta Systems, Inc.
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+<script>
+  if (window.location.hostname !== 'localhost') {
+    (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', '', 'nexenta.github.io');
+    ga('send', 'pageview');
+  }
+</script>
+</html>

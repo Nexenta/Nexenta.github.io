@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - Data Protection Services</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/all.css?a" rel="stylesheet">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.com" title="nexenta.com">
+        <img src="/resources/images/logo-nexenta-with-title.png"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search"/>
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html class="active"><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">Data Protection Services</h1>
+            <h2>Data Protection Services</h2>
+<p>Protection service is a high performance replication service that generates snapshots at the source appliance on a set
+schedule and save them in a destination appliance.
+The destination can be either local pools on the same NexentaStor appliance or on a remote NexentaStor appliance.
+Local replication service replicates data from one dataset to another within one host.
+Remote service replicates data from one host to another.
+You can create multiple services from the same source appliance dataset to different destination appliance datasets.
+Use these snapshots as a backup or an archive, as well as in the disaster recovery use case to handle network failures
+or sudden power outages.
+The following screenshot shows an example of the user interface (UI) for managing scheduled or continuous replication
+services.</p>
+<p><center>
+<img src="./assets/nexentastor-cluster-nas-continuous-replication.png" alt="Continuous replication UI screenshow" />
+</center></p>
+<p>Using the NexentaStor vCenter plugin, you can set up the data protection services for scheduled replication and
+continuous replication.</p>
+<h2>Scheduled Replication</h2>
+<p>Use this service to set up scheduled replication of your datasets (file system, volume, snapshots, datastores) on
+a regular basis to a local or a remote host(s).
+Enabled by default with the Enterprise Edition license, with a snapshot schedule of “every 15 minutes” or longer.
+SR replicates snapshots taken on predefined schedules on the source dataset. If the NexentaStor appliance has the
+continuous replication license option installed, the snapshot schedule for scheduled replication can be as tight
+as &quot;every minute&quot;.</p>
+<h2>Continuous Replication (CR)</h2>
+<p>Use this service to set up continuous replication of your datasets (file system, volume, snapshots, datastores) on
+a regular basis to a local or a remote host(s) Continuous replication requires the continuous replication license
+option.
+CR delivers close to-zero Recovery Point Objective (RPO) over any distance without affecting application performance.
+CR works by asynchronously replicating every write transaction on the source dataset.</p>
+<h2>Managing Protection Services</h2>
+<p>This section demonstrates how to create Protection Services for file systems, volumes, and datastores.</p>
+<h3>For File Systems and Volumes</h3>
+<p>To create a protection service for a file system or volume, do the following:</p>
+<ol>
+<li>Go to the <strong>Home</strong> page and click <strong>Nexenta Storage Systems</strong> in the right pane</li>
+<li>Select the appliance you want to work with, and click the <strong>Manage</strong> tab</li>
+<li>Do one of the following:
+<ul>
+<li>Click the <strong>SAN</strong> button to provide replication service on the Volumes</li>
+<li>Click the <strong>NAS</strong> button to provide replication service on the File Systems</li>
+</ul></li>
+<li>Select the File Systems or Volume, and do one of the following:
+<ul>
+<li>For scheduled replication, click <strong>Protection Services &gt; Add New Service</strong>, choose to replicate the datasets
+to another pool on the same appliance or a remote host, then select <strong>Scheduled Replication</strong> as the Service
+Type</li>
+<li>For continuous replication, click <strong>Continuous Replication</strong> tab, then click
+<strong>Configure &gt; Continuous Replication</strong></li>
+</ul></li>
+<li>Select <strong>Local Replication</strong> to replicate the datasets to another pool on the same appliance, or select the host
+name in the <strong>Remote Appliance</strong> field to replicate the datasets to a remote host</li>
+<li>Fill in the <strong>Secondary pool and dataset</strong> name</li>
+<li>Click <strong>Add Schedule</strong></li>
+</ol>
+<p>Once you create the scheduled replication service of the file system or volume, it can be managed from the list
+of actions under the Actions button in the Protection Services tab.
+See for information on managing the continuous replication service you created for the file system or volume.</p>
+<h3>For Datastores</h3>
+<p>To create a protection service for a datastore, do the following:</p>
+<ol>
+<li>Go to the <strong>Home</strong> page and click <strong>Storage</strong> in the right pane</li>
+<li>Select the datastore you want to work with, and select <strong>Manage &gt; Data Protection</strong></li>
+<li>Do one of the following:
+<ul>
+<li>For scheduled replication, click <strong>Protection Services &gt; Add New Service</strong>, choose to replicate the datasets
+to another pool on the same appliance or a remote host, then select <strong>Scheduled Replication</strong> as the Service
+Type</li>
+<li>For continuous replication, click <strong>Continuous Replication</strong> tab, then click
+<strong>Configure &gt; Continuous Replication</strong></li>
+</ul></li>
+<li>Select <strong>Local Replication</strong> to replicate the datasets to another pool on the same appliance, or select the host
+name in the <strong>Remote Appliance</strong> field to replicate the datasets to a remote host</li>
+<li>Fill in the <strong>Secondary pool and dataset</strong> name</li>
+<li>Click <strong>Add Schedule</strong></li>
+</ol>
+<p>Once you create the scheduled replication service for the datastore, it can be managed from the list of actions
+under the Actions button in the Protection Services tab.
+See for information on managing the continuous replication service you created for the datastore.</p>
+<p><em>Table “Operations of Scheduled Replication Services”</em></p>
+<table>
+<thead>
+<tr><th>Action</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Run Now</td><td>Irrespective of the schedule set for the replication service, you can run the service any time manually after its creation</td></tr>
+<tr><td>Flip Direction</td><td>When this action is invoked, the source dataset becomes the destination dataset and vice-versa. This operation can only be performed on a disabled replication services.<br>For a successful flip direction operation, follow these steps:<br>1. Stop replication immediately, if running<br>2. Disable service, if not disabled<br>3. Unmap source volumes and unshare source file systems<br>4. Start replication once and wait until it has finished<br>5. Flip service direction<br>6. Map volumes<br>7. Share new source<br>8. Enable service if it was disabled earlier</td></tr>
+<tr><td>Clear Replication</td><td>This operation clears the state of the service and disables the service</td></tr>
+<tr><td>Stop Replication</td><td>Use this operation to stop the currently running replication service. On the next schedule, the interrupted service will continue to replicate from the point of interruption</td></tr>
+<tr><td>Remove Service</td><td>Using this option you can force the service to be destroyed and also choose to destroy the destination dataset</td></tr>
+</tbody>
+</table>
+<h2>Viewing Protection Service Status</h2>
+<p>This section demonstrates how to view the status of protection services for file systems, volumes, and datastores.
+To view protection service status for file systems and volumes, do the following:</p>
+<ol>
+<li>Go to the <strong>Home</strong> page and click <strong>Nexenta Storage Systems</strong> in the right pane</li>
+<li>Select the appliance where the dataset exists, select the <strong>Manage</strong> tab</li>
+<li>Do one of the following:
+<ul>
+<li>Click the <strong>SAN</strong> button to view the replication service on the Volumes</li>
+<li>Alternatively, click the <strong>NAS</strong> button to view the replication service on the File Systems</li>
+</ul></li>
+<li>Hover the cursor over the icons in the Protection column to view the protection service status</li>
+</ol>
+<p>To view protection service status for datastores, do the following:</p>
+<ol>
+<li>Go to the <strong>Home</strong> page and click <strong>Storage</strong> in the right pane</li>
+<li>Select the datastore you want to work with, and select the <strong>Manage</strong> tab</li>
+<li>Select <strong>Data Protection &gt; Protection Services</strong></li>
+<li>Hover the cursor over the icons in the Name column to view the protection service status</li>
+</ol>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            Nexenta Systems, Inc.
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+<script>
+  if (window.location.hostname !== 'localhost') {
+    (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', '', 'nexenta.github.io');
+    ga('send', 'pageview');
+  }
+</script>
+</html>

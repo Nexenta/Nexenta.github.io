@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - Configuring Multi-Tenancy</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/all.css?a" rel="stylesheet">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.com" title="nexenta.com">
+        <img src="/resources/images/logo-nexenta-with-title.png"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search"/>
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html class="active"><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">Configuring Multi-Tenancy</h1>
+            <p>A tenant is a group of users who share common access and privileges to the software.
+The NexentaStor vCenter Plugin uses multitenant architecture, which enables you to:</p>
+<ul>
+<li>Provide multiple tenants with role-based access to the NexentaStor 5.x appliance</li>
+<li>Limit access to data, configuration, and user management on a per-tenant basis</li>
+</ul>
+<p>As the vCenter Plugin administrator, you are a superuser with privileges to manage all aspects of storage arrays,
+tenancy, and access control.
+Below are instructions on how to enable multi-tenancy and assign the tenant different user roles.
+Table “Role-Based Access Controls” summarizes the tenant roles and corresponding access rights.</p>
+<p><em>Table “Role-Based Access Controls”</em></p>
+<table>
+<thead>
+<tr><th>Role</th><th>Access Rights</th></tr>
+</thead>
+<tbody>
+<tr><td>Tenant Administrator</td><td>– Rights as a File Systems Administrator<br>– Rights as a Backup Administrator<br>– Rights as an Administrator for NexentaStor appliances in a given tenant</td></tr>
+<tr><td>File Systems Administrator</td><td>– Rights to create, modify, and delete SMB/NFS shares<br>– Rights to create, modify, and delete volumes</td></tr>
+<tr><td>Backup Administrator</td><td>– Rights to create and schedule snapshots<br>– Rights to create and run backups</td></tr>
+<tr><td>Read-Only User</td><td>– Read-only access to the NexentaStor appliance</td></tr>
+</tbody>
+</table>
+<p><center>
+<img src="./assets/configuring-multi-tenancy-screenshot.png" alt="Configuring multi-tenancy screenshot" />
+</center></p>
+<p>To enable and configure multi-tenancy, do the following:</p>
+<ol>
+<li>In the left Navigator pane, click <strong>Settings</strong></li>
+<li>From the Tenancy Mode drop-down menu, select <strong>Multi</strong> tenancy</li>
+<li>Click <strong>Save</strong></li>
+<li>To configure multi-tenancy, do the following:
+<ul>
+<li>Select the <strong>Access Control</strong> tab</li>
+<li>Click the <strong>Add Tenancy</strong> icon</li>
+<li>Enter a name for the Tenant and click <strong>Create</strong></li>
+<li>Click inside the fields to assign the various roles described in the “Role-Based Access Controls” table</li>
+<li>Click <strong>Save</strong> to complete each role assignment</li>
+</ul></li>
+</ol>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            Nexenta Systems, Inc.
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+<script>
+  if (window.location.hostname !== 'localhost') {
+    (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', '', 'nexenta.github.io');
+    ga('send', 'pageview');
+  }
+</script>
+</html>

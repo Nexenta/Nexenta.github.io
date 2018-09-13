@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - Installation</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/all.css?a" rel="stylesheet">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.com" title="nexenta.com">
+        <img src="/resources/images/logo-nexenta-with-title.png"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search"/>
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html class="active"><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">Installing the NexentaStor vCenter Plugin</h1>
+            <p>This section demonstrates how to perform an initial installation of the NexentaStor vCenter Plugin for Windows and Linux
+environments.
+You should have already verified that your system meets the necessary prerequisites.</p>
+<h2>Windows Environment</h2>
+<ol>
+<li>Download the NSVP-vCenter-Installer-5.0.xxxx.msi file from the NexentaStor 5.x download site, and copy the file
+over to vCenter server</li>
+<li>Log in to the vCenter Windows Server, and run the Web Client Plugin installer file</li>
+<li>Complete the Windows Installation Wizard:
+<ul>
+<li>Verify the environment prerequisites</li>
+<li>Read and accept the End User License Agreement (EULA)</li>
+<li>Verify the destination installation folder</li>
+<li>Enter the vCenter credentials</li>
+<li>Click Install, then Finish</li>
+</ul></li>
+<li>After the NexentaStor vCenter Plugin is installed, re-log in to the vSphere Client</li>
+<li>Continue with Registering a NexentaStor Appliance</li>
+</ol>
+<h2>Linux Environment</h2>
+<p>To install the NexentaStor vCenter Plugin on Linux, do the following:</p>
+<ol>
+<li>Download the nsvp-vcsa-installer-5.0.xxxx.tar file from the NexentaStor 5.x download site</li>
+<li>SSH into VCSA as root</li>
+<li>Enable BASH access:
+<pre><code>Command&gt; shell.set --enabled True
+</code></pre></li>
+<li>Run shell:
+<pre><code>Command&gt; shell
+</code></pre></li>
+<li>Create and change directory to upload the installation files:
+<pre><code>mkdir nsvp &amp;&amp; <span class="hljs-built_in">cd</span> nsvp/
+</code></pre></li>
+<li>Copy downloaded nsvp-installer-5.0.xxxx.tar from remote host using scp, wget or curl:
+<pre><code>scp remote_host:nsvp-installer-5.0.xxxx.tar
+</code></pre></li>
+<li>Extract the contents from the archive by typing the following command:
+<pre><code>tar -xvf nsvp-installer-5.0.xxxx.tar
+</code></pre></li>
+<li>Optionally, run the help command to view the installation command:
+<pre><code>./install.sh -<span class="hljs-built_in">help</span>
+</code></pre></li>
+<li>Run the following command to install:
+<pre><code>./install.sh -action install -vcuser administrator@vsphere.local
+</code></pre></li>
+<li>After the NexentaStor vCenter Plugin is installed, re-log in to the vSphere Client</li>
+<li>Continue with Registering a NexentaStor Appliance</li>
+</ol>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            Nexenta Systems, Inc.
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+<script>
+  if (window.location.hostname !== 'localhost') {
+    (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', '', 'nexenta.github.io');
+    ga('send', 'pageview');
+  }
+</script>
+</html>
