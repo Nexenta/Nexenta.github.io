@@ -112,10 +112,6 @@ enabled_share_backends = ns5_nfs
 enabled_share_protocols = NFS
 
 [ns5_nfs]
-service_instance_user = manila
-service_image_name = manila-service-image
-path_to_private_key = /home/ubuntu/.ssh/id_rsa
-path_to_public_key = /home/ubuntu/.ssh/id_rsa.pub
 share_backend_name = &lt;backend name to be used <span class="hljs-keyword">in</span> share_types&gt;
 driver_handles_share_servers = False
 share_driver = manila.share.drivers.nexenta.nexenta_nas.NexentaNasDriver

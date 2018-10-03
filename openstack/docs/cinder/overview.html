@@ -84,11 +84,12 @@
 <tr><td>Migrate volume</td><td>✔</td><td>✔ (NFS only)</td><td>—</td></tr>
 <tr><td>Retype volume</td><td>✔</td><td>—</td><td>—</td></tr>
 <tr><td>Volume replication</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>Consistency groups</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Consistency groups</td><td>—</td><td>✔ (<a href="https://docs.openstack.org/cinder/latest/admin/blockstorage-consistency-groups.html">Newton and later</a>)</td><td>—</td></tr>
 <tr><td>iSCSI LUN Mapping</td><td>—</td><td>—</td><td>—</td></tr>
 <tr><td>QoS (rate limit)</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>Extend volume while attached</td><td>implemented?</td><td>✔</td><td>✔</td></tr>
-<tr><td>Snapshot Revert</td><td>—</td><td>✔ (in Pike and later)</td><td>✔</td></tr>
+<tr><td>Extend volume while attached</td><td>✔ (<a href="https://github.com/openstack/nova/blob/master/releasenotes/notes/nova-support-attached-volume-extend-88ce16ce41aa6d41.yaml">iSCSI only</a>)</td><td>✔ (<a href="https://github.com/openstack/nova/blob/master/releasenotes/notes/nova-support-attached-volume-extend-88ce16ce41aa6d41.yaml">iSCSI only</a>)</td><td>✔</td></tr>
+<tr><td>Snapshot Revert</td><td>—</td><td>✔ (<a href="https://docs.openstack.org/releasenotes/cinder/pike.html">Pike and later</a>)</td><td>✔</td></tr>
+<tr><td>Volume multi-attach</td><td>—</td><td>✔ (<a href="https://docs.openstack.org/cinder/latest/admin/blockstorage-volume-multiattach.html">Queens and later</a>)</td><td>—</td></tr>
 </tbody>
 </table>
 <h3>Cinder and Replication</h3>
