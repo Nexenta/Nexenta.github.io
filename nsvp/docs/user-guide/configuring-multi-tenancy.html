@@ -54,7 +54,9 @@
     
 <section class="docs">
     <section class="container-docs">
+        
         <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html class="active"><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Configuring Multi-Tenancy</h1>
             <p>A tenant is a group of users who share common access and privileges to the software.
@@ -68,7 +70,7 @@ tenancy, and access control.
 Below are instructions on how to enable multi-tenancy and assign the tenant different user roles.
 Table “Role-Based Access Controls” summarizes the tenant roles and corresponding access rights.</p>
 <p><em>Table “Role-Based Access Controls”</em></p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>Role</th><th>Access Rights</th></tr>
 </thead>
@@ -78,7 +80,7 @@ Table “Role-Based Access Controls” summarizes the tenant roles and correspon
 <tr><td>Backup Administrator</td><td>– Rights to create and schedule snapshots<br>– Rights to create and run backups</td></tr>
 <tr><td>Read-Only User</td><td>– Read-only access to the NexentaStor appliance</td></tr>
 </tbody>
-</table>
+</table></div>
 <p><center>
 <img src="./assets/configuring-multi-tenancy-screenshot.png" alt="Configuring multi-tenancy screenshot" />
 </center></p>

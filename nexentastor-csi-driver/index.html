@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - Index</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/all.css?a" rel="stylesheet">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86415664-5"></script>
+    <script>
+      try {
+        if (window.location.hostname === 'nexenta.github.io') {
+          window.dataLayer = window.dataLayer || [];
+
+          function gtag() {dataLayer.push(arguments);}
+
+          gtag('js', new Date());
+          gtag('config', 'UA-86415664-5');
+        } else {
+          console.warn('Google Analytics runs only on nexenta.github.io');
+        }
+      } catch (e) {
+        console.warn('Cannot run Google Analytics', e);
+      }
+    </script>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.com" title="nexenta.com">
+        <img src="/resources/images/logo-nexenta-with-title.png"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search"/>
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">NexentaStor CSI Driver for Kubernetes</h1>
+            <p><img src="/resources/images/logo-kubernetes-with-border.svg" style="height:80px;margin-top:-75px;float:right"></p>
+<h2>Supported versions</h2>
+<ul>
+<li>NexentaStor 5.x</li>
+<li>Kubernetes 1.11</li>
+</ul>
+<h2>Installation</h2>
+<ol>
+<li><p>Create NexentaStor dataset for the driver, example: <code>csiDriverPool/csiDriverDataset</code>.
+By default driver will create filesystems in this dataset, and share them to create Kubernetes volumes.</p></li>
+<li><p>Clone driver repository</p>
+<pre><code class="language-bash">git <span class="hljs-built_in">clone</span> https://github.com/Nexenta/nexentastor-csi-driver.git
+<span class="hljs-built_in">cd</span> nexentastor-csi-driver
+</code></pre></li>
+<li><p>Edit <code>./kubernetes/nexentastor-csi-driver-config.yaml</code> file. Driver configuration example:</p>
+<pre><code class="language-yaml"><span class="hljs-attr">restIp:</span> <span class="hljs-attr">https://10.3.3.4:8443,https://10.3.3.5:8443</span> <span class="hljs-comment"># [required] NexentaStor REST API endpoint(s)</span>
+<span class="hljs-attr">username:</span> <span class="hljs-string">admin</span>                                     <span class="hljs-comment"># [required] NexentaStor REST API username</span>
+<span class="hljs-attr">password:</span> <span class="hljs-string">p@ssword</span>                                  <span class="hljs-comment"># [required] NexentaStor REST API password</span>
+<span class="hljs-attr">defaultDataset:</span> <span class="hljs-string">csiDriverPool/csiDriverDataset</span>      <span class="hljs-comment"># default 'pool/dataset' for driver's filesystems</span>
+<span class="hljs-attr">defaultDataIp:</span> <span class="hljs-number">20.20</span><span class="hljs-number">.20</span><span class="hljs-number">.21</span>                          <span class="hljs-comment"># default NexentaStor data IP or HA VIP</span>
+</code></pre>
+<p>All driver configuration options:</p>
+<div class="table-scroll"><table>
+<thead>
+<tr><th>Name</th><th>Description</th><th>Required</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td><code>restIp</code></td><td>NexentaStor REST API endpoint(s), <code>,</code> to separate cluster nodes</td><td>yes</td><td><code>https://10.3.3.4:8443,https://10.3.3.5:8443</code></td></tr>
+<tr><td><code>username</code></td><td>NexentaStor REST API username</td><td>yes</td><td><code>admin</code></td></tr>
+<tr><td><code>password</code></td><td>NexentaStor REST API password</td><td>yes</td><td><code>p@ssword</code></td></tr>
+<tr><td><code>defaultDataset</code></td><td>parent dataset for driver’s filesystems [pool/dataset]</td><td>no</td><td><code>csiDriverPool/csiDriverDataset</code></td></tr>
+<tr><td><code>defaultDataIp</code></td><td>NexentaStor data IP or HA VIP for mounting NFS shares</td><td>yes for PV</td><td><code>20.20.20.21</code></td></tr>
+<tr><td><code>debug</code></td><td>print more logs (default: false)</td><td>no</td><td><code>true</code></td></tr>
+</tbody>
+</table></div>
+<p><strong>Note</strong>: if parameter <code>defaultDataset</code> (<code>defaultDataIp</code>) is not specified in driver configuration,
+then parameter <code>dataset</code> (<code>dataIp</code>) must be specified in <em>StorageClass</em> configuration.</p></li>
+<li><p>Create Kubernetes secret from the file:</p>
+<pre><code class="language-bash">kubectl create secret generic nexentastor-csi-driver-config --from-file=./kubernetes/nexentastor-csi-driver-config.yaml
+</code></pre></li>
+<li><p>Register driver to Kubernetes:</p>
+<pre><code class="language-bash">kubectl apply -f ./kubernetes/nexentastor-csi-driver-1.0.0.yaml
+</code></pre></li>
+</ol>
+<p><br>
+Three NexentaStor CSI driver pods should be running after installation:</p>
+<pre><code class="language-bash">$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+nexentastor-csi-attacher-0      2/2     Running   0          19s
+nexentastor-csi-driver-5xqvp    2/2     Running   0          19s
+nexentastor-csi-provisioner-0   2/2     Running   0          19s
+</code></pre>
+<h2>Usage</h2>
+<h3>Dynamically provisioned volumes</h3>
+<p>For dynamic volume provisioning, the administrator needs to set up a <em>StorageClass</em> pointing to the driver.
+In this case Kubernetes generates volume name automatically
+(for example <code>pvc-871068ed-8b5d-11e8-9dae-005056b37cb2</code>).
+Default driver parameters may be overwritten in <code>parameters</code> section:</p>
+<pre><code class="language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> <span class="hljs-string">nexentastor-csi-driver-dynamic-provisioning</span>
+<span class="hljs-attr">provisioner:</span> <span class="hljs-string">nexentastor-csi-driver</span>
+<span class="hljs-attr">parameters:</span>
+<span class="hljs-attr">  dataset:</span> <span class="hljs-string">customPool/customDataset</span> <span class="hljs-comment"># to overwrite "defaultDataset" config property [pool/dataset]</span>
+<span class="hljs-attr">  dataIp:</span> <span class="hljs-number">20.20</span><span class="hljs-number">.20</span><span class="hljs-number">.253</span>              <span class="hljs-comment"># to overwrite "defaultDataIp" config property</span>
+</code></pre>
+<h4>Parameters</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr><th>Name</th><th>Description</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td><code>dataset</code></td><td>parent dataset for driver’s filesystems [pool/dataset]</td><td><code>customPool/customDataset</code></td></tr>
+<tr><td><code>dataIp</code></td><td>NexentaStor data IP or HA VIP for mounting NFS shares</td><td><code>20.20.20.253</code></td></tr>
+</tbody>
+</table></div>
+<h4>Example</h4>
+<p>Run Nginx server using <em>StorageClass</em>:</p>
+<pre><code class="language-bash">kubectl apply -f ./examples/nginx-storage-class.yaml
+
+<span class="hljs-comment">## to delete this pod:</span>
+kubectl delete -f ./examples/nginx-storage-class.yaml
+</code></pre>
+<h3>Pre-provisioned volumes</h3>
+<p>The driver can use already existing NexentaStor filesystem,
+in this case, <em>PersistentVolume</em> and <em>PersistentVolumeClaim</em> should be configured.</p>
+<h4><em>PersistentVolume</em> configuration</h4>
+<pre><code class="language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolume</span>
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> <span class="hljs-string">nexentastor-csi-driver-nginx-pv</span>
+<span class="hljs-attr">  labels:</span>
+<span class="hljs-attr">    name:</span> <span class="hljs-string">nexentastor-csi-driver-nginx-pv</span>
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  accessModes:</span>
+<span class="hljs-bullet">  -</span> <span class="hljs-string">ReadWriteMany</span>
+<span class="hljs-attr">  capacity:</span>
+<span class="hljs-attr">    storage:</span> <span class="hljs-number">1</span><span class="hljs-string">Gi</span>
+<span class="hljs-attr">  csi:</span>
+<span class="hljs-attr">    driver:</span> <span class="hljs-string">nexentastor-csi-driver</span>
+<span class="hljs-attr">    volumeHandle:</span> <span class="hljs-string">csiDriverPool/csiDriverDataset/nginx-persistent</span>
+</code></pre>
+<p>CSI Parameters:</p>
+<div class="table-scroll"><table>
+<thead>
+<tr><th>Name</th><th>Description</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td><code>driver</code></td><td>installed driver name “nexentastor-csi-driver”</td><td><code>nexentastor-csi-driver</code></td></tr>
+<tr><td><code>volumeHandle</code></td><td>path to existing NexentaStor filesystem [pool/dataset/filesystem]</td><td><code>PoolA/datasetA/nginx</code></td></tr>
+</tbody>
+</table></div>
+<h4><em>PersistentVolumeClaim</em> (pointed to created <em>PersistentVolume</em>)</h4>
+<pre><code class="language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> <span class="hljs-string">nexentastor-csi-driver-nginx-pvc</span>
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  accessModes:</span>
+<span class="hljs-bullet">  -</span> <span class="hljs-string">ReadWriteMany</span>
+<span class="hljs-attr">  resources:</span>
+<span class="hljs-attr">    requests:</span>
+<span class="hljs-attr">      storage:</span> <span class="hljs-number">1</span><span class="hljs-string">Gi</span>
+<span class="hljs-attr">  selector:</span>
+<span class="hljs-attr">    matchExpressions:</span>
+<span class="hljs-attr">    - key:</span> <span class="hljs-string">name</span>
+<span class="hljs-attr">      operator:</span> <span class="hljs-string">In</span>
+<span class="hljs-attr">      values:</span> <span class="hljs-string">["nexentastor-csi-driver-nginx-pv"]</span>
+</code></pre>
+<h4>Example</h4>
+<p>Run nginx server using PersistentVolume.</p>
+<p><strong>Note:</strong> Pre-configured filesystem should exist on the NexentaStor:
+<code>csiDriverPool/csiDriverDataset/nginx-persistent</code>.</p>
+<pre><code class="language-bash">kubectl apply -f ./examples/nginx-persistent-volume.yaml
+
+<span class="hljs-comment">## to delete this pod:</span>
+kubectl delete -f ./examples/nginx-persistent-volume.yaml
+</code></pre>
+<h2>Uninstall</h2>
+<p>Using the same files as for installation:</p>
+<pre><code class="language-bash">kubectl delete -f ./kubernetes/nexentastor-csi-driver-1.0.0.yaml
+kubectl delete secret nexentastor-csi-driver-config
+</code></pre>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            Nexenta Systems, Inc.
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+</html>

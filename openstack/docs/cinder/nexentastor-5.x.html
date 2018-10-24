@@ -54,7 +54,9 @@
     
 <section class="docs">
     <section class="container-docs">
+        
         <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html class="active"><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li></ul></li></ul></nav>
+        
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">NexentaStor 5.x</h1>
             <h4>Cinder Driver Prerequisites</h4>
@@ -94,7 +96,7 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/lib/python2.7/dist-pa
 </ol>
 <h3>NFS driver</h3>
 <h4>NexentaStor 5.x NFS - List of all available options</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
 </thead>
@@ -113,7 +115,7 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/lib/python2.7/dist-pa
 <tr><td>nfs_mount_options</td><td>None</td><td>String</td><td>Mount options passed to the NFS client.</td></tr>
 <tr><td>nfs_qcow2_volumes</td><td>False</td><td>Boolean</td><td>Create volumes as QCOW2 files rather than raw files.</td></tr>
 </tbody>
-</table>
+</table></div>
 <p>Note: As of the Icehouse release, the NFS based drivers will attempt to mount shares using version 4.1 of the NFS protocol (including pNFS). If the mount attempt is unsuccessful due to a lack of client or server support, a subsequent mount attempt that requests the default behavior of the mount.nfs command will be performed. On most distributions, the default behavior is to attempt mounting first with NFS v4.0, then silently fall back to NFS v3.0 if necessary. If the <code>nfs_mount_options</code> configuration option contains a request for a specific version of NFS to be used the mount will be attempted as requested with no subsequent attempts.</p>
 <h4>NexentaStor 5.x NFS HA recommended cinder.conf</h4>
 <pre><code>[DEFAULT]
@@ -148,7 +150,7 @@ nfs_mount_options = vers=3
 </code></pre>
 <h3>NFS driver</h3>
 <h4>NexentaStor 5.x iSCSI - List of all available options</h4>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
 </thead>
@@ -170,7 +172,7 @@ nfs_mount_options = vers=3
 <tr><td>nexenta_volume_group</td><td>iscsi</td><td></td><td>Volume group for NStor5</td></tr>
 <tr><td>nexenta_iscsi_target_portals</td><td></td><td></td><td>Comma separated list of portals for NexentaStor5, in format of IP1:port1,IP2:port2. Port is optional, default=3260. Example: 10.10.10.1:3267,10.10.1.2</td></tr>
 </tbody>
-</table>
+</table></div>
 <h4>NexentaStor 5.x iSCSI cinder.conf HA config</h4>
 <pre><code>[DEFAULT]
 driver_ssl_cert_verify = False

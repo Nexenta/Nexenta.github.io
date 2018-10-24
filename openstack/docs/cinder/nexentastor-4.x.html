@@ -54,7 +54,9 @@
     
 <section class="docs">
     <section class="container-docs">
+        
         <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html class="active"><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li></ul></li></ul></nav>
+        
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">NexentaStor 4.x</h1>
             <h3>Cinder Driver Prerequisites</h3>
@@ -104,7 +106,7 @@ nfs_mount_options = vers=3
 10.0.0.100:/volumes/tank2/cinder-volumes http://admin:secret@10.0.0.100:8457
 </code></pre>
 <h3>NexentaStor 4.x NFS - List of all available options</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
 </thead>
@@ -123,7 +125,7 @@ nfs_mount_options = vers=3
 <tr><td>nfs_mount_options</td><td>None</td><td>String</td><td>Mount options passed to the NFS client.</td></tr>
 <tr><td>nfs_qcow2_volumes</td><td>False</td><td>Boolean</td><td>Create volumes as QCOW2 files rather than raw files.</td></tr>
 </tbody>
-</table>
+</table></div>
 <p>Note: As of the Icehouse release, the NFS based drivers will attempt to mount shares using version 4.1 of the NFS protocol (including pNFS). If the mount attempt is unsuccessful due to a lack of client or server support, a subsequent mount attempt that requests the default behavior of the mount.nfs command will be performed. On most distributions, the default behavior is to attempt mounting first with NFS v4.0, then silently fall back to NFS v3.0 if necessary. If the <code>nfs_mount_options</code> configuration option contains a request for a specific version of NFS to be used the mount will be attempted as requested with no subsequent attempts.</p>
 <h4>NexentaStor 4.x iSCSI minimal recommended cinder.conf</h4>
 <pre><code>[DEFAULT]
@@ -139,7 +141,7 @@ nexenta_password = nexenta
 nexenta_volume = tank
 </code></pre>
 <h3>NexentaStor 4.x iSCSI - List of all available options</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
 </thead>
@@ -161,9 +163,9 @@ nexenta_volume = tank
 <tr><td>nexenta_target_prefix</td><td>iqn.1986-03.com.sun:02:cinder-</td><td></td><td>IQN prefix for iSCSI targets</td></tr>
 <tr><td>nexenta_target_group_prefix</td><td>cinder</td><td></td><td>Prefix for iSCSI target groups on SA</td></tr>
 </tbody>
-</table>
+</table></div>
 <h3>NexentaStor 4.x vs. 5.x Options Conversion Table</h3>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>4.x param</th><th>5.x param</th><th>Description</th></tr>
 </thead>
@@ -174,7 +176,7 @@ nexenta_volume = tank
 <tr><td>nfs_shares_config</td><td>nas_share_path</td><td>5.x does not use shares.cfg</td></tr>
 <tr><td>nexenta_iscsi_target_portal_groups</td><td>nexenta_iscsi_target_portals and nexenta_iscsi_target_portal_port</td><td>4.x exposes TPGs while 5.x creates them using list of portals (IPs)</td></tr>
 </tbody>
-</table>
+</table></div>
 <h3>iSCSI Multipath</h3>
 <p>Openstack Nova provides the ability to use iSCSI Multipath. To enable Multipath you need to add following line into nova.conf in the [libvirt] section:</p>
 <pre><code>[libvirt]

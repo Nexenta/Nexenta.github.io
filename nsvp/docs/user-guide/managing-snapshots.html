@@ -54,7 +54,9 @@
     
 <section class="docs">
     <section class="container-docs">
+        
         <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html class="active"><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Managing Snapshots</h1>
             <p>As with other features, you may have already created and scheduled snapshots when you configured your
@@ -95,7 +97,7 @@ Once you create the snapshot of the file system or volume, it can be managed fro
 Snapshots tab.
 For more information, see “Snapshot Operations” table.</p>
 <p><em>Table “Snapshot Operations”</em></p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>Action Button</th><th>Description</th></tr>
 </thead>
@@ -103,7 +105,7 @@ For more information, see “Snapshot Operations” table.</p>
 <tr><td>Revert</td><td>You can revert a file system, a volume, or a datastore to the state captured at the moment of snapshot creation. When you revert, select from the following options:<br>– Overwrite existing volume, file systems, or a datastore from the snapshot<br>– Clone from a snapshot to a new dataset</td></tr>
 <tr><td>Delete</td><td>You can delete any manual snapshots. Use with care when deleting any snapshots because you cannot restore snapshots after deletion. You can only delete snapshots that do not have clones.<br><strong>Note:</strong> Deleting snapshots that belong to a protection service may break the service</td></tr>
 </tbody>
-</table>
+</table></div>
 <p>To create manual snapshots for datastores, do the following:</p>
 <ol>
 <li>Go to the <strong>Home</strong> page and click <strong>Storage</strong> in the right pane</li>
@@ -155,7 +157,7 @@ the <strong>service type</strong> drop-down list</li>
 Services tab.
 For more information, see “Operations on Scheduled Snapshots Belonging to a Protection Service” table.</p>
 <p><em>Table “Operations on Scheduled Snapshots Belonging to a Protection Service”</em></p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>Action</th><th>Description</th></tr>
 </thead>
@@ -165,7 +167,7 @@ For more information, see “Operations on Scheduled Snapshots Belonging to a Pr
 <tr><td>Disable</td><td>You can temporarily disable snapshot services. When you disable a service, it stops creating snapshots for the selected dataset at the scheduled period</td></tr>
 <tr><td>Delete</td><td>You can delete the snapshot services that are no longer in use. When you delete a snapshot service, the information about the service is deleted from VMware vSphere. The snapshots created by this service are not deleted.<br><strong>Note:</strong> You cannot delete or disable a snapshot if the protection service is active</td></tr>
 </tbody>
-</table>
+</table></div>
 
         </article>
     </section>

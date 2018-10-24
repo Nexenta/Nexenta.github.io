@@ -54,13 +54,15 @@
     
 <section class="docs">
     <section class="container-docs">
+        
         <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html class="active"><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li></ul></li></ul></nav>
+        
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Troubleshooting and Support Request</h1>
             <h2>Troubleshooting</h2>
 <p>Check Openstack log files for error messages. Most of the errors related to storage are in Cinder or Nova logs.</p>
 <p><strong>Location of Openstack log files for Upstart and SysV based distros:</strong></p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>Project</th><th>Directory</th><th>Log Files</th></tr>
 </thead>
@@ -77,12 +79,12 @@
 <tr><td>Manila Data</td><td>/var/log/manila</td><td>manila-data.log or data.log</td></tr>
 <tr><td>Nova Compute</td><td>/var/log/nova</td><td>nova-compute.log</td></tr>
 </tbody>
-</table>
+</table></div>
 <p>Shell command to check errors:</p>
 <pre><code>$ grep -r Traceback /var/<span class="hljs-built_in">log</span>/{cinder,manila,nova}/*.<span class="hljs-built_in">log</span>
 </code></pre>
 <p><strong>Location of Openstack log files for systemd based distros:</strong></p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>Project</th><th>Service name (CentOS/Fedora/SUSE/RedHat)</th><th>Service name (Debian/Ubuntu)</th></tr>
 </thead>
@@ -99,7 +101,7 @@
 <tr><td>Manila Data</td><td>openstack-manila-data or manila-data</td><td>manila-data</td></tr>
 <tr><td>Nova Compute</td><td>openstack-nova-compute or nova-compute</td><td>nova-compute</td></tr>
 </tbody>
-</table>
+</table></div>
 <p>Shell command to check error:</p>
 <pre><code>$ journalctl -a -u service_name | grep Traceback
 </code></pre>
@@ -128,7 +130,7 @@ debug = True
 <li><p>OpenStack version (e.g. Icehouse, Juno, Kilo, Liberty, Mitaka, Newton, Ocata, Pike or Queens)</p></li>
 <li><p>nova-manage version (for reference use - <a href="https://wiki.openstack.org/wiki/Releases">https://wiki.openstack.org/wiki/Releases</a>)</p></li>
 <li><p>Cinder or Manila driver version: go to appropriate driver location and copy-paste comments from the top of file:</p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>Nexenta Version</th><th>Backend Type</th><th>Driver Location</th></tr>
 </thead>
@@ -142,7 +144,7 @@ debug = True
 <tr><td>NexentaEdge</td><td>Cinder iSCSI</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/nexentaedge/iscsi.py</td></tr>
 <tr><td>NexentaEdge</td><td>Cinder NBD</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/nexentaedge/nbd.py</td></tr>
 </tbody>
-</table>
+</table></div>
 </li>
 <li><p>Openstack service type (e.g. Cinder, Glance, Manila or Swift)</p></li>
 <li><p>Collect OS version (e.g. Ubuntu 14.04, RHEL 7.0.x, CentOS 7.0.x) and OS specific information:</p>

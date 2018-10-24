@@ -54,7 +54,9 @@
     
 <section class="docs">
     <section class="container-docs">
+        
         <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html class="active"><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Data Protection Services</h1>
             <h2>Data Protection Services</h2>
@@ -136,7 +138,7 @@ name in the <strong>Remote Appliance</strong> field to replicate the datasets to
 under the Actions button in the Protection Services tab.
 See for information on managing the continuous replication service you created for the datastore.</p>
 <p><em>Table “Operations of Scheduled Replication Services”</em></p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>Action</th><th>Description</th></tr>
 </thead>
@@ -147,7 +149,7 @@ See for information on managing the continuous replication service you created f
 <tr><td>Stop Replication</td><td>Use this operation to stop the currently running replication service. On the next schedule, the interrupted service will continue to replicate from the point of interruption</td></tr>
 <tr><td>Remove Service</td><td>Using this option you can force the service to be destroyed and also choose to destroy the destination dataset</td></tr>
 </tbody>
-</table>
+</table></div>
 <h2>Viewing Protection Service Status</h2>
 <p>This section demonstrates how to view the status of protection services for file systems, volumes, and datastores.
 To view protection service status for file systems and volumes, do the following:</p>

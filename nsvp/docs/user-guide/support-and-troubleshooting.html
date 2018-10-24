@@ -54,7 +54,9 @@
     
 <section class="docs">
     <section class="container-docs">
+        
         <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html class="active"><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Support and Troubleshooting</h1>
             <h2>Monitoring NexentaStor Appliance Health</h2>
@@ -69,7 +71,7 @@ To view the health summary, navigate to the following interface:</p>
 <li>Click the <strong>Monitor tab</strong></li>
 </ol>
 <p><em>Table “Health Monitoring Views”</em></p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>Role</th><th>Access Rights</th></tr>
 </thead>
@@ -78,7 +80,7 @@ To view the health summary, navigate to the following interface:</p>
 <tr><td>Hardware health status</td><td>To view the hardware health status of individual NexentaStor appliances:<br>– Click <strong>Hardware</strong> subtab. The vSphere Client display will show hardware information such as the node’s CPUs, network adapters, disks, enclosures, and adapters</td></tr>
 <tr><td>Performance bottlenecks</td><td>To view the performance metrics of individual NexentaStor appliance that can indicate performance bottlenecks:<br>– Click Performance subtab. The chart displays the following metrics. Latency Throughput IOPs Cache Hit Network Throughput CPU Capacity Allocated Capacity Free<br>– Aggregated metrics for a single or a clustered pair of appliance. In the case of a clustered appliance, clicking on the Summary tab returns statistics for both member nodes as shown in Figure below. The resulting display shows  he CPU utilization, network usage, cache hits, data reduction factors, number of volumes and file systems</td></tr>
 </tbody>
-</table>
+</table></div>
 
         </article>
     </section>

@@ -54,7 +54,9 @@
     
 <section class="docs">
     <section class="container-docs">
+        
         <nav><ul><li><p class="root-category">Install Guide</p><ul><li><a href=/nsvp/docs/install-guide/overview.html><p>Overview</p></a></li><li><a href=/nsvp/docs/install-guide/prerequisites.html><p>Prerequisites</p></a></li><li><a href=/nsvp/docs/install-guide/installation.html><p>Installation</p></a></li><li><a href=/nsvp/docs/install-guide/first-steps.html><p>First Steps</p></a></li><li><a href=/nsvp/docs/install-guide/upgrading.html><p>Upgrading</p></a></li><li><a href=/nsvp/docs/install-guide/uninstallation.html><p>Uninstallation</p></a></li></ul></li><li><p class="root-category">User Guide</p><ul><li><a href=/nsvp/docs/user-guide/configuring-multi-tenancy.html><p>Configuring Multi-Tenancy</p></a></li><li><a href=/nsvp/docs/user-guide/preconfiguring-iscsi.html><p>Preconfiguring iSCSI</p></a></li><li><a href=/nsvp/docs/user-guide/managing-datastores.html><p>Managing Datastores</p></a></li><li><a href=/nsvp/docs/user-guide/managing-volumes.html><p>Managing Volumes</p></a></li><li><a href=/nsvp/docs/user-guide/managing-filesystems.html class="active"><p>Managing File Systems</p></a></li><li><a href=/nsvp/docs/user-guide/managing-snapshots.html><p>Managing Snapshots</p></a></li><li><a href=/nsvp/docs/user-guide/data-protection-services.html><p>Data Protection Services</p></a></li><li><a href=/nsvp/docs/user-guide/support-and-troubleshooting.html><p>Support and Troubleshooting</p></a></li></ul></li></ul></nav>
+        
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Managing File Systems</h1>
             <p>This section demonstrates how to create and share file systems.</p>
@@ -86,7 +88,7 @@ for more information</li>
 </ul></li>
 </ol>
 <p><em>Table “File System Properties”</em></p>
-<table>
+<div class="table-scroll"><table>
 <thead>
 <tr><th>Property</th><th>Description</th></tr>
 </thead>
@@ -103,7 +105,7 @@ for more information</li>
 <tr><td>Record Size</td><td>Size of the file system blocks. The default value is 128K</td></tr>
 <tr><td>Capacity</td><td>Optionally, you may select the maximum size of the file system</td></tr>
 </tbody>
-</table>
+</table></div>
 <h2>Sharing File Systems</h2>
 <p>This section demonstrates how to share NFS and SMB file systems.</p>
 <p>For SMB file systems, the Shared Folders Microsoft Management Console (MMC) must be shared with the admin user account
