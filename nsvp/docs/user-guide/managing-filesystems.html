@@ -120,12 +120,22 @@ Also see the Enabling Multi-Tenancy section in this document.</p>
 <li>Click <strong>Edit</strong></li>
 <li>Select the share type and <strong>Save</strong> entry</li>
 </ol>
-<blockquote>
-<p><strong>Note:</strong> SMB version is set on NS side on server level by command:
-<code>config set smb.maxProtocolVersion='3.02'</code>
-Then need to restart SMB server:
-<code>svc restart smb</code></p>
-</blockquote>
+<h2>Protocols Versions</h2>
+<p>SMB and NFS protocol versions on server level can be restricted in NexentaStor CLI.</p>
+<p>Max SMB version:</p>
+<pre><code>config <span class="hljs-built_in">set</span> smb.maxProtocolVersion=<span class="hljs-string">'3.02'</span>
+</code></pre>
+<p>Max NFS version:</p>
+<pre><code>config <span class="hljs-built_in">set</span> nfs.maxVersion=<span class="hljs-string">'4'</span>
+</code></pre>
+<p>Min NFS version:</p>
+<pre><code>config <span class="hljs-built_in">set</span> nfs.minVersion=<span class="hljs-string">'2'</span>
+</code></pre>
+<p>Then need to restart SMB or NFS server:</p>
+<pre><code>svc restart smb
+</code></pre>
+<pre><code>svc restart nfs
+</code></pre>
 
         </article>
     </section>
