@@ -77,6 +77,7 @@ By default driver will create filesystems in this dataset, and share them to cre
 <span class="hljs-attr">password:</span> <span class="hljs-string">p@ssword</span>                                  <span class="hljs-comment"># [required] NexentaStor REST API password</span>
 <span class="hljs-attr">defaultDataset:</span> <span class="hljs-string">csiDriverPool/csiDriverDataset</span>      <span class="hljs-comment"># default 'pool/dataset' for driver's filesystems</span>
 <span class="hljs-attr">defaultDataIp:</span> <span class="hljs-number">20.20</span><span class="hljs-number">.20</span><span class="hljs-number">.21</span>                          <span class="hljs-comment"># default NexentaStor data IP or HA VIP</span>
+<span class="hljs-attr">defaultNfsMountOptions:</span> <span class="hljs-string">noatime</span>                     <span class="hljs-comment"># default NFS mount options (mount -o ...)</span>
 </code></pre>
 <p>All driver configuration options:</p>
 <div class="table-scroll"><table>
@@ -89,6 +90,7 @@ By default driver will create filesystems in this dataset, and share them to cre
 <tr><td><code>password</code></td><td>NexentaStor REST API password</td><td>yes</td><td><code>p@ssword</code></td></tr>
 <tr><td><code>defaultDataset</code></td><td>parent dataset for driver’s filesystems [pool/dataset]</td><td>no</td><td><code>csiDriverPool/csiDriverDataset</code></td></tr>
 <tr><td><code>defaultDataIp</code></td><td>NexentaStor data IP or HA VIP for mounting NFS shares</td><td>yes for PV</td><td><code>20.20.20.21</code></td></tr>
+<tr><td><code>defaultNfsMountOptions</code></td><td>NFS mount options for: <code>mount -o ...</code> (default: “”)</td><td>no</td><td><code>noatime,nosuid</code></td></tr>
 <tr><td><code>debug</code></td><td>print more logs (default: false)</td><td>no</td><td><code>true</code></td></tr>
 </tbody>
 </table></div>
@@ -106,7 +108,7 @@ Three NexentaStor CSI driver pods should be running after installation:</p>
 <pre><code class="language-bash">$ kubectl get pods
 NAME                            READY   STATUS    RESTARTS   AGE
 nexentastor-csi-attacher-0      2/2     Running   0          19s
-nexentastor-csi-driver-5xqvp    2/2     Running   0          19s
+nexentastor-csi-driver-XXXXX    2/2     Running   0          19s
 nexentastor-csi-provisioner-0   2/2     Running   0          19s
 </code></pre>
 <h2>Usage</h2>
@@ -121,8 +123,9 @@ Default driver parameters may be overwritten in <code>parameters</code> section:
 <span class="hljs-attr">  name:</span> <span class="hljs-string">nexentastor-csi-driver-dynamic-provisioning</span>
 <span class="hljs-attr">provisioner:</span> <span class="hljs-string">nexentastor-csi-driver</span>
 <span class="hljs-attr">parameters:</span>
-<span class="hljs-attr">  dataset:</span> <span class="hljs-string">customPool/customDataset</span> <span class="hljs-comment"># to overwrite "defaultDataset" config property [pool/dataset]</span>
-<span class="hljs-attr">  dataIp:</span> <span class="hljs-number">20.20</span><span class="hljs-number">.20</span><span class="hljs-number">.253</span>              <span class="hljs-comment"># to overwrite "defaultDataIp" config property</span>
+  <span class="hljs-comment">#dataset: customPool/customDataset # to overwrite "defaultDataset" config property [pool/dataset]</span>
+  <span class="hljs-comment">#dataIp: 20.20.20.253              # to overwrite "defaultDataIp" config property</span>
+  <span class="hljs-comment">#nfsMountOptions: noatime          # to overwrite "defaultNfsMountOptions" in config secret</span>
 </code></pre>
 <h4>Parameters</h4>
 <div class="table-scroll"><table>
@@ -132,6 +135,7 @@ Default driver parameters may be overwritten in <code>parameters</code> section:
 <tbody>
 <tr><td><code>dataset</code></td><td>parent dataset for driver’s filesystems [pool/dataset]</td><td><code>customPool/customDataset</code></td></tr>
 <tr><td><code>dataIp</code></td><td>NexentaStor data IP or HA VIP for mounting NFS shares</td><td><code>20.20.20.253</code></td></tr>
+<tr><td><code>nfsMountOptions</code></td><td>nfs mount options (<code>mount -o ...</code>)</td><td><code>noatime</code></td></tr>
 </tbody>
 </table></div>
 <h4>Example</h4>
