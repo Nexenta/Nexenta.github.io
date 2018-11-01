@@ -58,11 +58,16 @@
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">NexentaStor CSI Driver for Kubernetes</h1>
             <p><img src="/resources/images/logo-kubernetes-with-border.svg" style="height:80px;margin-top:-75px;float:right"></p>
-<h2>Supported versions</h2>
-<ul>
-<li>NexentaStor 5.x</li>
-<li>Kubernetes 1.11+</li>
-</ul>
+<h3>Supported versions</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr><th></th><th>NexentaStor 5.1</th><th>NexentaStor 5.2</th></tr>
+</thead>
+<tbody>
+<tr><td>Kubernetes 1.11</td><td>1.x.x</td><td>1.x.x</td></tr>
+<tr><td>Kubernetes 1.12</td><td>2.x.x (not released)</td><td>2.x.x (not released)</td></tr>
+</tbody>
+</table></div>
 <h2>Installation</h2>
 <ol>
 <li><p>Create NexentaStor dataset for the driver, example: <code>csiDriverPool/csiDriverDataset</code>.
@@ -71,13 +76,13 @@ By default driver will create filesystems in this dataset, and share them to cre
 <pre><code class="language-bash">git <span class="hljs-built_in">clone</span> https://github.com/Nexenta/nexentastor-csi-driver.git
 <span class="hljs-built_in">cd</span> nexentastor-csi-driver
 </code></pre></li>
-<li><p>Edit <code>./kubernetes/nexentastor-csi-driver-config.yaml</code> file. Driver configuration example:</p>
+<li><p>Edit <code>./kubernetes/1.0.0/nexentastor-csi-driver-config.yaml</code> file. Driver configuration example:</p>
 <pre><code class="language-yaml"><span class="hljs-attr">restIp:</span> <span class="hljs-attr">https://10.3.3.4:8443,https://10.3.3.5:8443</span> <span class="hljs-comment"># [required] NexentaStor REST API endpoint(s)</span>
 <span class="hljs-attr">username:</span> <span class="hljs-string">admin</span>                                     <span class="hljs-comment"># [required] NexentaStor REST API username</span>
 <span class="hljs-attr">password:</span> <span class="hljs-string">p@ssword</span>                                  <span class="hljs-comment"># [required] NexentaStor REST API password</span>
 <span class="hljs-attr">defaultDataset:</span> <span class="hljs-string">csiDriverPool/csiDriverDataset</span>      <span class="hljs-comment"># default 'pool/dataset' for driver's filesystems</span>
 <span class="hljs-attr">defaultDataIp:</span> <span class="hljs-number">20.20</span><span class="hljs-number">.20</span><span class="hljs-number">.21</span>                          <span class="hljs-comment"># default NexentaStor data IP or HA VIP</span>
-<span class="hljs-attr">defaultNfsMountOptions:</span> <span class="hljs-string">noatime</span>                     <span class="hljs-comment"># default NFS mount options (mount -o ...)</span>
+<span class="hljs-comment">#defaultNfsMountOptions: noatime                    # default NFS mount options (mount -o ...)</span>
 </code></pre>
 <p>All driver configuration options:</p>
 <div class="table-scroll"><table>
@@ -97,10 +102,10 @@ By default driver will create filesystems in this dataset, and share them to cre
 <p><strong>Note</strong>: if parameter <code>defaultDataset</code> (<code>defaultDataIp</code>) is not specified in driver configuration,
 then parameter <code>dataset</code> (<code>dataIp</code>) must be specified in <em>StorageClass</em> configuration.</p></li>
 <li><p>Create Kubernetes secret from the file:</p>
-<pre><code class="language-bash">kubectl create secret generic nexentastor-csi-driver-config --from-file=./kubernetes/nexentastor-csi-driver-config.yaml
+<pre><code class="language-bash">kubectl create secret generic nexentastor-csi-driver-config --from-file=./kubernetes/1.0.0/nexentastor-csi-driver-config.yaml
 </code></pre></li>
 <li><p>Register driver to Kubernetes:</p>
-<pre><code class="language-bash">kubectl apply -f ./kubernetes/nexentastor-csi-driver-1.0.0.yaml
+<pre><code class="language-bash">kubectl apply -f ./kubernetes/1.0.0/nexentastor-csi-driver-1.0.0.yaml
 </code></pre></li>
 </ol>
 <p><br>
@@ -202,7 +207,7 @@ kubectl delete -f ./examples/nginx-persistent-volume.yaml
 </code></pre>
 <h2>Uninstall</h2>
 <p>Using the same files as for installation:</p>
-<pre><code class="language-bash">kubectl delete -f ./kubernetes/nexentastor-csi-driver-1.0.0.yaml
+<pre><code class="language-bash">kubectl delete -f ./kubernetes/1.0.0/nexentastor-csi-driver-1.0.0.yaml
 kubectl delete secret nexentastor-csi-driver-config
 </code></pre>
 
