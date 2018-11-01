@@ -211,6 +211,17 @@ kubectl delete -f ./examples/nginx-persistent-volume.yaml
 <pre><code class="language-bash">kubectl delete -f ./kubernetes/1.0.0/nexentastor-csi-driver-1.0.0.yaml
 kubectl delete secret nexentastor-csi-driver-config
 </code></pre>
+<h2>Troubleshooting</h2>
+<ul>
+<li>Print driver logs
+<pre><code class="language-bash">kubectl logs nexentastor-csi-attacher-0 driver
+kubectl logs nexentastor-csi-provisioner-0 driver
+kubectl logs $(kubectl get pods | awk <span class="hljs-string">'/nexentastor-csi-driver/ {print $1;exit}'</span>) driver
+</code></pre></li>
+<li>Show termination message in case driver failed to run:
+<pre><code class="language-bash">kubectl get pod nexentastor-csi-attacher-0 -o go-template=<span class="hljs-string">"{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"</span>
+</code></pre></li>
+</ul>
 
         </article>
     </section>
