@@ -58,6 +58,12 @@
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">NexentaStor CSI Driver for Kubernetes</h1>
             <p><img src="/resources/images/logo-kubernetes-with-border.svg" style="height:80px;margin-top:-75px;float:right"></p>
+<h2>Requirements</h2>
+<ul>
+<li><code>nfs-common</code> and <code>rpcbind</code> must be installed on each Kubernetes node:
+<pre><code class="language-bash">apt install -y nfs-common rpcbind
+</code></pre></li>
+</ul>
 <h2>Supported versions</h2>
 <div class="table-scroll"><table>
 <thead>
