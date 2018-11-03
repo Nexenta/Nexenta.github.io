@@ -64,14 +64,22 @@
 <tr><th></th><th>NexentaStor 5.1</th><th>NexentaStor 5.2</th></tr>
 </thead>
 <tbody>
-<tr><td>Kubernetes 1.11</td><td>1.x.x</td><td>1.x.x</td></tr>
-<tr><td>Kubernetes 1.12</td><td>2.x.x (not released)</td><td>2.x.x (not released)</td></tr>
+<tr><td>Kubernetes 1.10.5 to 1.12.0</td><td>1.x.x</td><td>1.x.x</td></tr>
+<tr><td>Kubernetes &gt;=1.12.1</td><td>2.x.x (not released)</td><td>2.x.x (not released)</td></tr>
 </tbody>
 </table></div>
 <h2>Requirements</h2>
 <ul>
 <li><code>nfs-common</code> and <code>rpcbind</code> must be installed on each Kubernetes node:
 <pre><code class="language-bash">apt install -y nfs-common rpcbind
+</code></pre></li>
+<li>Kubernetes CSI drivers require <code>CSIDriver</code> and <code>CSINodeInfo</code> custom definitions
+<a href="https://github.com/kubernetes-csi/docs/blob/460a49286fe164a78fde3114e893c48b572a36c8/book/src/Setup.md#csidriver-custom-resource-alpha">to be defined on the cluster</a>.
+Check if they already defined:
+<pre><code class="language-bash">kubectl get csidrivers.csi.storage.k8s.io
+</code></pre>
+If the cluster doesn’t have a resource type &quot;csidrivers&quot;, create them:
+<pre><code class="language-bash">kubectl apply -f ./kubernetes/master/csi-driver-definitions-master.yaml
 </code></pre></li>
 </ul>
 <h2>Installation</h2>
