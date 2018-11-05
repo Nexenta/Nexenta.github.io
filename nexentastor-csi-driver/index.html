@@ -75,10 +75,11 @@
 </code></pre></li>
 <li>Kubernetes CSI drivers require <code>CSIDriver</code> and <code>CSINodeInfo</code> custom definitions
 <a href="https://github.com/kubernetes-csi/docs/blob/460a49286fe164a78fde3114e893c48b572a36c8/book/src/Setup.md#csidriver-custom-resource-alpha">to be defined on the cluster</a>.
-Check if they already defined:
+Check if they are already defined:
 <pre><code class="language-bash">kubectl get csidrivers.csi.storage.k8s.io
+kubectl get csinodeinfos.csi.storage.k8s.io
 </code></pre>
-If the cluster doesn’t have a resource type &quot;csidrivers&quot;, create them:
+If the cluster doesn’t have “csidrivers” and “csinodeinfos” resource types, create them:
 <pre><code class="language-bash">kubectl apply -f ./kubernetes/master/csi-driver-definitions-master.yaml
 </code></pre></li>
 </ul>
