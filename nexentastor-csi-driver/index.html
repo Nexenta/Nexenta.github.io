@@ -82,7 +82,7 @@ By default driver will create filesystems in this dataset, and share them to cre
 <pre><code class="language-bash">git <span class="hljs-built_in">clone</span> https://github.com/Nexenta/nexentastor-csi-driver.git
 <span class="hljs-built_in">cd</span> nexentastor-csi-driver
 </code></pre></li>
-<li><p>Edit <code>./kubernetes/0.1.0/nexentastor-csi-driver-config.yaml</code> file.
+<li><p>Edit <code>./deploy/kubernetes/0.1.0/nexentastor-csi-driver-config.yaml</code> file.
 Driver configuration options:</p>
 <div class="table-scroll"><table>
 <thead>
@@ -109,10 +109,10 @@ then parameter <code>dataset</code> (<code>dataIp</code>) must be specified in <
 <span class="hljs-comment">#defaultNfsMountOptions: noatime                    # default NFS mount options (mount -o ...)</span>
 </code></pre></li>
 <li><p>Create Kubernetes secret from the file:</p>
-<pre><code class="language-bash">kubectl create secret generic nexentastor-csi-driver-config --from-file=./kubernetes/0.1.0/nexentastor-csi-driver-config.yaml
+<pre><code class="language-bash">kubectl create secret generic nexentastor-csi-driver-config --from-file=./deploy/kubernetes/0.1.0/nexentastor-csi-driver-config.yaml
 </code></pre></li>
 <li><p>Register driver to Kubernetes:</p>
-<pre><code class="language-bash">kubectl apply -f ./kubernetes/0.1.0/nexentastor-csi-driver-0.1.0.yaml
+<pre><code class="language-bash">kubectl apply -f ./deploy/kubernetes/0.1.0/nexentastor-csi-driver-0.1.0.yaml
 </code></pre></li>
 </ol>
 <p><br>
@@ -214,7 +214,7 @@ kubectl delete -f ./examples/nginx-persistent-volume.yaml
 </code></pre>
 <h2>Uninstall</h2>
 <p>Using the same files as for installation:</p>
-<pre><code class="language-bash">kubectl delete -f ./kubernetes/0.1.0/nexentastor-csi-driver-0.1.0.yaml
+<pre><code class="language-bash">kubectl delete -f ./deploy/kubernetes/0.1.0/nexentastor-csi-driver-0.1.0.yaml
 kubectl delete secret nexentastor-csi-driver-config
 </code></pre>
 <h2>Troubleshooting</h2>
