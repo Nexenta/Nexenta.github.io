@@ -6,10 +6,10 @@
     <meta name="description" content="Nexenta">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="author" content="">
-    <link href="/all.css?a" rel="stylesheet">
     <link href="/resources/images/favicon.ico" rel="shortcut icon">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+    <link href="/all.css?b" rel="stylesheet">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86415664-5"></script>
@@ -37,13 +37,14 @@
     <section class="container-normal container-flex">
         
 <section class="title">
-    <a href="https://nexenta.com" title="nexenta.com">
-        <img src="/resources/images/logo-nexenta-with-title.png"/>
+    <a href="https://nexenta.github.io" title="Nexenta">
+      <img src="/resources/images/logo-nexenta-with-title.png" class="desktop"/>
+      <img src="/resources/images/logo-nexenta-wo-title.png" class="mobile"/>
     </a>
     
 </section>
 <section class="container-search">
-  <input id="search"/>
+  <input id="search" placeholder="Search" />
 </section>
 
     </section>
@@ -57,7 +58,7 @@
         <section class="description">
             <!--<h1 class="nexentastor" style="margin-bottom: 20px">NexentaStor Drivers for OpenStack</h1>-->
             <h1 style="margin-bottom: 20px">OpenStack Drivers</h1>
-            <img src="/resources/images/logo-openstack.png" style="height: 70px">
+            <img src="/resources/images/logo-openstack.png" style="height: 70px" class="hide-mobile">
         </section>
     </section>
 </section>
@@ -80,279 +81,285 @@
     <section class="container-normal">
         <h2>Cinder</h2>
         <br/>
-        <table>
-            <thead>
-                <tr>
-                    <th>OpenStack Release</th>
-                    <th>NexentaStor 4.x</th>
-                    <th>NexentaStor 5.x</th>
-                    <th>NexentaEdge 2.x</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Rocky</td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/rocky/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/cinder/rocky/configuration/block-storage/drivers/nexentastor4-driver.html">Docs</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/rocky/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/cinder/rocky/configuration/block-storage/drivers/nexentastor5-driver.html">Docs</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/rocky/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/cinder/rocky/configuration/block-storage/drivers/nexentaedge-driver.html">Docs</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Queens</td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/queens/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/cinder/queens/configuration/block-storage/drivers/nexentastor4-driver.html">Docs</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/queens/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/cinder/queens/configuration/block-storage/drivers/nexentastor5-driver.html">Docs</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/queens/cinder/volume/drivers/nexenta">Github</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Pike</td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/pike/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/cinder/pike/configuration/block-storage/drivers/nexentastor4-driver.html">Docs</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/pike/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/cinder/pike/configuration/block-storage/drivers/nexentastor5-driver.html">Docs</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/pike/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/cinder/pike/configuration/block-storage/drivers/nexentaedge-driver.html">Docs</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Ocata</td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/ocata/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/ocata/config-reference/block-storage/drivers/nexentastor4-driver.html">Docs</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/ocata/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/ocata/config-reference/block-storage/drivers/nexentastor5-driver.html">Docs</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/ocata/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/ocata/config-reference/block-storage/drivers/nexentaedge-driver.html">Docs</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Newton</td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/newton/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/newton/config-reference/block-storage/drivers/nexentastor4-driver.html">Docs</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/newton/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/newton/config-reference/block-storage/drivers/nexentastor5-driver.html">Docs</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/newton/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/newton/config-reference/block-storage/drivers/nexentaedge-driver.html">Docs</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mitaka</td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/mitaka/config-reference/block-storage/drivers/nexentastor4-driver.html">Docs</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/mitaka/config-reference/block-storage/drivers/nexentastor5-driver.html">Docs</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta">Github</a>
-                        &nbsp;-&nbsp;
-                        <a href="https://docs.openstack.org/mitaka/config-reference/block-storage/drivers/nexentaedge-driver.html">Docs</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Liberty</td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/liberty/cinder/volume/drivers/nexenta">Github</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/liberty/cinder/volume/drivers/nexenta">Github</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/liberty/cinder/volume/drivers/nexenta">Github</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Kilo</td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/kilo/cinder/volume/drivers/nexenta">Github</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/kilo/cinder/volume/drivers/nexenta">Github</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/kilo/cinder/volume/drivers/nexenta">Github</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Juno</td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/juno/cinder/volume/drivers/nexenta">Github</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/juno/cinder/volume/drivers/nexenta">Github</a>
-                    </td>
-                    <td>
-                        <a href="https://github.com/Nexenta/cinder/tree/stable/juno/cinder/volume/drivers/nexenta">Github</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>OpenStack Release</th>
+                        <th>NexentaStor 4.x</th>
+                        <th>NexentaStor 5.x</th>
+                        <th>NexentaEdge 2.x</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Rocky</td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/rocky/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/cinder/rocky/configuration/block-storage/drivers/nexentastor4-driver.html">Docs</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/rocky/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/cinder/rocky/configuration/block-storage/drivers/nexentastor5-driver.html">Docs</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/rocky/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/cinder/rocky/configuration/block-storage/drivers/nexentaedge-driver.html">Docs</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Queens</td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/queens/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/cinder/queens/configuration/block-storage/drivers/nexentastor4-driver.html">Docs</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/queens/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/cinder/queens/configuration/block-storage/drivers/nexentastor5-driver.html">Docs</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/queens/cinder/volume/drivers/nexenta">Github</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Pike</td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/pike/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/cinder/pike/configuration/block-storage/drivers/nexentastor4-driver.html">Docs</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/pike/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/cinder/pike/configuration/block-storage/drivers/nexentastor5-driver.html">Docs</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/pike/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/cinder/pike/configuration/block-storage/drivers/nexentaedge-driver.html">Docs</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ocata</td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/ocata/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/ocata/config-reference/block-storage/drivers/nexentastor4-driver.html">Docs</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/ocata/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/ocata/config-reference/block-storage/drivers/nexentastor5-driver.html">Docs</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/ocata/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/ocata/config-reference/block-storage/drivers/nexentaedge-driver.html">Docs</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Newton</td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/newton/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/newton/config-reference/block-storage/drivers/nexentastor4-driver.html">Docs</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/newton/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/newton/config-reference/block-storage/drivers/nexentastor5-driver.html">Docs</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/newton/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/newton/config-reference/block-storage/drivers/nexentaedge-driver.html">Docs</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mitaka</td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/mitaka/config-reference/block-storage/drivers/nexentastor4-driver.html">Docs</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/mitaka/config-reference/block-storage/drivers/nexentastor5-driver.html">Docs</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta">Github</a>
+                            &nbsp;-&nbsp;
+                            <a href="https://docs.openstack.org/mitaka/config-reference/block-storage/drivers/nexentaedge-driver.html">Docs</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Liberty</td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/liberty/cinder/volume/drivers/nexenta">Github</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/liberty/cinder/volume/drivers/nexenta">Github</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/liberty/cinder/volume/drivers/nexenta">Github</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Kilo</td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/kilo/cinder/volume/drivers/nexenta">Github</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/kilo/cinder/volume/drivers/nexenta">Github</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/kilo/cinder/volume/drivers/nexenta">Github</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Juno</td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/juno/cinder/volume/drivers/nexenta">Github</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/juno/cinder/volume/drivers/nexenta">Github</a>
+                        </td>
+                        <td>
+                            <a href="https://github.com/Nexenta/cinder/tree/stable/juno/cinder/volume/drivers/nexenta">Github</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
 </section>
 <section class="band band-second">
     <section class="container-normal">
         <h2>Manila</h2>
         <br/>
-        <table>
-            <thead>
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>OpenStack Release</th>
+                        <th>NexentaStor 4.x</th>
+                        <th>NexentaStor 5.x</th>
+                    </tr>
+                </thead>
+                <tbody>
                 <tr>
-                    <th>OpenStack Release</th>
-                    <th>NexentaStor 4.x</th>
-                    <th>NexentaStor 5.x</th>
+                    <td>Rocky</td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/rocky/manila/share/drivers/nexenta">Github</a>
+                    </td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/rocky/manila/share/drivers/nexenta">Github</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Rocky</td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/rocky/manila/share/drivers/nexenta">Github</a>
-                </td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/rocky/manila/share/drivers/nexenta">Github</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Queens</td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/queens/manila/share/drivers/nexenta">Github</a>
-                </td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/queens/manila/share/drivers/nexenta">Github</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Pike</td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/pike/manila/share/drivers/nexenta">Github</a>
-                </td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/pike/manila/share/drivers/nexenta">Github</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Ocata</td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/ocata/manila/share/drivers/nexenta">Github</a>
-                </td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/ocata/manila/share/drivers/nexenta">Github</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Newton</td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/newton/manila/share/drivers/nexenta">Github</a>
-                </td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/newton/manila/share/drivers/nexenta">Github</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Mitaka</td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/mitaka/manila/share/drivers/nexenta">Github</a>
-                </td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/mitaka/manila/share/drivers/nexenta">Github</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Liberty</td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/liberty/manila/share/drivers/nexenta">Github</a>
-                </td>
-                <td>
-                    <a href="https://github.com/Nexenta/manila/tree/stable/liberty/manila/share/drivers/nexenta">Github</a>
-                </td>
-              </tr>
-            </tbody>
-        </table>
+                <tr>
+                    <td>Queens</td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/queens/manila/share/drivers/nexenta">Github</a>
+                    </td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/queens/manila/share/drivers/nexenta">Github</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Pike</td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/pike/manila/share/drivers/nexenta">Github</a>
+                    </td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/pike/manila/share/drivers/nexenta">Github</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ocata</td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/ocata/manila/share/drivers/nexenta">Github</a>
+                    </td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/ocata/manila/share/drivers/nexenta">Github</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Newton</td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/newton/manila/share/drivers/nexenta">Github</a>
+                    </td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/newton/manila/share/drivers/nexenta">Github</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mitaka</td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/mitaka/manila/share/drivers/nexenta">Github</a>
+                    </td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/mitaka/manila/share/drivers/nexenta">Github</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Liberty</td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/liberty/manila/share/drivers/nexenta">Github</a>
+                    </td>
+                    <td>
+                        <a href="https://github.com/Nexenta/manila/tree/stable/liberty/manila/share/drivers/nexenta">Github</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
 </section>
 <section class="band band-third">
     <section class="container-normal">
         <h2>Certifications</h2>
         <br/>
-        <table>
-            <thead>
-                <tr>
-                    <th>Vendor</th>
-                    <th>Product</th>
-                    <th>Certification</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <a href="https://www.redhat.com">Redhat</a>
-                    </td>
-                    <td>
-                        <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/10">RHOSP 10</a>
-                    </td>
-                    <td>
-                        <a href="https://access.redhat.com/ecosystem/software/3064091">NexentaStor 5.x</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="https://www.redhat.com">Redhat</a>
-                    </td>
-                    <td>
-                        <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13">RHOSP 13</a>
-                    </td>
-                    <td>
-                        <a href="https://access.redhat.com/ecosystem/software/3064091">NexentaStor 5.x</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vendor</th>
+                        <th>Product</th>
+                        <th>Certification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="https://www.redhat.com">Redhat</a>
+                        </td>
+                        <td>
+                            <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/10">RHOSP 10</a>
+                        </td>
+                        <td>
+                            <a href="https://access.redhat.com/ecosystem/software/3064091">NexentaStor 5.x</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="https://www.redhat.com">Redhat</a>
+                        </td>
+                        <td>
+                            <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13">RHOSP 13</a>
+                        </td>
+                        <td>
+                            <a href="https://access.redhat.com/ecosystem/software/3064091">NexentaStor 5.x</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
 </section>
 
@@ -365,7 +372,9 @@
         <section>
             &copy;
             <time><script>document.write(new Date().getFullYear())</script></time>
-            Nexenta Systems, Inc.
+            <a href="https://nexenta.com" title="Nexenta Systems, Inc.">
+              Nexenta Systems, Inc.
+            </a>
         </section>
     </section>
 </footer>
