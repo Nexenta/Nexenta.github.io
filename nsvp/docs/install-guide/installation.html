@@ -65,7 +65,7 @@ environments.
 You should have already verified that your system meets the necessary prerequisites.</p>
 <h2>Windows Environment</h2>
 <ol>
-<li>Download the NSVP-vCenter-Installer-5.0.xxxx.msi file from the NexentaStor 5.x download site, and copy the file
+<li>Download the NSVP-vCenter-Installer-5.2.xxxx.msi file from the NexentaStor 5.x download site, and copy the file
 over to vCenter server</li>
 <li>Log in to the vCenter Windows Server, and run the Web Client Plugin installer file</li>
 <li>Complete the Windows Installation Wizard:
@@ -82,7 +82,7 @@ over to vCenter server</li>
 <h2>Linux Environment</h2>
 <p>To install the NexentaStor vCenter Plugin on Linux, do the following:</p>
 <ol>
-<li>Download the nsvp-vcsa-installer-5.0.xxxx.tar file from the NexentaStor 5.x download site</li>
+<li>Download the nsvp-vcsa-installer-5.2.xxxx.tar file from the NexentaStor 5.x download site</li>
 <li>SSH into VCSA as root</li>
 <li>Enable BASH access:
 <pre><code>Command&gt; shell.set --enabled True
@@ -93,11 +93,11 @@ over to vCenter server</li>
 <li>Create and change directory to upload the installation files:
 <pre><code>mkdir nsvp &amp;&amp; <span class="hljs-built_in">cd</span> nsvp/
 </code></pre></li>
-<li>Copy downloaded nsvp-installer-5.0.xxxx.tar from remote host using scp, wget or curl:
-<pre><code>scp remote_host:nsvp-installer-5.0.xxxx.tar
+<li>Copy downloaded nsvp-installer-5.2.xxxx.tar from remote host using scp, wget or curl:
+<pre><code>scp remote_host:nsvp-installer-5.2.xxxx.tar
 </code></pre></li>
 <li>Extract the contents from the archive by typing the following command:
-<pre><code>tar -xvf nsvp-installer-5.0.xxxx.tar
+<pre><code>tar -xvf nsvp-installer-5.2.xxxx.tar
 </code></pre></li>
 <li>Optionally, run the help command to view the installation command:
 <pre><code>./install.sh -<span class="hljs-built_in">help</span>
