@@ -66,8 +66,9 @@
         <section class="description">
             <h2>Docker</h2>
         </section>
+        <p>To run NexentaFusion as a docker container you can use either the installation script (recommended) or docker run command.</p>
         <p style="margin-top:30px">
-            This utility will walk you through installing NexentaFusion to run as a Docker container. The required
+            1) This utility will walk you through installing NexentaFusion to run as a Docker container. The required
             information will be requested and minimums confirmed.
             <br />
             <br />
@@ -82,8 +83,15 @@ chmod +x ./nexenta-fusion-installer.sh
 docker rm nexenta-fusion</code></pre>
 
         <p>
-            Product documentation page:
-            <a href="https://nexenta.com/products/documentation">https://nexenta.com/products/documentation</a>
+            2) Docker run command:
+        </p>
+        <pre><code>docker run --name fusion -v /opt/docker/esdb:/var/lib/elasticsearch -v /opt/docker/fusion:/var/lib/nef -e MGMT_IP="0.0.0.0" --ulimit nofile=65536:65536 --ulimit memlock=-1:-1 -e TZ="America/Los_Angeles" --memory=16g -e ES_HEAP_SIZE="8g" -i -t -p 8457:8457 -p 9200:9200 -p 8443:8443 –p 2000:2000 nexenta/fusion</code></pre>
+        <p>
+            Replace 0.0.0.0 shown in the example above with your management IP, -e TZ="America/Los_Angeles" is an optional parameter to set timezone. Default is UTC. Heap size should be limited to half the total memory size, but not more than 31g.
+        </p>
+        <p>
+            <a href="https://nexenta.com/products/documentation">Product documentation page</a>
+            
         </p>
     </section>
 </section>
