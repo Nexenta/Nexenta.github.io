@@ -65,59 +65,83 @@
 <tr><th></th><th>NexentaStor 5.1</th><th>NexentaStor 5.2</th></tr>
 </thead>
 <tbody>
-<tr><td>Kubernetes 1.10.5 to 1.12.0</td><td>0.1.x</td><td>0.1.x</td></tr>
-<tr><td>Kubernetes &gt;=1.12.1</td><td>master</td><td>master</td></tr>
+<tr><td>Kubernetes &gt;=1.10.5 &lt;1.12.1</td><td><a href="https://github.com/Nexenta/nexentastor-csi-driver/tree/0.1.0">0.1.0</a></td><td><a href="https://github.com/Nexenta/nexentastor-csi-driver/tree/0.1.0">0.1.0</a></td></tr>
+<tr><td>Kubernetes &gt;=1.12.1 &lt;1.13</td><td><a href="https://github.com/Nexenta/nexentastor-csi-driver/tree/0.2.0">0.2.0</a></td><td><a href="https://github.com/Nexenta/nexentastor-csi-driver/tree/0.2.0">0.2.0</a></td></tr>
+<tr><td>Kubernetes &gt;=1.13</td><td><a href="https://github.com/Nexenta/nexentastor-csi-driver/tree/1.0.0">1.0.0</a></td><td><a href="https://github.com/Nexenta/nexentastor-csi-driver/tree/1.0.0">1.0.0</a></td></tr>
 </tbody>
 </table></div>
 <h2>Requirements</h2>
 <ul>
-<li><code>nfs-common</code> and <code>rpcbind</code> must be installed on each Kubernetes node:
-<pre><code class="language-bash">apt install -y nfs-common rpcbind
+<li><a href="https://github.com/kubernetes-csi/docs/blob/387dce893e59c1fcf3f4192cbea254440b6f0f07/book/src/Setup.md">This page explains</a>
+how to configure Kubernetes for CSI drivers</li>
+<li>Depends on preferred mount filesystem type, following utilities must be installed on each Kubernetes node:
+<pre><code class="language-bash"><span class="hljs-comment"># for NFS</span>
+apt install -y nfs-common rpcbind
+<span class="hljs-comment"># for SMB</span>
+apt install -y cifs-utils rpcbind
+</code></pre></li>
+<li>Kubernetes CSI drivers require <code>CSIDriver</code> and <code>CSINodeInfo</code> resource types
+<a href="https://github.com/kubernetes-csi/docs/blob/460a49286fe164a78fde3114e893c48b572a36c8/book/src/Setup.md#csidriver-custom-resource-alpha">to be defined on the cluster</a>.
+Check if they are already defined:
+<pre><code class="language-bash">kubectl get customresourcedefinition.apiextensions.k8s.io/csidrivers.csi.storage.k8s.io
+kubectl get customresourcedefinition.apiextensions.k8s.io/csinodeinfos.csi.storage.k8s.io
+</code></pre>
+If the cluster doesn’t have “csidrivers” and “csinodeinfos” resource types, create them:
+<pre><code class="language-bash">kubectl create -f https://raw.githubusercontent.com/kubernetes/csi-api/ce972859c46136a1f4a9fe119d05482a739c6311/pkg/crd/manifests/csidriver.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/csi-api/ce972859c46136a1f4a9fe119d05482a739c6311/pkg/crd/manifests/csinodeinfo.yaml
 </code></pre></li>
 </ul>
 <h2>Installation</h2>
 <ol>
 <li><p>Create NexentaStor dataset for the driver, example: <code>csiDriverPool/csiDriverDataset</code>.
-By default driver will create filesystems in this dataset, and share them to create Kubernetes volumes.</p></li>
-<li><p>Clone driver repository:</p>
+By default driver will create filesystems in this dataset, and share them in order to create Kubernetes volumes.</p></li>
+<li><p>Clone driver repository</p>
 <pre><code class="language-bash">git <span class="hljs-built_in">clone</span> https://github.com/Nexenta/nexentastor-csi-driver.git
 <span class="hljs-built_in">cd</span> nexentastor-csi-driver
+git checkout 1.0.0 <span class="hljs-comment"># to use other than master branch</span>
 </code></pre></li>
-<li><p>Edit <code>./deploy/kubernetes/0.1.0/nexentastor-csi-driver-config.yaml</code> file.
-Driver configuration options:</p>
+<li><p>Edit <code>./deploy/kubernetes/nexentastor-csi-driver-config.yaml</code> file. Driver configuration example:</p>
+<pre><code class="language-yaml"><span class="hljs-attr">restIp:</span> <span class="hljs-attr">https://10.3.3.4:8443,https://10.3.3.5:8443</span>     <span class="hljs-comment"># [required] NexentaStor REST API endpoint(s)</span>
+<span class="hljs-attr">username:</span> <span class="hljs-string">admin</span>                                         <span class="hljs-comment"># [required] NexentaStor REST API username</span>
+<span class="hljs-attr">password:</span> <span class="hljs-string">p@ssword</span>                                      <span class="hljs-comment"># [required] NexentaStor REST API password</span>
+<span class="hljs-attr">defaultDataset:</span> <span class="hljs-string">csiDriverPool/csiDriverDataset</span>          <span class="hljs-comment"># default 'pool/dataset' to use</span>
+<span class="hljs-attr">defaultDataIp:</span> <span class="hljs-number">20.20</span><span class="hljs-number">.20</span><span class="hljs-number">.21</span>                              <span class="hljs-comment"># default NexentaStor data IP or HA VIP</span>
+<span class="hljs-attr">defaultMountFsType:</span> <span class="hljs-string">nfs</span>                                 <span class="hljs-comment"># default mount fs type [nfs|cifs]</span>
+<span class="hljs-attr">defaultMountOptions:</span> <span class="hljs-string">noatime</span>                            <span class="hljs-comment"># default mount options (mount -o ...)</span>
+
+<span class="hljs-comment"># for CIFS mounts:</span>
+<span class="hljs-comment">#defaultMountFsType: cifs                               # default mount fs type [nfs|cifs]</span>
+<span class="hljs-comment">#defaultMountOptions: username=admin,password=Nexenta@1 # username/password must be defined for CIFS</span>
+</code></pre>
+<p>All driver configuration options:</p>
 <div class="table-scroll"><table>
 <thead>
 <tr><th>Name</th><th>Description</th><th>Required</th><th>Example</th></tr>
 </thead>
 <tbody>
-<tr><td><code>restIp</code></td><td>NexentaStor REST API endpoint(s), <code>,</code> to separate cluster nodes</td><td>yes</td><td><code>https://10.3.3.4:8443,https://10.3.3.5:8443</code></td></tr>
+<tr><td><code>restIp</code></td><td>NexentaStor REST API endpoint(s); <code>,</code> to separate cluster nodes</td><td>yes</td><td><code>https://10.3.3.4:8443</code></td></tr>
 <tr><td><code>username</code></td><td>NexentaStor REST API username</td><td>yes</td><td><code>admin</code></td></tr>
 <tr><td><code>password</code></td><td>NexentaStor REST API password</td><td>yes</td><td><code>p@ssword</code></td></tr>
 <tr><td><code>defaultDataset</code></td><td>parent dataset for driver’s filesystems [pool/dataset]</td><td>no</td><td><code>csiDriverPool/csiDriverDataset</code></td></tr>
-<tr><td><code>defaultDataIp</code></td><td>NexentaStor data IP or HA VIP for mounting NFS shares</td><td>yes for PV</td><td><code>20.20.20.21</code></td></tr>
-<tr><td><code>defaultNfsMountOptions</code></td><td>NFS mount options for: <code>mount -o ...</code> (default: “”)</td><td>no</td><td><code>noatime,nosuid</code></td></tr>
+<tr><td><code>defaultDataIp</code></td><td>NexentaStor data IP or HA VIP for mounting shares</td><td>yes for PV</td><td><code>20.20.20.21</code></td></tr>
+<tr><td><code>defaultMountFsType</code></td><td>mount filesystem type <a href="default:" title="nfs">nfs, cifs</a></td><td>no</td><td><code>cifs</code></td></tr>
+<tr><td><code>defaultMountOptions</code></td><td>NFS/CIFS mount options: <code>mount -o ...</code> (default: “”)</td><td>no</td><td>NFS: <code>noatime,nosuid</code><br>CIFS: <code>username=admin,password=123</code></td></tr>
 <tr><td><code>debug</code></td><td>print more logs (default: false)</td><td>no</td><td><code>true</code></td></tr>
 </tbody>
 </table></div>
-<p><strong>Note</strong>: if parameter <code>defaultDataset</code> (<code>defaultDataIp</code>) is not specified in driver configuration,
-then parameter <code>dataset</code> (<code>dataIp</code>) must be specified in <em>StorageClass</em> configuration.</p>
-<p>Driver configuration example:</p>
-<pre><code class="language-yaml"><span class="hljs-attr">restIp:</span> <span class="hljs-attr">https://10.3.3.4:8443,https://10.3.3.5:8443</span> <span class="hljs-comment"># [required] NexentaStor REST API endpoint(s)</span>
-<span class="hljs-attr">username:</span> <span class="hljs-string">admin</span>                                     <span class="hljs-comment"># [required] NexentaStor REST API username</span>
-<span class="hljs-attr">password:</span> <span class="hljs-string">p@ssword</span>                                  <span class="hljs-comment"># [required] NexentaStor REST API password</span>
-<span class="hljs-attr">defaultDataset:</span> <span class="hljs-string">csiDriverPool/csiDriverDataset</span>      <span class="hljs-comment"># default 'pool/dataset' for driver's filesystems</span>
-<span class="hljs-attr">defaultDataIp:</span> <span class="hljs-number">20.20</span><span class="hljs-number">.20</span><span class="hljs-number">.21</span>                          <span class="hljs-comment"># default NexentaStor data IP or HA VIP</span>
-<span class="hljs-comment">#defaultNfsMountOptions: noatime                    # default NFS mount options (mount -o ...)</span>
-</code></pre></li>
+<p><strong>Note</strong>: if parameter <code>defaultDataset</code>/<code>defaultDataIp</code> is not specified in driver configuration,
+then parameter <code>dataset</code>/<code>dataIp</code> must be specified in <em>StorageClass</em> configuration.</p>
+<p><strong>Note</strong>: all default parameters (<code>default*</code>) may be overwritten in specific <em>StorageClass</em> configuration.</p>
+<p><strong>Note</strong>: if <code>defaultMountFsType</code> is set to <code>cifs</code> then parameter <code>defaultMountOptions</code> must include
+CIFS username and password (<code>username=admin,password=123</code>).</p></li>
 <li><p>Create Kubernetes secret from the file:</p>
-<pre><code class="language-bash">kubectl create secret generic nexentastor-csi-driver-config --from-file=./deploy/kubernetes/0.1.0/nexentastor-csi-driver-config.yaml
+<pre><code class="language-bash">kubectl create secret generic nexentastor-csi-driver-config --from-file=./deploy/kubernetes/nexentastor-csi-driver-config.yaml
 </code></pre></li>
 <li><p>Register driver to Kubernetes:</p>
-<pre><code class="language-bash">kubectl apply -f ./deploy/kubernetes/0.1.0/nexentastor-csi-driver-0.1.0.yaml
+<pre><code class="language-bash">kubectl apply -f ./deploy/kubernetes/nexentastor-csi-driver.yaml
 </code></pre></li>
 </ol>
-<p><br>
-Three NexentaStor CSI driver pods should be running after installation:</p>
+<p>NexentaStor CSI driver’s pods should be running after installation:</p>
 <pre><code class="language-bash">$ kubectl get pods
 NAME                            READY   STATUS    RESTARTS   AGE
 nexentastor-csi-attacher-0      2/2     Running   0          19s
@@ -127,18 +151,20 @@ nexentastor-csi-provisioner-0   2/2     Running   0          19s
 <h2>Usage</h2>
 <h3>Dynamically provisioned volumes</h3>
 <p>For dynamic volume provisioning, the administrator needs to set up a <em>StorageClass</em> pointing to the driver.
-In this case Kubernetes generates volume name automatically
-(for example <code>pvc-871068ed-8b5d-11e8-9dae-005056b37cb2</code>).
-Default driver parameters may be overwritten in <code>parameters</code> section:</p>
+In this case Kubernetes generates volume name automatically (for example <code>pvc-ns-cfc67950-fe3c-11e8-a3ca-005056b857f8</code>).
+Default driver configuration may be overwritten in <code>parameters</code> section:</p>
 <pre><code class="language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
 <span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
 <span class="hljs-attr">metadata:</span>
 <span class="hljs-attr">  name:</span> <span class="hljs-string">nexentastor-csi-driver-dynamic-provisioning</span>
-<span class="hljs-attr">provisioner:</span> <span class="hljs-string">com.nexenta.nexentastor-csi-driver</span>
+<span class="hljs-attr">provisioner:</span> <span class="hljs-string">nexentastor-csi-driver.nexenta.com</span>
+<span class="hljs-attr">mountOptions:</span>                        <span class="hljs-comment"># list of options for `mount -o ...` command</span>
+<span class="hljs-bullet">  -</span> <span class="hljs-string">noatime</span>                          <span class="hljs-comment">#</span>
 <span class="hljs-attr">parameters:</span>
   <span class="hljs-comment">#dataset: customPool/customDataset # to overwrite "defaultDataset" config property [pool/dataset]</span>
   <span class="hljs-comment">#dataIp: 20.20.20.253              # to overwrite "defaultDataIp" config property</span>
-  <span class="hljs-comment">#nfsMountOptions: noatime          # to overwrite "defaultNfsMountOptions" in config secret</span>
+  <span class="hljs-comment">#mountFsType: nfs                  # to overwrite "defaultMountFsType" config property</span>
+  <span class="hljs-comment">#mountOptions: noatime             # to overwrite "defaultMountOptions" config property</span>
 </code></pre>
 <h4>Parameters</h4>
 <div class="table-scroll"><table>
@@ -147,16 +173,17 @@ Default driver parameters may be overwritten in <code>parameters</code> section:
 </thead>
 <tbody>
 <tr><td><code>dataset</code></td><td>parent dataset for driver’s filesystems [pool/dataset]</td><td><code>customPool/customDataset</code></td></tr>
-<tr><td><code>dataIp</code></td><td>NexentaStor data IP or HA VIP for mounting NFS shares</td><td><code>20.20.20.253</code></td></tr>
-<tr><td><code>nfsMountOptions</code></td><td>nfs mount options (<code>mount -o ...</code>)</td><td><code>noatime</code></td></tr>
+<tr><td><code>dataIp</code></td><td>NexentaStor data IP or HA VIP for mounting shares</td><td><code>20.20.20.253</code></td></tr>
+<tr><td><code>mountFsType</code></td><td>mount filesystem type <a href="default:" title="nfs">nfs, cifs</a></td><td><code>cifs</code></td></tr>
+<tr><td><code>mountOptions</code></td><td>NFS/CIFS mount options: <code>mount -o ...</code></td><td>NFS: <code>noatime</code><br>CIFS: <code>username=admin,password=123</code></td></tr>
 </tbody>
 </table></div>
 <h4>Example</h4>
 <p>Run Nginx server using <em>StorageClass</em>:</p>
-<pre><code class="language-bash">kubectl apply -f ./examples/nginx-storage-class.yaml
+<pre><code class="language-bash">kubectl apply -f ./deploy/kubernetes/examples/nginx-storage-class.yaml
 
 <span class="hljs-comment">## to delete this pod:</span>
-kubectl delete -f ./examples/nginx-storage-class.yaml
+kubectl delete -f ./deploy/kubernetes/examples/nginx-storage-class.yaml
 </code></pre>
 <h3>Pre-provisioned volumes</h3>
 <p>The driver can use already existing NexentaStor filesystem,
@@ -170,12 +197,14 @@ in this case, <em>PersistentVolume</em> and <em>PersistentVolumeClaim</em> shoul
 <span class="hljs-attr">    name:</span> <span class="hljs-string">nexentastor-csi-driver-nginx-pv</span>
 <span class="hljs-attr">spec:</span>
 <span class="hljs-attr">  accessModes:</span>
-<span class="hljs-bullet">  -</span> <span class="hljs-string">ReadWriteMany</span>
+<span class="hljs-bullet">    -</span> <span class="hljs-string">ReadWriteMany</span>
 <span class="hljs-attr">  capacity:</span>
 <span class="hljs-attr">    storage:</span> <span class="hljs-number">1</span><span class="hljs-string">Gi</span>
 <span class="hljs-attr">  csi:</span>
-<span class="hljs-attr">    driver:</span> <span class="hljs-string">nexentastor-csi-driver</span>
+<span class="hljs-attr">    driver:</span> <span class="hljs-string">nexentastor-csi-driver.nexenta.com</span>
 <span class="hljs-attr">    volumeHandle:</span> <span class="hljs-string">csiDriverPool/csiDriverDataset/nginx-persistent</span>
+<span class="hljs-attr">  mountOptions:</span> <span class="hljs-comment"># list of options for `mount -o ...` command</span>
+<span class="hljs-bullet">    -</span> <span class="hljs-string">noatime</span>   <span class="hljs-comment">#</span>
 </code></pre>
 <p>CSI Parameters:</p>
 <div class="table-scroll"><table>
@@ -183,7 +212,7 @@ in this case, <em>PersistentVolume</em> and <em>PersistentVolumeClaim</em> shoul
 <tr><th>Name</th><th>Description</th><th>Example</th></tr>
 </thead>
 <tbody>
-<tr><td><code>driver</code></td><td>installed driver name “nexentastor-csi-driver”</td><td><code>nexentastor-csi-driver</code></td></tr>
+<tr><td><code>driver</code></td><td>installed driver name “nexentastor-csi-driver.nexenta.com”</td><td><code>nexentastor-csi-driver.nexenta.com</code></td></tr>
 <tr><td><code>volumeHandle</code></td><td>path to existing NexentaStor filesystem [pool/dataset/filesystem]</td><td><code>PoolA/datasetA/nginx</code></td></tr>
 </tbody>
 </table></div>
@@ -194,39 +223,59 @@ in this case, <em>PersistentVolume</em> and <em>PersistentVolumeClaim</em> shoul
 <span class="hljs-attr">  name:</span> <span class="hljs-string">nexentastor-csi-driver-nginx-pvc</span>
 <span class="hljs-attr">spec:</span>
 <span class="hljs-attr">  accessModes:</span>
-<span class="hljs-bullet">  -</span> <span class="hljs-string">ReadWriteMany</span>
+<span class="hljs-bullet">    -</span> <span class="hljs-string">ReadWriteMany</span>
 <span class="hljs-attr">  resources:</span>
 <span class="hljs-attr">    requests:</span>
 <span class="hljs-attr">      storage:</span> <span class="hljs-number">1</span><span class="hljs-string">Gi</span>
 <span class="hljs-attr">  selector:</span>
 <span class="hljs-attr">    matchExpressions:</span>
-<span class="hljs-attr">    - key:</span> <span class="hljs-string">name</span>
-<span class="hljs-attr">      operator:</span> <span class="hljs-string">In</span>
-<span class="hljs-attr">      values:</span> <span class="hljs-string">["nexentastor-csi-driver-nginx-pv"]</span>
+<span class="hljs-attr">      - key:</span> <span class="hljs-string">name</span>
+<span class="hljs-attr">        operator:</span> <span class="hljs-string">In</span>
+<span class="hljs-attr">        values:</span> <span class="hljs-string">['nexentastor-csi-driver-nginx-pv']</span>
 </code></pre>
 <h4>Example</h4>
 <p>Run nginx server using PersistentVolume.</p>
 <p><strong>Note:</strong> Pre-configured filesystem should exist on the NexentaStor:
 <code>csiDriverPool/csiDriverDataset/nginx-persistent</code>.</p>
-<pre><code class="language-bash">kubectl apply -f ./examples/nginx-persistent-volume.yaml
+<pre><code class="language-bash">kubectl apply -f ./deploy/kubernetes/examples/nginx-persistent-volume.yaml
 
 <span class="hljs-comment">## to delete this pod:</span>
-kubectl delete -f ./examples/nginx-persistent-volume.yaml
+kubectl delete -f ./deploy/kubernetes/examples/nginx-persistent-volume.yaml
 </code></pre>
 <h2>Uninstall</h2>
 <p>Using the same files as for installation:</p>
-<pre><code class="language-bash">kubectl delete -f ./deploy/kubernetes/0.1.0/nexentastor-csi-driver-0.1.0.yaml
+<pre><code class="language-bash"><span class="hljs-comment">## delete driver</span>
+kubectl delete -f ./deploy/kubernetes/nexentastor-csi-driver.yaml
+
+<span class="hljs-comment">## delete secret</span>
 kubectl delete secret nexentastor-csi-driver-config
 </code></pre>
 <h2>Troubleshooting</h2>
 <ul>
-<li>Print driver logs
-<pre><code class="language-bash">kubectl logs nexentastor-csi-attacher-0 driver
-kubectl logs nexentastor-csi-provisioner-0 driver
-kubectl logs $(kubectl get pods | awk <span class="hljs-string">'/nexentastor-csi-driver/ {print $1;exit}'</span>) driver
+<li>Show installed drivers:
+<pre><code class="language-bash">kubectl get csidrivers.csi.storage.k8s.io
+kubectl describe csidrivers.csi.storage.k8s.io
+</code></pre></li>
+<li>Error:
+<pre><code>MountVolume.MountDevice failed <span class="hljs-keyword">for</span> volume <span class="hljs-string">"pvc-ns-&lt;...&gt;"</span> :
+driver name nexentastor-csi-driver.nexenta.com not found <span class="hljs-keyword">in</span> the list of registered CSI drivers
+</code></pre>
+Make sure <em>kubelet</em> configured with <code>--root-dir=/var/lib/kubelet</code>, otherwise update paths in the driver yaml file
+(<a href="https://github.com/kubernetes-csi/docs/blob/387dce893e59c1fcf3f4192cbea254440b6f0f07/book/src/Setup.md#enabling-features">all requirements</a>).</li>
+<li>Driver logs
+<pre><code class="language-bash">kubectl logs -f nexentastor-csi-attacher-0 driver
+kubectl logs -f nexentastor-csi-provisioner-0 driver
+kubectl logs -f $(kubectl get pods | awk <span class="hljs-string">'/nexentastor-csi-driver/ {print $1;exit}'</span>) driver
+<span class="hljs-comment"># combine all pods:</span>
+kubectl get pods | awk <span class="hljs-string">'/nexentastor-csi-/ {system("kubectl logs " $1 " driver &amp;")}'</span>
 </code></pre></li>
 <li>Show termination message in case driver failed to run:
 <pre><code class="language-bash">kubectl get pod nexentastor-csi-attacher-0 -o go-template=<span class="hljs-string">"{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"</span>
+</code></pre></li>
+<li>Configure Docker to trust insecure registries:
+<pre><code class="language-bash"><span class="hljs-comment"># add `{"insecure-registries":["10.3.199.92:5000"]}` to:</span>
+vim /etc/docker/daemon.json
+service docker restart
 </code></pre></li>
 </ul>
 
