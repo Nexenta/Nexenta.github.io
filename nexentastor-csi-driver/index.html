@@ -70,14 +70,16 @@
 </table></div>
 <h2>Requirements</h2>
 <ul>
-<li><a href="https://github.com/kubernetes-csi/docs/blob/387dce893e59c1fcf3f4192cbea254440b6f0f07/book/src/Setup.md">This page explains</a>
-how to configure Kubernetes for CSI drivers</li>
-<li>Depends on preferred mount filesystem type, following utilities must be installed on each Kubernetes node:
-<pre><code class="language-bash"><span class="hljs-comment"># for NFS</span>
-apt install -y nfs-common rpcbind
-<span class="hljs-comment"># for SMB</span>
-apt install -y cifs-utils rpcbind
+<li>Kubernetes cluster must allow privileged pods, this flag must be set for the API server and the kubelet
+(<a href="https://github.com/kubernetes-csi/docs/blob/735f1ef4adfcb157afce47c64d750b71012c8151/book/src/Setup.md#enable-privileged-pods">instructions</a>):
+<pre><code>--allow-privileged=<span class="hljs-literal">true</span>
 </code></pre></li>
+<li>Required the API server and the kubelet feature gates
+(<a href="https://github.com/kubernetes-csi/docs/blob/735f1ef4adfcb157afce47c64d750b71012c8151/book/src/Setup.md#enabling-features">instructions</a>):
+<pre><code>--feature-gates=KubeletPluginsWatcher=<span class="hljs-literal">true</span>,CSINodeInfo=<span class="hljs-literal">true</span>,CSIDriverRegistry=<span class="hljs-literal">true</span>
+</code></pre></li>
+<li>Mount propagation must be enabled, the Docker daemon for the cluster must allow shared mounts
+(<a href="https://github.com/kubernetes-csi/docs/blob/735f1ef4adfcb157afce47c64d750b71012c8151/book/src/Setup.md#enabling-mount-propagation">instructions</a>)</li>
 <li>Kubernetes CSI drivers require <code>CSIDriver</code> and <code>CSINodeInfo</code> resource types
 <a href="https://github.com/kubernetes-csi/docs/blob/460a49286fe164a78fde3114e893c48b572a36c8/book/src/Setup.md#csidriver-custom-resource-alpha">to be defined on the cluster</a>.
 Check if they are already defined:
@@ -87,6 +89,12 @@ kubectl get customresourcedefinition.apiextensions.k8s.io/csinodeinfos.csi.stora
 If the cluster doesn’t have “csidrivers” and “csinodeinfos” resource types, create them:
 <pre><code class="language-bash">kubectl create -f https://raw.githubusercontent.com/kubernetes/csi-api/ce972859c46136a1f4a9fe119d05482a739c6311/pkg/crd/manifests/csidriver.yaml
 kubectl create -f https://raw.githubusercontent.com/kubernetes/csi-api/ce972859c46136a1f4a9fe119d05482a739c6311/pkg/crd/manifests/csinodeinfo.yaml
+</code></pre></li>
+<li>Depends on preferred mount filesystem type, following utilities must be installed on each Kubernetes node:
+<pre><code class="language-bash"><span class="hljs-comment"># for NFS</span>
+apt install -y nfs-common rpcbind
+<span class="hljs-comment"># for SMB</span>
+apt install -y cifs-utils rpcbind
 </code></pre></li>
 </ul>
 <h2>Installation</h2>
