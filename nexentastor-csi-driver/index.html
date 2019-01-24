@@ -279,7 +279,7 @@ kubectl get pods | awk <span class="hljs-string">'/nexentastor-csi-/ {system("ku
 <pre><code class="language-bash">kubectl get pod nexentastor-csi-attacher-0 -o go-template=<span class="hljs-string">"{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"</span>
 </code></pre></li>
 <li>Configure Docker to trust insecure registries:
-<pre><code class="language-bash"><span class="hljs-comment"># add `{"insecure-registries":["10.3.199.92:5000"]}`  to:</span>
+<pre><code class="language-bash"><span class="hljs-comment"># add `{"insecure-registries":["10.3.199.92:5000"]}` to:</span>
 vim /etc/docker/daemon.json
 service docker restart
 </code></pre></li>
