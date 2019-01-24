@@ -306,6 +306,9 @@ nexenta_host_group_prefix = cinder
 nexenta_luns_per_target = 128
 </code></pre>
 <p>Note that in last 4 examples we have the same volume_backend_name, even though they are not all on the same appliance. This is the case when you have multiple endpoints, but you do not necessary need control of picking which one will be used to create a volume. Endpoints can be different folders/volumeGroups, pools, protocols or even different NexentaStor appliances. In any of those cases you need a separate backend section for each endpoint.</p>
+<p>The Cinder scheduler is responsible for deciding where to create Cinder volumes when we have more than one of the same kind of storage backend. This is done by looking at the filter rules in order to identify the most appropriate storage backend.</p>
+<h3>Configuring Cinder scheduler</h3>
+<p>Cinder supports multiple storage backends with the same volume backend name. In this case, Cinder scheduler automatically schedules the placement of created volumes based on configured scheduler filters and weighers. CapacityFilter and CapacityWeigher are the default filter and weigher. When they are enabled, Cinder scheduler assigns the highest weight to the backend with the most available capacity. Cinder schedulers, filters and weighers have many supported operators and available properties, which are documented on the <a href="https://docs.openstack.org/cinder/latest/admin/blockstorage-driver-filter-weighing.html">OpenStack Admin Guide</a>.</p>
 
         </article>
     </section>
