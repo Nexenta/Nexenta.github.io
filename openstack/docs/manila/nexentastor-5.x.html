@@ -137,16 +137,14 @@ nexenta_thin_provisioning = False/True
 <tr><td>nexenta_rest_port</td><td>8457</td><td></td><td>Port to connect to Nexenta REST API server.</td></tr>
 <tr><td>nexenta_retry_count</td><td>6</td><td></td><td>Number of retries for unsuccessful API calls.</td></tr>
 <tr><td>nexenta_rest_protocol</td><td>auto</td><td>[http, https, auto]</td><td>Use http or https for REST connection .</td></tr>
-<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to Nexenta SA.</td></tr>
-<tr><td>nexenta_password</td><td></td><td></td><td>Password to connect to Nexenta SA.</td></tr>
+<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to Nexenta appliance.</td></tr>
+<tr><td>nexenta_password</td><td></td><td></td><td>Password to connect to Nexenta appliance.</td></tr>
 <tr><td>nexenta_volume</td><td>volume1</td><td></td><td>Volume name on NexentaStor4</td></tr>
 <tr><td>nexenta_pool</td><td>pool1</td><td></td><td>Pool name on NexentaStor5.</td></tr>
-<tr><td>nexenta_folder</td><td>folder</td><td></td><td>Parent folder on NexentaStor.</td></tr>
+<tr><td>nexenta_folder</td><td>folder</td><td></td><td>Parent folder on NexentaStor5.</td></tr>
 <tr><td>nexenta_ssl_cert_verify</td><td>False</td><td>Boolean</td><td>Defines whether the driver should check ssl cert.</td></tr>
-<tr><td>nexenta_mount_point_base</td><td>$state_path/mnt</td><td></td><td>Base directory that contains NFS share mount points.</td></tr>
-<tr><td>nexenta_nfs_share</td><td>nfs_share</td><td></td><td>Parent folder on NexentaStor that will contain all manila folders.</td></tr>
+<tr><td>nexenta_nfs_share</td><td>nfs_share</td><td></td><td>Parent folder on NexentaStor4 appliance that will contain all manila folders.</td></tr>
 <tr><td>nexenta_dataset_compression</td><td>on</td><td>[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,gzip-9, lzjb, zle, lz4]</td><td>Compression value for new ZFS folders.</td></tr>
-<tr><td>nexenta_dataset_dedupe</td><td>off</td><td>[on, off, sha256, verify]</td><td>Deduplication value for new ZFS folders.</td></tr>
 <tr><td>nexenta_thin_provisioning</td><td>True</td><td>Boolean</td><td>If True shares will not be space guaranteed and overprovisioning will be enabled.’</td></tr>
 </tbody>
 </table></div>
