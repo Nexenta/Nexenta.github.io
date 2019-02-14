@@ -57,7 +57,7 @@
     <section class="container-docs">
         
         <article itemscope itemtype="http://schema.org/Article">
-            <h1 itemprop="name">NexentaStor CSI Driver for Kubernetes (v1.0.0)</h1>
+            <h1 itemprop="name">NexentaStor CSI Driver for Kubernetes (v1.0.1)</h1>
             <p><img src="/resources/images/logo-kubernetes-with-border.svg" style="height:80px;margin-top:-75px;float:right" class="hide-mobile"></p>
 <h2>Supported versions</h2>
 <div class="table-scroll"><table>
@@ -65,7 +65,7 @@
 <tr><th></th><th>NexentaStor 5.1</th><th>NexentaStor 5.2</th></tr>
 </thead>
 <tbody>
-<tr><td>Kubernetes &gt;=1.13</td><td><a href="https://github.com/Nexenta/nexentastor-csi-driver/tree/1.0.0">1.0.0</a></td><td><a href="https://github.com/Nexenta/nexentastor-csi-driver/tree/1.0.0">1.0.0</a></td></tr>
+<tr><td>Kubernetes &gt;=1.13</td><td><a href="https://github.com/Nexenta/nexentastor-csi-driver/tree/1.0.1">1.0.1</a></td><td><a href="https://github.com/Nexenta/nexentastor-csi-driver/tree/1.0.1">1.0.1</a></td></tr>
 </tbody>
 </table></div>
 <h2>Requirements</h2>
@@ -76,7 +76,7 @@
 </code></pre></li>
 <li>Required the API server and the kubelet feature gates
 (<a href="https://github.com/kubernetes-csi/docs/blob/735f1ef4adfcb157afce47c64d750b71012c8151/book/src/Setup.md#enabling-features">instructions</a>):
-<pre><code>--feature-gates=KubeletPluginsWatcher=<span class="hljs-literal">true</span>,CSINodeInfo=<span class="hljs-literal">true</span>,CSIDriverRegistry=<span class="hljs-literal">true</span>
+<pre><code>--feature-gates=CSIDriverRegistry=<span class="hljs-literal">true</span>
 </code></pre></li>
 <li>Mount propagation must be enabled, the Docker daemon for the cluster must allow shared mounts
 (<a href="https://github.com/kubernetes-csi/docs/blob/735f1ef4adfcb157afce47c64d750b71012c8151/book/src/Setup.md#enabling-mount-propagation">instructions</a>)</li>
@@ -104,7 +104,7 @@ By default, the driver will create filesystems in this dataset and mount them to
 <li><p>Clone driver repository</p>
 <pre><code class="language-bash">git <span class="hljs-built_in">clone</span> https://github.com/Nexenta/nexentastor-csi-driver.git
 <span class="hljs-built_in">cd</span> nexentastor-csi-driver
-git checkout 1.0.0 <span class="hljs-comment"># to use other than master branch</span>
+git checkout 1.0.1 <span class="hljs-comment"># to use other than master branch</span>
 </code></pre></li>
 <li><p>Edit <code>./deploy/kubernetes/nexentastor-csi-driver-config.yaml</code> file. Driver configuration example:</p>
 <pre><code class="language-yaml"><span class="hljs-attr">restIp:</span> <span class="hljs-attr">https://10.3.3.4:8443,https://10.3.3.5:8443</span>     <span class="hljs-comment"># [required] NexentaStor REST API endpoint(s)</span>
