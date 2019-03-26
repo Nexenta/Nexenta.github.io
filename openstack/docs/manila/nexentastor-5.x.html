@@ -72,9 +72,12 @@
 <li>Allow share access (Only IP access type is supported - RW/RO)</li>
 <li>Deny share access</li>
 <li>Create snapshot</li>
+<li>Revert to snapshot</li>
 <li>Delete snapshot</li>
 <li>Create share from snapshot</li>
 <li>Share creation options - Thin/thick provisioning, compression</li>
+<li>Manage share</li>
+<li>Unmanage share</li>
 </ul>
 <h3>Installation</h3>
 <h4>Pre-requisites</h4>
@@ -117,35 +120,43 @@ enabled_share_protocols = NFS
 [ns5_nfs]
 share_backend_name = &lt;backend name to be used <span class="hljs-keyword">in</span> share_types&gt;
 driver_handles_share_servers = False
-share_driver = manila.share.drivers.nexenta.nexenta_nas.NexentaNasDriver
+nexenta_folder = manila
+share_driver = manila.share.drivers.nexenta.ns5.nexenta_nas.NexentaNasDriver
 nexenta_rest_address = 10.3.1.1,10.3.1.2  <span class="hljs-comment"># Comma separated management IPs for host</span>
 nexenta_nas_host = 10.3.1.10  <span class="hljs-comment"># pool VIP</span>
 nexenta_rest_port = 8443
-nexenta_folder = &lt;dataset name within the pool&gt;
-nexenta_user = &lt;NexentaStor username&gt;
-nexenta_password = &lt;NexentaStor password&gt;
-nexenta_thin_provisioning = False/True
+nexenta_pool = pool1
+nexenta_nfs = True
+nexenta_user = admin
+nexenta_password = secret_password
+nexenta_thin_provisioning = True
 </code></pre>
 <p>List of all available options:</p>
 <div class="table-scroll"><table>
 <thead>
-<tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
+<tr><th>Parameter name</th><th>Default</th><th>Choices or Type</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td>nexenta_rest_address</td><td></td><td></td><td>Management address for NexentaStor Rest operations.</td></tr>
-<tr><td>nexenta_nas_host</td><td></td><td></td><td>VIP of NexentaStor pool.</td></tr>
-<tr><td>nexenta_rest_port</td><td>8457</td><td></td><td>Port to connect to Nexenta REST API server.</td></tr>
-<tr><td>nexenta_retry_count</td><td>6</td><td></td><td>Number of retries for unsuccessful API calls.</td></tr>
-<tr><td>nexenta_rest_protocol</td><td>auto</td><td>[http, https, auto]</td><td>Use http or https for REST connection .</td></tr>
-<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to Nexenta appliance.</td></tr>
-<tr><td>nexenta_password</td><td></td><td></td><td>Password to connect to Nexenta appliance.</td></tr>
-<tr><td>nexenta_volume</td><td>volume1</td><td></td><td>Volume name on NexentaStor4</td></tr>
-<tr><td>nexenta_pool</td><td>pool1</td><td></td><td>Pool name on NexentaStor5.</td></tr>
-<tr><td>nexenta_folder</td><td>folder</td><td></td><td>Parent folder on NexentaStor5.</td></tr>
-<tr><td>nexenta_ssl_cert_verify</td><td>False</td><td>Boolean</td><td>Defines whether the driver should check ssl cert.</td></tr>
-<tr><td>nexenta_nfs_share</td><td>nfs_share</td><td></td><td>Parent folder on NexentaStor4 appliance that will contain all manila folders.</td></tr>
+<tr><td>nexenta_rest_address</td><td></td><td>ip address or hostname</td><td>Management address for NexentaStor Rest operations.</td></tr>
+<tr><td>nexenta_nas_host</td><td></td><td>ip address or hostname</td><td>VIP of NexentaStor pool.</td></tr>
+<tr><td>nexenta_rest_port</td><td>8457</td><td>integer</td><td>Port to connect to Nexenta REST API server.</td></tr>
+<tr><td>nexenta_retry_count</td><td>6</td><td>integer</td><td>Number of retries for unsuccessful API calls.</td></tr>
+<tr><td>nexenta_use_https</td><td>True</td><td>boolean</td><td>Use HTTP secure protocol for NexentaStor management REST API connections.</td></tr>
+<tr><td>nexenta_user</td><td>admin</td><td>string</td><td>User name to connect to Nexenta SA.</td></tr>
+<tr><td>nexenta_password</td><td></td><td>string</td><td>Password to connect to Nexenta SA.</td></tr>
+<tr><td>nexenta_volume</td><td>volume1</td><td>string</td><td>Volume name on NexentaStor4</td></tr>
+<tr><td>nexenta_pool</td><td>pool1</td><td>string</td><td>Pool name on NexentaStor5.</td></tr>
+<tr><td>nexenta_folder</td><td>folder</td><td>string</td><td>Parent folder on NexentaStor.</td></tr>
+<tr><td>nexenta_nfs</td><td>True</td><td>boolean</td><td>Defines whether share over NFS is enabled.</td></tr>
+<tr><td>nexenta_ssl_cert_verify</td><td>False</td><td>boolean</td><td>Defines whether the driver should check ssl certificate.</td></tr>
+<tr><td>nexenta_rest_connect_timeout</td><td>30</td><td>integer</td><td>Specifies the time limit (in seconds), within which the connection to NexentaStor management REST API server must be established</td></tr>
+<tr><td>nexenta_rest_read_timeout</td><td>300</td><td>integer</td><td>Specifies the time limit (in seconds), within which NexentaStor management REST API server must send a response</td></tr>
+<tr><td>nexenta_rest_backoff_factor</td><td>1</td><td>integer</td><td>Specifies the backoff factor to apply between connection attempts to NexentaStor management REST API server</td></tr>
+<tr><td>nexenta_rest_retry_count</td><td>5</td><td>integer</td><td>Specifies the number of times to repeat NexentaStor management REST API call in case of connection errors and NexentaStor appliance EBUSY or ENOENT errors</td></tr>
+<tr><td>nexenta_share_name_template</td><td>share-</td><td>string</td><td>Share name template that will be followed with share_id. It will be seen on NexentaStor side as share-51daca66-a713-41a8-91cd-7270429a166a.</td></tr>
 <tr><td>nexenta_dataset_compression</td><td>on</td><td>[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,gzip-9, lzjb, zle, lz4]</td><td>Compression value for new ZFS folders.</td></tr>
-<tr><td>nexenta_thin_provisioning</td><td>True</td><td>Boolean</td><td>If True shares will not be space guaranteed and overprovisioning will be enabled.’</td></tr>
+<tr><td>nexenta_thin_provisioning</td><td>True</td><td>boolean</td><td>If True shares will not be space guaranteed and overprovisioning will be enabled.’</td></tr>
+<tr><td>nexenta_dataset_record_size</td><td>131072</td><td>integer</td><td>Specifies a suggested block size in for files in a file system. (bytes)</td></tr>
 </tbody>
 </table></div>
 <h3>Using Manila Driver</h3>
