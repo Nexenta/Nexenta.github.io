@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title lang="en">Nexenta - Overview</title>
+    <title lang="en">Nexenta - NexentaStor5 VSA for OpenStack</title>
     <meta name="description" content="Nexenta">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="author" content="">
@@ -56,17 +56,106 @@
 <section class="docs">
     <section class="container-docs">
         
-        <nav><ul><li><a href=/openstack/vsa/overview.html class="active"><p>Overview</p></a></li></ul></nav>
+        <nav><ul><li><a href=/openstack/vsa/overview.html class="active"><p>NexentaStor5 VSA for OpenStack</p></a></li></ul></nav>
         
         <article itemscope itemtype="http://schema.org/Article">
-            <h1 itemprop="name">OpenStack VSA</h1>
-            <h3>Supported OpenStack Releases</h3>
+            <h1 itemprop="name">NexentaStor5 VSA for OpenStack</h1>
+            <h3>Instruction to deploy a NexentaStor5 VSA from an existing image</h3>
 <ul>
-<li>NexentaStor 4.x - Juno+</li>
-<li>NexentaStor 5.x - Juno+</li>
-<li>NexentaEdge 2.1.x - Newton+</li>
+<li>Download <a href="https://nexenta.sharefile.com/home/shared/foffd988-2ce7-41e6-9bf1-ba58d3a8a4a1">image template(s)</a></li>
+<li>Create a new boot image from the downloaded image file</li>
 </ul>
-<p>…</p>
+<pre><code>stack$ openstack image create --public --disk-format qcow2 --file NexentaStor-5.1.2-FP1.qcow2 NexentaStor-5.1.2-FP1
+stack$ openstack image list
++--------------------------------------+--------------------------+--------+
+| ID                                   | Name                     | Status |
++--------------------------------------+--------------------------+--------+
+| 47b46d65-4a2a-4c44-830b-daf73f39f43b | NexentaStor-5.1.2-FP1    | active |
+| e82ebf28-ba5d-435a-b2b9-8bd4323d986d | cirros-0.4.0-x86_64-disk | active |
++--------------------------------------+--------------------------+--------+
+</code></pre>
+<ul>
+<li>Create a new bootable volume from the existing image. Please note: volume size must be &gt;= 32GB (due to the existing image properties)</li>
+</ul>
+<pre><code>stack$ openstack volume create --size 32 --image NexentaStor-5.1.2-FP1 Boot-Volume
+stack$ openstack volume list
++--------------------------------------+-------------+-----------+------+-------------+
+| ID                                   | Name        | Status    | Size | Attached to |
++--------------------------------------+-------------+-----------+------+-------------+
+| 399ab5d9-d273-4508-a0be-9f3c2593af5a | Boot-Volume | available |   32 |             |
++--------------------------------------+-------------+-----------+------+-------------+
+</code></pre>
+<ul>
+<li>Create a new data volume</li>
+</ul>
+<pre><code>stack$ openstack volume create --size 128 Data-Volume
+stack$ openstack volume list
++--------------------------------------+-------------+-----------+------+-------------+
+| ID                                   | Name        | Status    | Size | Attached to |
++--------------------------------------+-------------+-----------+------+-------------+
+| d9f52fba-59a7-4b93-b434-e21388a8c67b | Data-Volume | available |  128 |             |
+| 399ab5d9-d273-4508-a0be-9f3c2593af5a | Boot-Volume | available |   32 |             |
++--------------------------------------+-------------+-----------+------+-------------+
+</code></pre>
+<ul>
+<li>Create a new Openstack flavor. Please note: a minimum of 2 vCPU and 8GB RAM is required, 4 vCPU and 16GB is recommended</li>
+</ul>
+<pre><code>stack$ openstack flavor create --ram 16384 --vcpus 4 NexentaStor5
+stack$ openstack flavor list   
++-----+--------------+-------+------+-----------+-------+-----------+
+| ID  | Name         |   RAM | Disk | Ephemeral | VCPUs | Is Public |
++-----+--------------+-------+------+-----------+-------+-----------+
+| ee5 | NexentaStor5 | 16384 |    0 |         0 |     4 | True      |
++-----+--------------+-------+------+-----------+-------+-----------+
+</code></pre>
+<ul>
+<li>Boot a new NexentaStor5 instance</li>
+</ul>
+<pre><code>stack$ openstack server create --flavor NexentaStor5 --volume Boot-Volume NexentaStor-5.1.2-FP1
+stack$ openstack server list
++--------------------------------------+-----------------------+--------+---------------------+-------+--------------+
+| ID                                   | Name                  | Status | Networks            | Image | Flavor       |
++--------------------------------------+-----------------------+--------+---------------------+-------+--------------+
+| 92012dfe-f3d4-46ea-a838-9901a1098830 | NexentaStor-5.1.2-FP1 | ACTIVE | public=172.24.4.149 |       | NexentaStor5 |
++--------------------------------------+-----------------------+--------+---------------------+-------+--------------+
+</code></pre>
+<ul>
+<li>Attach the data volume</li>
+</ul>
+<pre><code>stack$ openstack server add volume NexentaStor-5.1.2-FP1 Data-Volume
+stack$ openstack volume list
++--------------------------------------+-------------+--------+------+------------------------------------------------+
+| ID                                   | Name        | Status | Size | Attached to                                    |
++--------------------------------------+-------------+--------+------+------------------------------------------------+
+| d9f52fba-59a7-4b93-b434-e21388a8c67b | Data-Volume | <span class="hljs-keyword">in</span>-use |  128 | Attached to NexentaStor-5.1.2-FP1 on /dev/vdb  |
+| 399ab5d9-d273-4508-a0be-9f3c2593af5a | Boot-Volume | <span class="hljs-keyword">in</span>-use |   32 | Attached to NexentaStor-5.1.2-FP1 on /dev/vda  |
++--------------------------------------+-------------+--------+------+————————————————————————————————————————————————+
+</code></pre>
+<ul>
+<li>Open ssh connection to the NexentaStor5 VSA instance. Note: default user name is admin, default password is Nexenta@1</li>
+</ul>
+<pre><code>stack$ openstack server ssh --login admin NexentaStor-5.1.2-FP1
+</code></pre>
+<ul>
+<li>Activate a license</li>
+</ul>
+<pre><code>CLI@nexenta&gt; license activate XXX-XXX-XXX-XXX-XXX
+</code></pre>
+<ul>
+<li>Create a new data pool using a data volume</li>
+</ul>
+<pre><code>CLI@nexenta&gt; disk list
+ <span class="hljs-comment">#  NAME    LABEL  SIZE      MEDIATYPE  SED  STATE   WHERE          USAGE</span>
+ 0  c4t0d0  -      34.36GB   ssd        no   ONLINE  LEGACY_NVME:0  rpool (active)
+ 1  c1t0d0  -      137.44GB  ssd        no   ONLINE  LEGACY_NVME:1  -
+CLI@nexenta&gt; pool create tank c1t0d0
+</code></pre>
+<ul>
+<li>Create and share a new NFS filesystem</li>
+</ul>
+<pre><code>CLI@nexenta&gt; filesystem create -p -o nbmand=off tank/data
+CLI@nexenta&gt; nfs share -o anon=root tank/data
+</code></pre>
 
         </article>
     </section>

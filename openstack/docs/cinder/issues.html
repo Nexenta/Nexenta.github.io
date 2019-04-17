@@ -78,6 +78,26 @@ on the Nova Compute host.</p>
 </ul>
 <h4>Description</h4>
 <p>When OpenStack administrator create a new volume from an image or an existing volume, or when OpenStack administrator upload a volume image to the Image service, large data copy may stress disk and network bandwidth. To mitigate slow down of data access from the instances, OpenStack Block Storage supports rate-limiting of volume data copy bandwidth. This feature requires libcgroup to set up blkio cgroup for disk I/O bandwidth limit. The libcgroup is provided by the cgroup-bin package in Debian and Ubuntu, or by the libcgroup-tools package in Fedora, Red Hat Enterprise Linux, CentOS, openSUSE, and SUSE Linux Enterprise. But some backends which use remote file systems such as NFS are not supported by this feature.</p>
+<h3>Generic volume migration and cloned volumes</h3>
+<h4>Affected versions</h4>
+<ul>
+<li>NexentaStor 4+ and NexentaStor 5+</li>
+<li>Openstack Newton and previous</li>
+</ul>
+<h4>Description</h4>
+<p>Steps:</p>
+<ul>
+<li>Create a new Cinder volume from an existing Cinder volume</li>
+<li>Or create a new Cinder volume from an existing Cinder snapshot</li>
+<li>Try to migrate or retype the created Cinder volume to another volume host</li>
+</ul>
+<p>During generic volume retype/migration, Cinder attempts to create a new temporary volume at the destination backend as a clone from a nonexistent snapshot and the operation fails.</p>
+<h4>Workaround</h4>
+<p>Reset source volume/snapshot ID for the migrated volume before migrate or retype operation:</p>
+<pre><code>$ mysql cinder
+mysql&gt; update volumes <span class="hljs-built_in">set</span> snapshot_id=NULL <span class="hljs-built_in">where</span> id=<span class="hljs-string">"<span class="hljs-variable">${Volume_ID}</span>"</span>;
+mysql&gt; update volumes <span class="hljs-built_in">set</span> source_volid=NULL <span class="hljs-built_in">where</span> id=<span class="hljs-string">"<span class="hljs-variable">${Volume_ID}</span>"</span>;
+</code></pre>
 
         </article>
     </section>
