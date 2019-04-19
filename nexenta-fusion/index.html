@@ -85,7 +85,7 @@ docker rm nexenta-fusion</code></pre>
         <p>
             2) Docker run command:
         </p>
-        <pre><code>docker run --name fusion -v /opt/docker/esdb:/var/lib/elasticsearch -v /opt/docker/fusion:/var/lib/nef -e MGMT_IP="0.0.0.0" --ulimit nofile=65536:65536 --ulimit memlock=-1:-1 -e TZ="America/Los_Angeles" --memory=16g -e ES_HEAP_SIZE="8g" -i -t -p 8457:8457 -p 9200:9200 -p 8443:8443 –p 2000:2000 nexenta/fusion</code></pre>
+        <pre><code>docker run --name fusion -v /opt/docker/esdb:/var/lib/elasticsearch -v /opt/docker/fusion:/var/lib/nef -e MGMT_IP="0.0.0.0" --ulimit nofile=65536:65536 --ulimit memlock=-1:-1 -e TZ="America/Los_Angeles" --memory=16g -e ES_HEAP_SIZE="8g" -i -t -p 8457:8457 -p 9200:9200 -p 8443:8443 -p 2000:2000 nexenta/fusion</code></pre>
         <p>
             Replace 0.0.0.0 shown in the example above with your management IP, -e TZ="America/Los_Angeles" is an optional parameter to set timezone. Default is UTC. Heap size should be limited to half the total memory size, but not more than 31g.
         </p>
