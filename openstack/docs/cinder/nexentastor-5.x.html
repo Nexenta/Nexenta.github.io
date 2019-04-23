@@ -64,14 +64,32 @@
 <ul>
 <li>Storage appliance must be configured and licensed</li>
 <li>Pool (zpool) must be created</li>
-<li>(iSCSI only) - Volume group must be created</li>
+<li>(iSCSI only) - Volume group must be created, for example:
+<pre><code>CLI@host&gt; volumegroup create pool/iscsi
+</code></pre></li>
 <li>(NFS only) - File System must be created and shared over NFS, for example:
-<pre><code>CLI@host&gt; filesystem create -p -o nbmand=off pool/nfs  
+<pre><code>CLI@host&gt; filesystem create -p -o nonBlockingMandatoryMode=off,smartCompression=off pool/nfs  
 CLI@host&gt; nfs share -o uidMap=<span class="hljs-string">'*:root:@10.1.1.1'</span> pool/nfs
 </code></pre>
-Note: nbmand or nonBlockingMandatoryMode option controls if non-blocking mandatory locks are enabled or disabled. Openstack image related operations (like converting between different image types) require mandatory locks.</li>
+Note: nonBlockingMandatoryMode option controls if non-blocking mandatory locks are enabled or disabled. Openstack image related operations (like converting between different image types or creation volume from an existing image) requires mandatory locks.</li>
 <li>Storage Network configured between NS Appliance and OpenStack Hypervisors (Recommended 10GBE, MTU 9000)</li>
 </ul>
+<h4>Recommended NFS options</h4>
+<p>NFS version 3 protocol is recommended for general use. Here is a list of relevant parameters for different components of the Openstack:</p>
+<p>Cinder volume and cinder backup via cinder.conf:</p>
+<pre><code>[DEFAULT]
+backup_mount_options = vers=3,minorversion=0
+nfs_mount_options = vers=3,minorversion=0
+
+[nexenta_backend]
+volume_driver = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
+nfs_mount_options = vers=3,minorversion=0
+...
+</code></pre>
+<p>Nova compute via nova.conf or nova-cpu.conf:</p>
+<pre><code>[libvirt]
+nfs_mount_options = vers=3,minorversion=0
+</code></pre>
 <h4>Where to get Cinder Drivers?</h4>
 <p>It’s recommended to get the latest driver from Nexenta’s repository: <a href="https://github.com/Nexenta/cinder">https://github.com/Nexenta/cinder</a></p>
 <p>The branches in the repository correspond with Openstack releases.</p>
