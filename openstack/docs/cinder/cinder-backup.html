@@ -66,14 +66,14 @@ Example section for cinder.conf:</p>
 <pre><code>[DEFAULT]
 backup_driver = cinder.backup.drivers.nfs
 backup_share = 10.1.1.1:/pool/nfs/backup
-backup_mount_options = vers=3,noatime
+backup_mount_options = vers=3,minorversion=0,noatime
 </code></pre>
 <p>Notes:</p>
 <ul>
-<li><code>cinder.backup.drivers.nfs</code> - NFS backup driver name</li>
+<li><code>cinder.backup.drivers.nfs</code> - Cinder backup driver name (for Openstack Stein and later releases please use <code>cinder.backup.drivers.nfs.NFSBackupDriver</code>)</li>
 <li><code>10.1.1.1</code> - IP address or virtual IP address of NexentaStor appliance</li>
 <li><code>/pool/nfs/backup</code> - NFS share path</li>
-<li><code>vers=3,noatime</code> - recommended NFS mount options</li>
+<li><code>vers=3,minorversion=0,noatime</code> - recommended NFS mount options</li>
 </ul>
 <p>Steps for NexentaStor 4.x:</p>
 <pre><code>nmc@host1:/$ create folder pool/nfs/backup

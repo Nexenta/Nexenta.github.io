@@ -60,37 +60,32 @@
         
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">NexentaStor 5.x</h1>
-            <h4>Cinder Driver Prerequisites</h4>
+            <h3>Cinder Driver Prerequisites</h3>
 <ul>
 <li>Storage appliance must be configured and licensed</li>
-<li>Pool (zpool) must be created</li>
-<li>(iSCSI only) - Volume group must be created, for example:
+<li>ZFS pool must be created</li>
+<li>For iSCSI backend - volume group must be created, for example:
 <pre><code>CLI@host&gt; volumegroup create pool/iscsi
 </code></pre></li>
-<li>(NFS only) - File System must be created and shared over NFS, for example:
+<li>For NFS backend - file system must be created and shared over NFS, for example:
 <pre><code>CLI@host&gt; filesystem create -p -o nonBlockingMandatoryMode=off,smartCompression=off pool/nfs  
 CLI@host&gt; nfs share -o uidMap=<span class="hljs-string">'*:root:@10.1.1.1'</span> pool/nfs
 </code></pre>
 Note: nonBlockingMandatoryMode option controls if non-blocking mandatory locks are enabled or disabled. Openstack image related operations (like converting between different image types or creation volume from an existing image) requires mandatory locks.</li>
 <li>Storage Network configured between NS Appliance and OpenStack Hypervisors (Recommended 10GBE, MTU 9000)</li>
 </ul>
-<h4>Recommended NFS options</h4>
+<h3>Recommended NFS options</h3>
 <p>NFS version 3 protocol is recommended for general use. Here is a list of relevant parameters for different components of the Openstack:</p>
 <p>Cinder volume and cinder backup via cinder.conf:</p>
-<pre><code>[DEFAULT]
-backup_mount_options = vers=3,minorversion=0
-nfs_mount_options = vers=3,minorversion=0
-
-[nexenta_backend]
+<pre><code>[nexenta_backend]
 volume_driver = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
-nfs_mount_options = vers=3,minorversion=0
-...
+nfs_mount_options = vers=3,minorversion=0,nolock
 </code></pre>
 <p>Nova compute via nova.conf or nova-cpu.conf:</p>
 <pre><code>[libvirt]
-nfs_mount_options = vers=3,minorversion=0
+nfs_mount_options = vers=3,minorversion=0,nolock
 </code></pre>
-<h4>Where to get Cinder Drivers?</h4>
+<h3>Where to get Cinder Drivers?</h3>
 <p>It’s recommended to get the latest driver from Nexenta’s repository: <a href="https://github.com/Nexenta/cinder">https://github.com/Nexenta/cinder</a></p>
 <p>The branches in the repository correspond with Openstack releases.</p>
 <p>To following command can be used to download the exact version w/o having to switch branches</p>
@@ -98,7 +93,7 @@ nfs_mount_options = vers=3,minorversion=0
 <p>Nexenta Drivers are located under the following path:
 <a href="https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta">https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta</a></p>
 <p>The path includes driver for NexentaStor 4.x, NexentaStor 5.x and NexnetaEdge 2.0. Make sure to copy the whole folder.</p>
-<h4>Installation Steps</h4>
+<h3>Installation Steps</h3>
 <ol>
 <li>Determine cinder driver location path used in your environment</li>
 <li>Clone or download the correct version of the drivers, unzip if downloaded and copy to the cinder location. For example drivers for Mitaka release:
@@ -114,220 +109,130 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/lib/python2.7/dist-pa
 <code>$ sudo service cinder-volume restart</code></li>
 </ul></li>
 </ol>
-<h3>NFS driver</h3>
-<h4>NexentaStor 5.x NFS - List of all available options</h4>
-<div class="table-scroll"><table>
-<thead>
-<tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>nexenta_rest_address</td><td></td><td></td><td>IP address of NexentaEdge management REST API endpoint, can have multiple comma separated values</td></tr>
-<tr><td>nas_host</td><td></td><td></td><td>Data IP address (VIP in case of HA)</td></tr>
-<tr><td>nexenta_rest_port</td><td>0</td><td></td><td>HTTP(S) port to connect to Nexenta REST API server. If it is equal to zero, 8443 for HTTPS and 8080 for HTTP is used</td></tr>
-<tr><td>nexenta_use_https</td><td>True</td><td>Boolean</td><td>Use secure HTTP for REST connection</td></tr>
-<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to NexentaStor,</td></tr>
-<tr><td>nexenta_password</td><td>nexenta</td><td></td><td>Password to connect to NexentaStor</td></tr>
-<tr><td>nexenta_dataset_compression</td><td>lz4</td><td>[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,  gzip-9, lzjb, zle, lz4]</td><td>Compression value for new ZFS datasets.</td></tr>
-<tr><td>nexenta_dataset_description</td><td></td><td></td><td>Human-readable description for the folder.</td></tr>
-<tr><td>nexenta_mount_point_base</td><td>$state_path/mnt</td><td></td><td>Base directory that contains NFS share mount points</td></tr>
-<tr><td>nexenta_sparsed_volumes</td><td>True</td><td>Boolean</td><td>Enables or disables the creation of volumes as sparsed files that take no space. If disabled (False), volume is created as a regular file, which takes a long time.</td></tr>
-<tr><td>nfs_mount_attempts</td><td>3</td><td>Integer</td><td>The number of attempts to mount NFS shares before raising an error.</td></tr>
-<tr><td>nfs_mount_options</td><td>None</td><td>String</td><td>Mount options passed to the NFS client.</td></tr>
-<tr><td>nfs_qcow2_volumes</td><td>False</td><td>Boolean</td><td>Create volumes as QCOW2 files rather than raw files.</td></tr>
-</tbody>
-</table></div>
-<p>Note: As of the Icehouse release, the NFS based drivers will attempt to mount shares using version 4.1 of the NFS protocol (including pNFS). If the mount attempt is unsuccessful due to a lack of client or server support, a subsequent mount attempt that requests the default behavior of the mount.nfs command will be performed. On most distributions, the default behavior is to attempt mounting first with NFS v4.0, then silently fall back to NFS v3.0 if necessary. If the <code>nfs_mount_options</code> configuration option contains a request for a specific version of NFS to be used the mount will be attempted as requested with no subsequent attempts.</p>
-<h4>NexentaStor 5.x NFS HA recommended cinder.conf</h4>
+<h3>NexentaStor 5.x NFS HA minimal recommended cinder.conf</h3>
 <pre><code>[DEFAULT]
 driver_ssl_cert_verify = False
 
 [ns5_nfs]
 volume_driver = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
 volume_backend_name = ns5_nfs
-nas_host = 10.0.0.1
 nexenta_rest_address = 10.0.1.1,10.0.1.2
 nexenta_rest_port = 8443
-nas_share_path = pool1/nfs_share
 nexenta_user = admin
 nexenta_password = Nexenta@1
-nfs_mount_options = vers=3
-nexenta_sparsed_volumes = True
+nas_host = 10.0.0.1
+nas_share_path = tank/nas
+nas_mount_options = vers=3,minorversion=0,nolock
 </code></pre>
-<h4>NexentaStor 5.x NFS minimal recommended cinder.conf</h4>
+<h3>NexentaStor 5.x NFS standalone minimal recommended cinder.conf</h3>
 <pre><code>[DEFAULT]
 driver_ssl_cert_verify = False
 
 [ns5_nfs]
 volume_driver = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
 volume_backend_name = ns5_nfs
-nas_host = 10.0.0.1
 nexenta_rest_address = 10.0.1.1
 nexenta_rest_port = 8443
-nas_share_path = pool1/nfs_share
 nexenta_user = admin
 nexenta_password = Nexenta@1
-nfs_mount_options = vers=3
+nas_host = 10.0.0.1
+nas_share_path = tank/nas
+nas_mount_options = vers=3,minorversion=0,nolock
 </code></pre>
-<h3>NFS driver</h3>
-<h4>NexentaStor 5.x iSCSI - List of all available options</h4>
+<h3>NexentaStor 5.x iSCSI HA minimal recommended cinder.conf</h3>
+<pre><code>[DEFAULT]
+driver_ssl_cert_verify = False
+
+[ns5_iscsi]
+volume_driver = cinder.volume.drivers.nexenta.ns5.iscsi.NexentaISCSIDriver
+volume_backend_name = ns5_iscsi
+nexenta_host = 10.0.0.1
+nexenta_rest_address = 10.0.1.1,10.1.1.2
+nexenta_rest_port = 8443
+nexenta_user = admin
+nexenta_password = Nexenta@1
+nexenta_volume = tank
+nexenta_volume_group = san
+</code></pre>
+<h3>NexentaStor 5.x iSCSI standalone minimal recommended cinder.conf</h3>
+<pre><code>[DEFAULT]
+driver_ssl_cert_verify = False
+
+[ns5_iscsi]
+volume_driver = cinder.volume.drivers.nexenta.ns5.iscsi.NexentaISCSIDriver
+volume_backend_name = ns5_iscsi
+nexenta_host = 10.0.0.1
+nexenta_rest_address = 10.0.1.1
+nexenta_rest_port = 8443
+nexenta_user = admin
+nexenta_password = Nexenta@1
+nexenta_volume = tank
+nexenta_volume_group = san
+</code></pre>
+<h3>NexentaStor 5.x - list of all available options, common for NFS and iSCSI</h3>
 <div class="table-scroll"><table>
 <thead>
 <tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td>nexenta_rest_address</td><td></td><td></td><td>IP address of NexentaStor management REST API endpoint, can have multiple comma separated values</td></tr>
-<tr><td>nexenta_host</td><td></td><td></td><td>IP address of NexentaStor</td></tr>
-<tr><td>nexenta_rest_port</td><td>0</td><td></td><td>HTTP(S) port to connect to Nexenta REST API server. If it is equal zero, 8443 for HTTPS and 8080 for HTTP is used</td></tr>
-<tr><td>nexenta_use_https</td><td>True</td><td>Boolean</td><td>Use secure HTTP for REST connection</td></tr>
-<tr><td>nexenta_user</td><td>admin</td><td></td><td>User name to connect to NexentaStor,</td></tr>
-<tr><td>nexenta_password</td><td>nexenta</td><td></td><td>Password to connect to NexentaStor</td></tr>
-<tr><td>nexenta_dataset_compression</td><td>lz4</td><td>[on, off, gzip, gzip-1, gzip-2, gzip-3,  gzip-4, gzip-5, gzip-6, gzip-7, gzip-8,  gzip-9, lzjb, zle, lz4]</td><td>Compression value for new ZFS datasets.</td></tr>
-<tr><td>nexenta_dataset_description</td><td></td><td></td><td>Human-readable description for the folder.</td></tr>
-<tr><td>nexenta_ns5_blocksize</td><td>32 (kilobytes)</td><td></td><td>Block size for datasets (Nstor5)</td></tr>
-<tr><td>nexenta_sparse</td><td>False</td><td>Boolean</td><td>Enables or disables the creation of sparse datasets</td></tr>
-<tr><td>nexenta_iscsi_target_portal_port</td><td>3260</td><td></td><td>Nexenta target portal port</td></tr>
-<tr><td>nexenta_volume</td><td>cinder</td><td></td><td>SA Pool that holds all volumes</td></tr>
-<tr><td>nexenta_target_prefix</td><td>iqn.1986-03.com.sun:02:cinder-</td><td></td><td>IQN prefix for iSCSI targets</td></tr>
-<tr><td>nexenta_target_group_prefix</td><td>cinder</td><td></td><td>Prefix for iSCSI target groups on NexentaStor</td></tr>
-<tr><td>nexenta_volume_group</td><td>iscsi</td><td></td><td>Volume group for NStor5</td></tr>
-<tr><td>nexenta_iscsi_target_portals</td><td></td><td></td><td>Comma separated list of portals for NexentaStor5, in format of IP1:port1,IP2:port2. Port is optional, default=3260. Example: 10.10.10.1:3267,10.10.1.2</td></tr>
+<tr><td>nexenta_dataset_compression</td><td>lz4</td><td>[off, on, gzip, gzip-1, gzip-2, gzip-3, gzip-4, gzip-5, gzip-6, gzip-7, gzip-8, gzip-9, lzjb, zle, lz4]</td><td>Controls the compression algorithm to compress Cinder volumes data.</td></tr>
+<tr><td>nexenta_rest_address</td><td></td><td>String</td><td>IP address of NexentaStor management REST API endpoint, for HA environment it can have multiple comma separated values.</td></tr>
+<tr><td>nexenta_rest_port</td><td>8443</td><td>Integer</td><td>HTTP(S) port to connect to NexentaStor REST API endpoint.</td></tr>
+<tr><td>nexenta_use_https</td><td>True</td><td>Boolean</td><td>Use secure HTTP for REST API connection.</td></tr>
+<tr><td>nexenta_user</td><td>admin</td><td>String</td><td>User name to connect to NexentaStor.</td></tr>
+<tr><td>nexenta_rest_connect_timeout</td><td>30</td><td>Float</td><td>Specifies the time limit (in seconds), within which the connection to NexentaStor management REST API server must be established.</td></tr>
+<tr><td>nexenta_rest_read_timeout</td><td>300</td><td>Float</td><td>Specifies the time limit (in seconds), within which NexentaStor management REST API server must send a response.</td></tr>
+<tr><td>nexenta_rest_backoff_factor</td><td>0.5</td><td>Float</td><td>Specifies the backoff factor to apply between connection attempts to NexentaStor management REST API server.</td></tr>
+<tr><td>nexenta_rest_retry_count</td><td>3</td><td>Integer</td><td>Specifies the number of times to repeat NexentaStor management REST API call in case of connection errors and NexentaStor appliance EBUSY or ENOENT errors.</td></tr>
+<tr><td>nexenta_user</td><td>admin</td><td>String</td><td>User name to connect to NexentaStor management REST API.</td></tr>
+<tr><td>nexenta_password</td><td>nexenta</td><td>String</td><td>Password to connect to NexentaStor management REST API.</td></tr>
+<tr><td>nexenta_origin_snapshot_template</td><td>origin-snapshot-%s</td><td>String</td><td>Template string to generate origin name of clone.</td></tr>
+<tr><td>nexenta_group_snapshot_template</td><td>group-snapshot-%s</td><td>String</td><td>Template string to generate group snapshot name.</td></tr>
 </tbody>
 </table></div>
-<h4>NexentaStor 5.x iSCSI cinder.conf HA config</h4>
-<pre><code>[DEFAULT]
-driver_ssl_cert_verify = False
-
-[ns5_iscsi]
-volume_driver = cinder.volume.drivers.nexenta.ns5.iscsi.NexentaISCSIDriver
-volume_backend_name = ns5_iscsi
-nexenta_host = 10.0.0.1
-nexenta_rest_address = 10.0.1.1,10.1.1.2
-nexenta_rest_port = 8443
-nexenta_user = admin
-nexenta_password = Nexenta@1
-nexenta_volume = pool1
-nexenta_volume_group = iscsi
-nexenta_iscsi_target_portals = 10.0.0.2:3260,10.0.0.3:3261,10.0.0.4
-nexenta_target_prefix = iqn.2005-07.com.nexenta:02:cinder
-nexenta_target_group_prefix = cinder
-nexenta_host_group_prefix = cinder
-nexenta_luns_per_target = 128
-</code></pre>
-<h4>NexentaStor 5.x iSCSI cinder.conf minimal config</h4>
-<pre><code>[DEFAULT]
-driver_ssl_cert_verify = False
-
-[ns5_iscsi]
-volume_driver = cinder.volume.drivers.nexenta.ns5.iscsi.NexentaISCSIDriver
-volume_backend_name = ns5_iscsi
-nexenta_host = 10.0.0.1
-nexenta_rest_address = 10.0.1.1
-nexenta_rest_port = 8443
-nexenta_user = admin
-nexenta_password = Nexenta@1
-nexenta_volume = pool1
-nexenta_volume_group = iscsi
-</code></pre>
-<h3>iSCSI Multipath</h3>
-<p>Openstack Nova provides the ability to use iSCSI Multipath. To enable Multipath you need to add following line into nova.conf in the [libvirt] section:</p>
-<pre><code>[libvirt]
-iscsi_use_multipath = True
-</code></pre>
-<p>For this change to take place you need to restart nova-compute service: <code>$ sudo service restart nova-compute</code></p>
-<h3>NFS options for Nova</h3>
-<p>Openstack Nova provides the ability to use custom NFS options passed to the NFS client. Recommended options for nova.conf:</p>
-<pre><code>[libvirt]
-nfs_mount_options = vers=3
-</code></pre>
-<h3>Multi-backend cinder.conf</h3>
-<pre><code>[DEFAULT]
-driver_ssl_cert_verify = False
-
-[ns5_nfs-1]
-volume_driver = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
-volume_backend_name = ns5_nfs-thin
-nas_host = 10.0.0.1
-nexenta_rest_address = 10.0.1.1
-nexenta_rest_port = 8443
-nas_share_path = pool1/nfs_share
-nexenta_user = admin
-nexenta_password = Nexenta@1
-nfs_mount_options = vers=3
-nexenta_sparsed_volumes = True
-nexenta_compression = on
-
-[ns5_nfs-2]
-volume_driver = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
-volume_backend_name = ns5_nfs-thick
-nas_host = 10.0.0.1
-nexenta_rest_address = 10.0.1.1
-nexenta_rest_port = 8443
-nas_share_path = pool1/nfs_share
-nexenta_user = admin
-nexenta_password = Nexenta@1
-nfs_mount_options = vers=3
-nexenta_sparsed_volumes = False
-nexenta_compression = off
-
-[ns5_nfs-pool1]
-volume_driver = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
-volume_backend_name = ns5
-nas_host = 10.0.0.1
-nexenta_rest_address = 10.0.1.11,10.0.1.12
-nexenta_rest_port = 8443
-nas_share_path = pool1/nfs_share
-nexenta_user = admin
-nexenta_password = Nexenta@1
-nfs_mount_options = vers=3
-nexenta_sparsed_volumes = False
-nexenta_compression = off
-
-[ns5_nfs-pool2-other-nfs-folder]
-volume_driver = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
-volume_backend_name = ns5
-nas_host = 10.0.0.2
-nexenta_rest_address = 10.0.1.11,10.0.1.12
-nexenta_rest_port = 8443
-nas_share_path = pool2/another_nfs_folder
-nexenta_user = admin
-nexenta_password = Nexenta@1
-nfs_mount_options = vers=3
-nexenta_sparsed_volumes = False
-nexenta_compression = on
-
-[ns5_nfs-pool2]
-volume_driver = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
-volume_backend_name = ns5
-nas_host = 10.0.1.2
-nexenta_rest_address = 10.0.2.101,10.0.2.102
-nexenta_rest_port = 8443
-nas_share_path = data/nfs
-nexenta_user = admin
-nexenta_password = Nexenta@1
-nfs_mount_options = vers=3
-nexenta_sparsed_volumes = False
-nexenta_compression = off
-
-[ns5_iscsi]
-volume_driver = cinder.volume.drivers.nexenta.ns5.iscsi.NexentaISCSIDriver
-volume_backend_name = ns5
-nexenta_host = 10.0.0.1
-nexenta_rest_address = 10.0.1.1,10.1.1.2
-nexenta_rest_port = 8443
-nexenta_user = admin
-nexenta_password = Nexenta@1
-nexenta_volume = pool1
-nexenta_volume_group = iscsi
-nexenta_iscsi_target_portals = 10.0.0.2:3260,10.0.0.3:3261,10.0.0.4
-nexenta_target_prefix = iqn.2005-07.com.nexenta:02:cinder
-nexenta_target_group_prefix = cinder
-nexenta_host_group_prefix = cinder
-nexenta_luns_per_target = 128
-</code></pre>
-<p>Note that in last 4 examples we have the same volume_backend_name, even though they are not all on the same appliance. This is the case when you have multiple endpoints, but you do not necessary need control of picking which one will be used to create a volume. Endpoints can be different folders/volumeGroups, pools, protocols or even different NexentaStor appliances. In any of those cases you need a separate backend section for each endpoint.</p>
-<p>The Cinder scheduler is responsible for deciding where to create Cinder volumes when we have more than one of the same kind of storage backend. This is done by looking at the filter rules in order to identify the most appropriate storage backend.</p>
-<h3>Configuring Cinder scheduler</h3>
-<p>Cinder supports multiple storage backends with the same volume backend name. In this case, Cinder scheduler automatically schedules the placement of created volumes based on configured scheduler filters and weighers. CapacityFilter and CapacityWeigher are the default filter and weigher. When they are enabled, Cinder scheduler assigns the highest weight to the backend with the most available capacity. Cinder schedulers, filters and weighers have many supported operators and available properties, which are documented on the <a href="https://docs.openstack.org/cinder/latest/admin/blockstorage-driver-filter-weighing.html">OpenStack Admin Guide</a>.</p>
+<h3>NexentaStor 5.x - list of all available options, specific for NFS</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>nexenta_mount_point_base</td><td>$state_path/mnt</td><td>String</td><td>Base directory that contains NFS share mount points.</td></tr>
+<tr><td>nexenta_sparsed_volumes</td><td>True</td><td>Boolean</td><td>Enables or disables the creation of volumes as sparsed files that take no space. If disabled (False), volume is created as a regular file, which takes a long time.</td></tr>
+<tr><td>nfs_mount_attempts</td><td>3</td><td>Integer</td><td>The number of attempts to mount or unmount NFS share before raising an error.</td></tr>
+<tr><td>nfs_mount_options or nas_mount_options</td><td>None</td><td>String</td><td>Mount options passed to the NFS client.</td></tr>
+</tbody>
+</table></div>
+<h3>NexentaStor 5.x - list of all available options, specific for iSCSI</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>nexenta_host</td><td></td><td>String</td><td>IP address of NexentaStor Appliance.</td></tr>
+<tr><td>nexenta_ns5_blocksize</td><td>32</td><td>KiloBytes</td><td>Block size for Cinder volumes.</td></tr>
+<tr><td>nexenta_sparse</td><td>False</td><td>Boolean</td><td>Enables or disables the creation of sparse volumes.</td></tr>
+<tr><td>nexenta_volume</td><td>cinder</td><td>String</td><td>NexentaStor pool name that holds all volumes.</td></tr>
+<tr><td>nexenta_volume_group</td><td>iscsi</td><td>String</td><td>A volumegroup where cinder created datasets will reside.</td></tr>
+<tr><td>nexenta_iscsi_target_portal_port</td><td>3260</td><td>Integer</td><td>NexentaStor iSCSI target portal port.</td></tr>
+<tr><td>nexenta_iscsi_target_portals</td><td></td><td>List</td><td>Comma separated list of portals for NexentaStor5, in format of IP1:port1,IP2:port2. Port is optional, default port is 3260.</td></tr>
+<tr><td>nexenta_target_prefix</td><td>iqn.2005-07.com.nexenta:01:cinder</td><td>String</td><td>iqn prefix for NexentaStor iSCSI targets.</td></tr>
+<tr><td>nexenta_target_group_prefix</td><td>cinder</td><td>String</td><td>Prefix for iSCSI target groups on NexentaStor.</td></tr>
+<tr><td>nexenta_host_group_prefix</td><td>cinder</td><td>String</td><td>Prefix for iSCSI host groups on NexentaStor.</td></tr>
+<tr><td>nexenta_luns_per_target</td><td>100</td><td>Integer</td><td>Limit of LUNs per iSCSI target.</td></tr>
+</tbody>
+</table></div>
+<h3>NexentaStor 4.x vs. 5.x options conversion table</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr><th>4.x param</th><th>5.x param</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>uses same param for rest and data (nexenta_host)</td><td>nexenta_rest_address</td><td>4.x does not have separate value for Rest API management</td></tr>
+<tr><td>nexenta_rest_protocol</td><td>nexenta_use_https</td><td></td></tr>
+<tr><td>nexenta_folder</td><td>volume_group</td><td>Relative dataset name.</td></tr>
+<tr><td>nexenta_iscsi_target_portal_groups</td><td>nexenta_iscsi_target_portals and nexenta_iscsi_target_portal_port</td><td>4.x exposes TPGs while 5.x creates them using list of portals (IPs).</td></tr>
+</tbody>
+</table></div>
 
         </article>
     </section>
