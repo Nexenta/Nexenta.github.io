@@ -168,6 +168,8 @@ nexenta_folder = san
 <tr><td>nexenta_migration_snapshot_prefix</td><td>migration-snapshot</td><td>String</td><td>Prefix for migration snapshot name.</td></tr>
 <tr><td>nexenta_origin_snapshot_template</td><td>origin-snapshot-%s</td><td>String</td><td>Template string to generate origin name of clone.</td></tr>
 <tr><td>nexenta_group_snapshot_template</td><td>group-snapshot-%s</td><td>String</td><td>Template string to generate group snapshot name.</td></tr>
+<tr><td>driver_ssl_cert_verify</td><td>False</td><td>Boolean</td><td>If set to True the Cinder http client will validate the SSL certificate of the NexentaStor REST API endpoint.</td></tr>
+<tr><td>driver_ssl_cert_path</td><td></td><td>String</td><td>Can be used to specify a non default path to a CA_BUNDLE file or directory with certificates of trusted CAs, which will be used to validate the NexentaStor REST API backend.</td></tr>
 </tbody>
 </table></div>
 <h3>NexentaStor 4.x - list of all available options, specific for NFS</h3>
@@ -176,6 +178,8 @@ nexenta_folder = san
 <tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
 </thead>
 <tbody>
+<tr><td>nas_host</td><td></td><td>String</td><td>IP address or hostname of NexentaStor Appliance.</td></tr>
+<tr><td>nas_share_path</td><td></td><td>String</td><td>NexentaStor filesystem path that holds all volumes.</td></tr>
 <tr><td>nexenta_shares_config</td><td>/etc/cinder/nfs_shares</td><td>String</td><td>File with the list of available nfs shares (only for NexentaStor 4.x NFS driver prior to version 1.4).</td></tr>
 <tr><td>nexenta_mount_point_base</td><td>$state_path/mnt</td><td>String</td><td>Base directory that contains NFS share mount points.</td></tr>
 <tr><td>nexenta_sparsed_volumes</td><td>True</td><td>Boolean</td><td>Enables or disables the creation of volumes as sparsed files that take no space. If disabled (False), volume is created as a regular file, which takes a long time.</td></tr>
@@ -189,7 +193,7 @@ nexenta_folder = san
 <tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td>nexenta_host</td><td></td><td>String</td><td>IP address of NexentaStor Appliance.</td></tr>
+<tr><td>nexenta_host</td><td></td><td>String</td><td>IP address or hostname of NexentaStor Appliance.</td></tr>
 <tr><td>nexenta_blocksize</td><td>32768</td><td>Bytes</td><td>Block size for Cinder volumes.</td></tr>
 <tr><td>nexenta_sparse</td><td>False</td><td>Boolean</td><td>Enables or disables the creation of sparse volumes.</td></tr>
 <tr><td>nexenta_volume</td><td>cinder</td><td>String</td><td>NexentaStor pool name that holds all volumes.</td></tr>
