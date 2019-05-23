@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - HTTPS Configuration</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+    <link href="/all.css?b" rel="stylesheet">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86415664-5"></script>
+    <script>
+      try {
+        if (window.location.hostname === 'nexenta.github.io') {
+          window.dataLayer = window.dataLayer || [];
+
+          function gtag() {dataLayer.push(arguments);}
+
+          gtag('js', new Date());
+          gtag('config', 'UA-86415664-5');
+        } else {
+          console.warn('Google Analytics runs only on nexenta.github.io');
+        }
+      } catch (e) {
+        console.warn('Cannot run Google Analytics', e);
+      }
+    </script>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.github.io" title="Nexenta">
+      <img src="/resources/images/logo-nexenta-ddn-white-with-title.png" class="desktop"/>
+      <img src="/resources/images/logo-nexenta-wo-title.png" class="mobile"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search" placeholder="Search" />
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        
+        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/https.html class="active"><p>HTTPS Configuration</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li></ul></li></ul></nav>
+        
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">HTTPS Configuration</h1>
+            <p>OpenStack Administrator is able to enable HTTPS for communication between Nexenta Cinder driver and NexentaStor REST API.</p>
+<h3>Using the default self-signed HTTPS certificates</h3>
+<h4>NexentaStor5</h4>
+<p>By default a NexentaStor5 Appliance is preinstalled with a self-signed certificate that is used for REST API communication and Nexenta Cinder driver supports HTTPS out of box.</p>
+<h4>NexentaStor4</h4>
+<ul>
+<li>By default a NexentaStor4 Appliance is preinstalled with disabled HTTPS. To enable HTTPS use the following commands on NexentaStor4 Appliances:</li>
+</ul>
+<pre><code>nmc@host:/$ setup appliance init                                                                                                                                         
+Interface ixgbe1           : Configured as 192.168.1.2/255.255.255.0 with mtu 9000
+Interface igb0 (PRIMARY)   : Configured as 10.1.1.2/255.255.252.0 with mtu 1500
+Interface ixgbe0           : Configured as 192.168.2.2/255.255.255.0 with mtu 9000
+Interface igb1             : Unconfigured
+Default Gateway            : 10.1.1.254       : OK
+DNS <span class="hljs-comment">#1                     : 10.1.1.1         : OK</span>
+DNS <span class="hljs-comment">#2                     : 10.2.2.2         : OK</span>
+DNS <span class="hljs-comment">#3                     : 10.3.3.3         : OK</span>
+
+Reconfigure?  No
+
+Your primary interface is  : igb0
+Web GUI protocol           : HTTPS
+Web GUI port               : 8457
+
+Starting self-signed SSL-certificate <span class="hljs-keyword">for</span> NMV generation.
+Country                    : US
+State/Province             : Missouri
+City/Locality              : St. Petersburg
+Organization/Company       : Art Store, Inc
+Organizational unit/Department: Paint Department
+Use current machine FQDN <span class="hljs-string">'host.art-store.local'</span> as certificate Common Name(CN)?   Yes
+Common name                : host.art-store.local
+Email                      : thomas.sawyer@art-store.local
+Days                       : 365
+
+Available on https://10.1.1.2:8457/
+
+nmc@host:/$                                                                                                                                                              
+</code></pre>
+<ul>
+<li>Enable REST API HTTPS for the Nexenta Cinder driver and NexentaStor4 backend in cinder.conf:</li>
+</ul>
+<pre><code>[nexentastor4_backend]
+nexenta_rest_protocol = https
+</code></pre>
+<p>Note: by default, <em>nexenta_rest_protocol</em> is set to <em>auto</em> and Nexenta Cinder driver automatically negotiates the protocol for accessing the REST API endpoint.</p>
+<h3>Using the custom HTTPS certificates and enabling certificate verification</h3>
+<p>HTTPS uses SSL/TLS to make the HTTP connection secure, but HTTPS can provide more security if certificate verification is enabled.</p>
+<h4>Requirements for certificates</h4>
+<p>Before obtaining and installing SSL certificates, you must understand what certificates are required and their requirements.</p>
+<ul>
+<li>Each NexentaStor host must have its own or wildcard certificate installed.</li>
+<li>In case of a single-name certificate, the common name consists of a single host name (for example, hostname.domain.local), or a wildcard name in case of a wildcard certificate (for example, *.domain.local).</li>
+<li>Each certificate must contain a Subject Alternative Name extension containing a domain name and/or IP address for all additionally used names and/or addresses (for example, HA VIP’s).</li>
+</ul>
+<h4>Creating a CA and issuing certificates</h4>
+<p>It’s possible to obtain certificates from an external CA or create your own certification authority and issue certificates.</p>
+<ul>
+<li>Create a CA:</li>
+</ul>
+<pre><code>client$ cadmin -t ca -n CA -m ca@art-store.local -u <span class="hljs-string">'Paint Department'</span> -o <span class="hljs-string">'Art Store, Inc'</span> -l <span class="hljs-string">'St. Petersburg'</span> -s Missouri  -c US -b 4096 -y 3650
+</code></pre>
+<ul>
+<li>Create a certificate for the first HA node, using node1.qa.local as common name and vip1.qa.local, vip2.qa.local, 10.1.1.2, 192.168.1.11 and 192.168.1.22 as alternative host names:</li>
+</ul>
+<pre><code>client$ cadmin -t server -n node1.qa.local -m ca@art-store.local -u <span class="hljs-string">'Paint Department'</span> -o <span class="hljs-string">'Art Store, Inc'</span> -l <span class="hljs-string">'St. Petersburg'</span> -s Missouri  -c US -b 2048 -y 365 -a DNS:node1.qa.local -a DNS:vip1.qa.local -a DNS:vip2.qa.local -a IP:10.1.1.2 -a IP:192.168.1.11 -a IP:192.168.1.22
+
+The Subject<span class="hljs-string">'s Distinguished Name is as follows
+commonName            :ASN.1 12:'</span>node1.qa.local<span class="hljs-string">'
+emailAddress          :IA5STRING:'</span>ca@art-store.local<span class="hljs-string">'
+organizationalUnitName:ASN.1 12:'</span>Paint Department<span class="hljs-string">'
+organizationName      :ASN.1 12:'</span>Art Store, Inc<span class="hljs-string">'
+localityName          :ASN.1 12:'</span>St. Petersburg<span class="hljs-string">'
+stateOrProvinceName   :ASN.1 12:'</span>Missouri<span class="hljs-string">'
+countryName           :PRINTABLE:'</span>US<span class="hljs-string">'
+Certificate is to be certified until May 22 00:26:10 2020 GMT (365 days)
+</span></code></pre>
+<ul>
+<li>Create a certificate for the second HA node, using node2.qa.local as common name and vip1.qa.local, vip2.qa.local, 10.1.1.3, 192.168.1.11 and 192.168.1.22 as alternative host names:</li>
+</ul>
+<pre><code>client$ cadmin -t server -n node2.qa.local -m ca@art-store.local -u <span class="hljs-string">'Paint Department'</span> -o <span class="hljs-string">'Art Store, Inc'</span> -l <span class="hljs-string">'St. Petersburg'</span> -s Missouri  -c US -b 2048 -y 365 -a DNS:node2.qa.local -a DNS:vip1.qa.local -a DNS:vip2.qa.local -a IP:10.1.1.3 -a IP:192.168.1.11 -a IP:192.168.1.12
+
+The Subject<span class="hljs-string">'s Distinguished Name is as follows
+commonName            :ASN.1 12:'</span>node2.qa.local<span class="hljs-string">'
+emailAddress          :IA5STRING:'</span>ca@art-store.local<span class="hljs-string">'
+organizationalUnitName:ASN.1 12:'</span>Paint Department<span class="hljs-string">'
+organizationName      :ASN.1 12:'</span>Art Store, Inc<span class="hljs-string">'
+localityName          :ASN.1 12:'</span>St. Petersburg<span class="hljs-string">'
+stateOrProvinceName   :ASN.1 12:'</span>Missouri<span class="hljs-string">'
+countryName           :PRINTABLE:'</span>US<span class="hljs-string">'
+Certificate is to be certified until May 22 00:26:41 2020 GMT (365 days)
+</span></code></pre>
+<h4>Steps for NexentaStor5</h4>
+<ul>
+<li>Copy the private host key to a new file called key.pem</li>
+</ul>
+<pre><code>client$ cp node1.qa.local.key key.pem
+</code></pre>
+<ul>
+<li>Copy the host certificate to a new file called cert.pem:</li>
+</ul>
+<pre><code>client$ cp node1.qa.local.crt cert.pem
+</code></pre>
+<ul>
+<li>Create a compressed archive file with the key.pem and cert.pem:</li>
+</ul>
+<pre><code>client$ tar cvfz node1.tar.gz key.pem cert.pem
+a key.pem 2K
+a cert.pem 10K
+</code></pre>
+<ul>
+<li>Create a filesystem and NFS share on host node1 and upload the node1.tar.gz file to this share (it is possible to use external HTTP(s) or FTP servers):</li>
+</ul>
+<pre><code>CLI@node1&gt; filesystem create pool/ssl
+CLI@node1&gt; acl <span class="hljs-built_in">set</span> -r A+user:admin:full_set:allow pool/ssl
+CLI@node1&gt; nfs share -o uidMap=<span class="hljs-string">'*:root:@10.10.10.10'</span> pool/ssl
+
+client$ sudo mount 10.1.1.2:pool/ssl /mnt
+client$ cp node1.tar.gz /mnt
+client$ sudo umount /mnt
+</code></pre>
+<p>Note: 10.10.10.10 - IP address of the remote client.</p>
+<ul>
+<li>Open ssh/CLI session to the host node1 and import the certificate and key to NexentaStor5 Rest API using the following command:</li>
+</ul>
+<pre><code>CLI@node1&gt; config <span class="hljs-built_in">set</span> rest.certificate.url = file:///pool/ssl/node1.tar.gz
+</code></pre>
+<ul>
+<li>Destroy a filesystem:</li>
+</ul>
+<pre><code>CLI@node1&gt; filesystem destroy -y pool/ssl
+</code></pre>
+<ul>
+<li>Check Rest API for the new certificate:</li>
+</ul>
+<pre><code>client$ <span class="hljs-built_in">echo</span> | openssl s_client -showcerts -connect 10.1.1.2:8443
+Certificate chain
+Server certificate
+subject=/CN=node1.qa.local/emailAddress=ca@art-store.local/OU=Paint Department/O=Art Store, Inc/L=St. Petersburg/ST=Missouri/C=US
+issuer=/CN=CA/emailAddress=ca@art-store.local/OU=Paint Department/O=Art Store, Inc/L=St. Petersburg/ST=Missouri/C=US
+...
+</code></pre>
+<h4>Steps for NexentaStor4</h4>
+<ul>
+<li>Copy the private host key to a remote file called nmv.key:</li>
+</ul>
+<pre><code>client$ scp -p node1.qa.local.key root@10.1.1.2:/var/lib/nza/nmv.key
+</code></pre>
+<ul>
+<li>Copy the host certificate to a remote file called nmv.crt:</li>
+</ul>
+<pre><code>client$ scp -p node1.qa.local.crt root@10.1.1.2:/var/lib/nza/nmv.crt
+</code></pre>
+<ul>
+<li>Enable HTTPS for NexentaStor4 Appliance:</li>
+</ul>
+<pre><code>nmc@node1:/$ setup appliance init                                                                                                                                         
+Interface ixgbe1           : Configured as 192.168.1.2/255.255.255.0 with mtu 9000
+Interface igb0 (PRIMARY)   : Configured as 10.1.1.2/255.255.252.0 with mtu 1500
+Interface ixgbe0           : Configured as 192.168.2.2/255.255.255.0 with mtu 9000
+Interface igb1             : Unconfigured
+Default Gateway            : 10.1.1.254       : OK
+DNS <span class="hljs-comment">#1                     : 10.1.1.1         : OK</span>
+DNS <span class="hljs-comment">#2                     : 10.2.2.2         : OK</span>
+DNS <span class="hljs-comment">#3                     : 10.3.3.3         : OK</span>
+
+Reconfigure?  No
+
+Your primary interface is  : igb0
+Web GUI protocol           : HTTPS
+Web GUI port               : 8457
+
+SSL certificate <span class="hljs-keyword">for</span> NMV already exists. Generate a new one?  No
+
+Available on https://10.1.1.2:8457/
+
+nmc@node1:/$
+</code></pre>
+<ul>
+<li>Check Rest API for the new certificate:</li>
+</ul>
+<pre><code>client$ <span class="hljs-built_in">echo</span> | openssl s_client -showcerts -connect 10.1.1.2:8457
+Certificate chain
+Server certificate
+subject=/CN=node1.qa.local/emailAddress=ca@art-store.local/OU=Paint Department/O=Art Store, Inc/L=St. Petersburg/ST=Missouri/C=US
+issuer=/CN=CA/emailAddress=ca@art-store.local/OU=Paint Department/O=Art Store, Inc/L=St. Petersburg/ST=Missouri/C=US
+...
+</code></pre>
+<h4>Configuring Nexenta Cinder driver</h4>
+<ul>
+<li>Copy the CA certificate to the cinder config directory:</li>
+</ul>
+<pre><code>cinder$ cp ca.crt /etc/cinder
+</code></pre>
+<ul>
+<li>Enable REST API HTTPS for the Nexenta Cinder driver and NexentaStor backend in cinder.conf:</li>
+</ul>
+<pre><code>[nexentastor_backend]
+driver_ssl_cert_verify = True
+driver_ssl_cert_path = /etc/cinder/ca.crt
+...
+</code></pre>
+<p>Note: If <code>driver_ssl_cert_path</code> is omitted, the system default CA will be used for CA verification.</p>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            <a href="https://nexenta.com" title="Nexenta Systems, Inc.">
+              Nexenta Systems, Inc.
+            </a>
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+</html>
