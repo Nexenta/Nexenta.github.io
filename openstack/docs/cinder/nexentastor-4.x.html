@@ -73,11 +73,11 @@
 <pre><code>nmc@host:/$ create folder -o nbmand=off tank/nas
 nmc@host:/$ share folder tank/nas nfs
 </code></pre>
-Note: nbmand option controls if non-blocking mandatory locks are enabled or disabled. Openstack image related operations (like converting between different image types or creation volume from an existing image) requires mandatory locks.</li>
+Note: nbmand option controls if non-blocking mandatory locks are enabled or disabled. OpenStack image related operations (like converting between different image types or creation volume from an existing image) requires mandatory locks.</li>
 <li>Storage Network configured between NS Appliance and OpenStack Hypervisors (Recommended 10GBE, MTU 9000)</li>
 </ul>
 <h3>Recommended NFS options</h3>
-<p>NFS version 3 protocol is recommended for general use. Here is a list of relevant parameters for different components of the Openstack:</p>
+<p>NFS version 3 protocol is recommended for general use. Here is a list of relevant parameters for different components of the OpenStack:</p>
 <p>Cinder volume and cinder backup via cinder.conf:</p>
 <pre><code>[nexenta_backend]
 volume_driver = cinder.volume.drivers.nexenta.nfs.NexentaNfsDriver
@@ -89,7 +89,7 @@ nfs_mount_options = vers=3,minorversion=0,nolock
 </code></pre>
 <h3>Where to get Cinder Drivers?</h3>
 <p>It’s recommended to get the latest driver from Nexenta’s repository: <a href="https://github.com/Nexenta/cinder">https://github.com/Nexenta/cinder</a></p>
-<p>The branches in the repository correspond with Openstack releases.</p>
+<p>The branches in the repository correspond with OpenStack releases.</p>
 <p>To following command can be used to download the exact version w/o having to switch branches</p>
 <p><code>git clone -b stable/mitaka</code> - this will download the exact version, no need to switch</p>
 <p>Nexenta Drivers are located under the following path:
@@ -112,10 +112,7 @@ $ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/lib/python2.7/dist-pa
 </ul></li>
 </ol>
 <h3>NexentaStor 4.x NFS minimal recommended cinder.conf</h3>
-<pre><code>[DEFAULT]
-driver_ssl_cert_verify = False
-
-[ns4_nfs]
+<pre><code>[ns4_nfs]
 volume_driver = cinder.volume.drivers.nexenta.nfs.NexentaNfsDriver
 volume_backend_name = ns4_nfs
 nexenta_user = admin
@@ -135,10 +132,7 @@ volume_backend_name = ns4_nfs
 nexenta_shares_config = /etc/cinder/shares.cfg
 </code></pre>
 <h3>NexentaStor 4.x iSCSI minimal recommended cinder.conf</h3>
-<pre><code>[DEFAULT]
-driver_ssl_cert_verify = False
-
-[ns4_iscsi]
+<pre><code>[ns4_iscsi]
 volume_driver = cinder.volume.drivers.nexenta.iscsi.NexentaISCSIDriver
 volume_backend_name = ns4_iscsi
 nexenta_user = admin
@@ -159,7 +153,7 @@ nexenta_folder = san
 <tr><td>nexenta_rest_protocol</td><td>auto</td><td>[http, https, auto]</td><td>Use http or https for NexentaStor management REST API connection.</td></tr>
 <tr><td>nexenta_rest_connect_timeout</td><td>30</td><td>Float</td><td>Specifies the time limit (in seconds), within which the connection to NexentaStor management REST API server must be established.</td></tr>
 <tr><td>nexenta_rest_read_timeout</td><td>300</td><td>Float</td><td>Specifies the time limit (in seconds), within which NexentaStor management REST API server must send a response.</td></tr>
-<tr><td>nexenta_rest_backoff_factor</td><td>0.5</td><td>Float</td><td>Specifies the backoff factor to apply between connection attempts to NexentaStor management REST API server.</td></tr>
+<tr><td>nexenta_rest_backoff_factor</td><td>0.5</td><td>Float</td><td>Specifies the backoff factor to apply between connection attempts to NexentaStor management REST API server. For example, if the nexenta_rest_backoff_factor is 0.5 then Nexenta Cinder driver will sleep for [0.5, 1, 2, 4, 8, …] seconds between retries. Sleep intervals are calculated by the formula: <code>nexenta_rest_backoff_factor * (2 ** (number_of_total_retries - 1))</code></td></tr>
 <tr><td>nexenta_rest_retry_count</td><td>3</td><td>Integer</td><td>Specifies the number of times to repeat NexentaStor management REST API call in case of connection errors and NexentaStor appliance EBUSY or ENOENT errors.</td></tr>
 <tr><td>nexenta_user</td><td>admin</td><td>String</td><td>User name to connect to NexentaStor management REST API.</td></tr>
 <tr><td>nexenta_password</td><td>nexenta</td><td>String</td><td>Password to connect to NexentaStor management REST API.</td></tr>
@@ -203,18 +197,6 @@ nexenta_folder = san
 <tr><td>nexenta_target_group_prefix</td><td>cinder</td><td>String</td><td>Prefix for iSCSI target groups on NexentaStor.</td></tr>
 <tr><td>nexenta_host_group_prefix</td><td>cinder</td><td>String</td><td>Prefix for iSCSI host groups on NexentaStor.</td></tr>
 <tr><td>nexenta_luns_per_target</td><td>100</td><td>Integer</td><td>Limit of LUNs per iSCSI target.</td></tr>
-</tbody>
-</table></div>
-<h3>NexentaStor 4.x vs. 5.x options conversion table</h3>
-<div class="table-scroll"><table>
-<thead>
-<tr><th>4.x param</th><th>5.x param</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td>uses same param for rest and data (nexenta_host)</td><td>nexenta_rest_address</td><td>4.x does not have separate value for Rest API management</td></tr>
-<tr><td>nexenta_rest_protocol</td><td>nexenta_use_https</td><td></td></tr>
-<tr><td>nexenta_folder</td><td>volume_group</td><td>Relative dataset name.</td></tr>
-<tr><td>nexenta_iscsi_target_portal_groups</td><td>nexenta_iscsi_target_portals and nexenta_iscsi_target_portal_port</td><td>4.x exposes TPGs while 5.x creates them using list of portals (IPs).</td></tr>
 </tbody>
 </table></div>
 
