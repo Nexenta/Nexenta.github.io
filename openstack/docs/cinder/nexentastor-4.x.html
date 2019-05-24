@@ -81,11 +81,7 @@ Note: nbmand option controls if non-blocking mandatory locks are enabled or disa
 <p>Cinder volume and cinder backup via cinder.conf:</p>
 <pre><code>[nexenta_backend]
 volume_driver = cinder.volume.drivers.nexenta.nfs.NexentaNfsDriver
-nas_mount_options = vers=3,minorversion=0,nolock
-</code></pre>
-<p>Nova compute via nova.conf or nova-cpu.conf:</p>
-<pre><code>[libvirt]
-nfs_mount_options = vers=3,minorversion=0,nolock
+nas_mount_options = vers=3,minorversion=0,timeo=100,nolock
 </code></pre>
 <h3>Where to get Cinder Drivers?</h3>
 <p>It’s recommended to get the latest driver from Nexenta’s repository: <a href="https://github.com/Nexenta/cinder">https://github.com/Nexenta/cinder</a></p>
@@ -119,7 +115,7 @@ nexenta_user = admin
 nexenta_password = nexenta
 nas_host = 10.0.0.1
 nas_share_path = tank/nas
-nas_mount_options = vers=3,minorversion=0,nolock
+nas_mount_options = vers=3,minorversion=0,timeo=100,nolock
 </code></pre>
 <p><strong>Note:</strong> For NexentaStor 4.x NFS driver prior to version 1.4 a shares config file must be present. This file should consist of 1 or multiple lines with 2 columns separated by a space. The first column represents the NFS filesystem path for the mount command, and the second is url for Rest API calls. For example, /etc/cinder/shares.cfg:</p>
 <pre><code>10.0.0.1:/volumes/tank1/nfs_share http://admin:nexenta@10.0.0.1:8457
