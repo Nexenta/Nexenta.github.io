@@ -79,11 +79,7 @@ Note: nonBlockingMandatoryMode option controls if non-blocking mandatory locks a
 <p>Cinder volume and cinder backup via cinder.conf:</p>
 <pre><code>[nexenta_backend]
 volume_driver = cinder.volume.drivers.nexenta.ns5.nfs.NexentaNfsDriver
-nfs_mount_options = vers=3,minorversion=0,nolock
-</code></pre>
-<p>Nova compute via nova.conf or nova-cpu.conf:</p>
-<pre><code>[libvirt]
-nfs_mount_options = vers=3,minorversion=0,nolock
+nfs_mount_options = vers=3,minorversion=0,timeo=100,nolock
 </code></pre>
 <h3>Where to get Cinder Drivers?</h3>
 <p>It’s recommended to get the latest driver from Nexenta’s repository: <a href="https://github.com/Nexenta/cinder">https://github.com/Nexenta/cinder</a></p>
@@ -120,7 +116,7 @@ nexenta_user = admin
 nexenta_password = Nexenta@1
 nas_host = 10.0.0.1
 nas_share_path = tank/nas
-nas_mount_options = vers=3,minorversion=0,nolock
+nas_mount_options = vers=3,minorversion=0,timeo=100,nolock
 </code></pre>
 <h3>NexentaStor 5.x NFS standalone minimal recommended cinder.conf</h3>
 <pre><code>[ns5_nfs]
@@ -133,7 +129,7 @@ nexenta_user = admin
 nexenta_password = Nexenta@1
 nas_host = 10.0.0.1
 nas_share_path = tank/nas
-nas_mount_options = vers=3,minorversion=0,nolock
+nas_mount_options = vers=3,minorversion=0,timeo=100,nolock
 </code></pre>
 <h3>NexentaStor 5.x iSCSI HA minimal recommended cinder.conf</h3>
 <pre><code>[ns5_iscsi]
