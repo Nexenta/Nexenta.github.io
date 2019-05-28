@@ -63,22 +63,6 @@
             <h3>Overview</h3>
 <p>Manila provides file services for applications running on top of OpenStack. NexentaStor Manila driver allows Manila to provision NFS shares over REST API to be consumed by applications.</p>
 <script src="https://asciinema.org/a/200139.js" id="asciicast-200139" data-size="small" data-rows="30" data-cols="110" async></script>
-<h4>Supported operations are (currently only NFS is supported)</h4>
-<ul>
-<li>Create share</li>
-<li>Delete share</li>
-<li>Extend share</li>
-<li>Shrink share</li>
-<li>Allow share access (Only IP access type is supported - RW/RO)</li>
-<li>Deny share access</li>
-<li>Create snapshot</li>
-<li>Revert to snapshot</li>
-<li>Delete snapshot</li>
-<li>Create share from snapshot</li>
-<li>Share creation options - Thin/thick provisioning, compression</li>
-<li>Manage share</li>
-<li>Unmanage share</li>
-</ul>
 <h3>Recommended NFS options</h3>
 <p>NFS version 3 protocol is recommended for general use along with timeo=100 option.
 Here is an example mount command:
