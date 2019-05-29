@@ -7,6 +7,11 @@ try {
   for (var i = 0; i < codeElements.length; i++) {
     var codeElement = codeElements[i];
     var preElement = codeElement.parentNode;
+    if (codeElement.className.indexOf("mermaid") !== -1) {
+      // this is a mermaid diagram, apply "mermaid" class and skip "copy" button injection
+      preElement.className += " mermaid";
+      continue;
+    }
     if (preElement.tagName === 'PRE') {
       var parent = codeElement.parentNode.parentNode;
       var codeText = (codeElement.innerText || '').replace(/"/gm, '\\"').replace(/\n*$/, '');
