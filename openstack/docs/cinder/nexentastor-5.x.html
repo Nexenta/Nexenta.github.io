@@ -68,8 +68,8 @@
 <pre><code>CLI@host&gt; volumegroup create pool/iscsi
 </code></pre></li>
 <li>For NFS backend - file system must be created and shared over NFS, for example:
-<pre><code>CLI@host&gt; filesystem create -p -o nonBlockingMandatoryMode=off,smartCompression=off pool/nfs  
-CLI@host&gt; nfs share -o uidMap=<span class="hljs-string">'*:root:@10.1.1.1'</span> pool/nfs
+<pre><code>CLI@host&gt; filesystem create -p -o nonBlockingMandatoryMode=off,smartCompression=off tank/nas  
+CLI@host&gt; nfs share -o uidMap=<span class="hljs-string">'*:root:@10.1.1.1'</span> tank/nas
 </code></pre>
 Note: nonBlockingMandatoryMode option controls if non-blocking mandatory locks are enabled or disabled. OpenStack image related operations (like converting between different image types or creation volume from an existing image) requires mandatory locks.</li>
 <li>Storage Network configured between NS Appliance and OpenStack Hypervisors (Recommended 10GBE, MTU 9000)</li>
