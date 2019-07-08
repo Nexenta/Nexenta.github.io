@@ -65,7 +65,7 @@
 <li>Storage appliance must be configured and licensed</li>
 <li>ZFS pool must be created</li>
 <li>For iSCSI backend - volume group must be created, for example:
-<pre><code>CLI@host&gt; volumegroup create pool/iscsi
+<pre><code>CLI@host&gt; volumegroup create pool/san
 </code></pre></li>
 <li>For NFS backend - file system must be created and shared over NFS, for example:
 <pre><code>CLI@host&gt; filesystem create -p -o nonBlockingMandatoryMode=off,smartCompression=off tank/nas  
