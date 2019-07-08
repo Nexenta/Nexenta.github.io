@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - Changelog</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+    <link href="/all.css?b" rel="stylesheet">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86415664-5"></script>
+    <script>
+      try {
+        if (window.location.hostname === 'nexenta.github.io') {
+          window.dataLayer = window.dataLayer || [];
+
+          function gtag() {dataLayer.push(arguments);}
+
+          gtag('js', new Date());
+          gtag('config', 'UA-86415664-5');
+        } else {
+          console.warn('Google Analytics runs only on nexenta.github.io');
+        }
+      } catch (e) {
+        console.warn('Cannot run Google Analytics', e);
+      }
+    </script>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.github.io" title="Nexenta">
+      <img src="/resources/images/logo-nexenta-ddn-white-with-title.png" class="desktop"/>
+      <img src="/resources/images/logo-nexenta-wo-title.png" class="mobile"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search" placeholder="Search" />
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        
+        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/https.html><p>HTTPS Configuration</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li><li><a href=/openstack/docs/cinder/changelog.html class="active"><p>Changelog</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li></ul></li></ul></nav>
+        
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">Changelog</h1>
+            <h3>Changelog</h3>
+<p>Master (TBD)</p>
+<ul>
+<li>NEX-20829 Fix REST API pagination (workaround for NEX-18013)</li>
+</ul>
+<p>2019-05-18</p>
+<ul>
+<li>NexentaStor4 NFS and iSCSI Cinder driver 1.4.1
+<ul>
+<li>Added retries on timeouts, network connection errors, SSL errors, proxy and NMS errors.</li>
+<li>NEX-20720 Cinder driver ConnectionError: ('Connection aborted.’, BadStatusLine(&quot;’’&quot;,)).</li>
+<li>NEX-20773 Cinder driver SSLError: bad handshake: tls_process_server_certificate: certificate verify failed.</li>
+</ul></li>
+</ul>
+<p>2019-05-07</p>
+<ul>
+<li>NexentaStor4 NFS and iSCSI Cinder driver 1.4.0
+<ul>
+<li>Added volume multi-attach.</li>
+<li>NEX-20387 Our provided OpenStack driver does not deal gracefully with a slow pool.</li>
+<li>Added new configuration options: nexenta_migration_throttle,
+nexenta_migration_service_prefix, nexenta_migration_snapshot_prefix.</li>
+<li>Fixed automatic mode for nexenta_rest_protocol.</li>
+<li>Fixed compatibility with initial driver version.</li>
+<li>Fixed deletion of temporary snapshots.</li>
+<li>Fixed creation of volumes with enabled compression option.</li>
+<li>Refactored LUN creation, use host group for LUN mappings.</li>
+<li>Refactored storage assisted volume migration.</li>
+<li>Added deferred deletion for snapshots.</li>
+<li>Added revert to snapshot support.</li>
+<li>Added report discard support.</li>
+<li>Added informative exception messages for REST API.</li>
+<li>Added configuration parameters for REST API connect/read.
+timeouts, connection retries and backoff factor.</li>
+<li>Added configuration parameter for LUN writeback cache.</li>
+<li>Improved collection of backend statistics.</li>
+<li>NEX-18892 Sync Cinder driver from Newton to another OpenStack branches.</li>
+</ul></li>
+</ul>
+<p>2019-04-22</p>
+<ul>
+<li>NexentaStor5 NFS Cinder driver 1.8.6
+<ul>
+<li>Merge latest changes from Mitaka.</li>
+<li>Unit tests.</li>
+<li>Coordination for REST API calls.</li>
+<li>Backward compatibility for older Python/Requests and unit tests.</li>
+<li>NEX-20519 NFS Cinder volume must be activated before initialize connection.</li>
+<li>Fixed post-migration volume mount.</li>
+</ul></li>
+</ul>
+<p>2019-04-01</p>
+<ul>
+<li>NexentaStor5 iSCSI Cinder driver 1.4.5
+<ul>
+<li>Added report discard support.</li>
+<li>NEX-20323 NexentaStor5 iSCSI backend error: TRIM ioctl failed: Operation not supported.</li>
+</ul></li>
+</ul>
+<p>2019-03-30</p>
+<ul>
+<li>NexentaStor5 NFS Cinder driver 1.8.5
+<ul>
+<li>Provides NFS mount options (specified in cinder config file) to Nova.</li>
+<li>Fixed NFS protocol version for generic volume migration.</li>
+<li>NEX-20320 Cinder NFS generic migration error: mount.nfs: Protocol not supported.</li>
+</ul></li>
+</ul>
+<p>2019-03-28</p>
+<ul>
+<li>NexentaStor5 NFS Cinder driver 1.8.4
+<ul>
+<li>Unit tests.</li>
+<li>Refactored storage assisted volume migration.</li>
+<li>Added support for volume retype.</li>
+<li>Added support for volume type extra specs.</li>
+<li>Added vendor capabilities support.</li>
+<li>NEX-17420 QA CI: NFS driver volume migration OSError: [Errno 2] No such file or directory.</li>
+<li>NEX-18240 Unable to create Cinder volume with user defined properties.</li>
+<li>NEX-18227 Unable to change Cinder volume properties.</li>
+</ul></li>
+</ul>
+<p>2019-03-26</p>
+<ul>
+<li>NexentaStor5 iSCSI Cinder driver 1.4.4
+<ul>
+<li>Unit tests.</li>
+<li>Added storage assisted volume migration.</li>
+<li>Added support for volume retype.</li>
+<li>Added support for volume type extra specs.</li>
+<li>Added vendor capabilities support.</li>
+<li>NEX-14348 Add migrate volume functionality for 5.x iSCSI.</li>
+<li>NEX-18240 Unable to create Cinder volume with user defined properties.</li>
+<li>NEX-20168 Workaround for NEX-19823 LUN mapping - inconsistency after renaming a volume.</li>
+<li>NEX-14349 Add Retype method to 5.x cinder iSCSI driver.</li>
+<li>NEX-18227 Unable to change Cinder volume properties.</li>
+</ul></li>
+</ul>
+<p>2019-03-14</p>
+<ul>
+<li>NexentaStor5 NFS Cinder driver 1.8.3
+<ul>
+<li>NEX-20135 Disable SmartCompression (workaround for NEX-19094).</li>
+</ul></li>
+</ul>
+<p>2019-03-04</p>
+<ul>
+<li><p>NexentaStor5 iSCSI Cinder driver 1.4.3</p>
+<ul>
+<li>Added consistency group capability to generic volume group.</li>
+<li>NEX-20094 Consistent group capability to generic volume groups.</li>
+</ul></li>
+<li><p>NexentaStor5 iSCSI Cinder driver 1.8.3</p>
+<ul>
+<li>Added consistency group capability to generic volume group.</li>
+<li>NEX-20094 Consistent group capability to generic volume groups.</li>
+</ul></li>
+</ul>
+<p>2019-02-05</p>
+<ul>
+<li><p>NexentaStor5 iSCSI Cinder driver 1.4.2</p>
+<ul>
+<li>Added manage/unmanage/manageable-list volume/snapshot support.</li>
+<li>NEX-19807 Nexenta Cinder driver: support for manage/unmanage volumes</li>
+</ul></li>
+<li><p>NexentaStor5 NFS Cinder driver 1.8.2</p>
+<ul>
+<li>Added manage/unmanage/manageable-list volume/snapshot support.</li>
+<li>NEX-19807 Nexenta Cinder driver: support for manage/unmanage volumes.</li>
+</ul></li>
+</ul>
+<p>2019-02-02</p>
+<ul>
+<li>NexentaStor5 NFS Cinder driver 1.8.0
+<ul>
+<li>Support for NexentaStor tenants.</li>
+<li>NEX-19801 Cinder NFS driver: support for NexentaStor5 tenants.</li>
+</ul></li>
+</ul>
+<p>2019-02-01</p>
+<ul>
+<li><p>NexentaStor5 iSCSI Cinder driver 1.4.0</p>
+<ul>
+<li>Refactored iSCSI driver.</li>
+<li>Added pagination support.</li>
+<li>Added configuration parameters for REST API connect/read.
+timeouts, connection retries and backoff factor.</li>
+<li>Fixed HA failover.</li>
+<li>Added retries on EBUSY errors.</li>
+<li>Fixed HTTP authentication.</li>
+<li>Disabled non-blocking mandatory locks.</li>
+<li>Added coordination for dataset operations.</li>
+</ul></li>
+<li><p>NexentaStor5 NFS Cinder driver 1.8.0</p>
+<ul>
+<li>Refactored NFS driver.</li>
+<li>Added pagination support.</li>
+<li>Added configuration parameters for REST API connect/read
+timeouts, connection retries and backoff factor.</li>
+<li>Fixed HA failover.</li>
+<li>Added retries on EBUSY errors.</li>
+<li>Fixed HTTP authentication.</li>
+<li>Disabled non-blocking mandatory locks.</li>
+<li>Added coordination for dataset operations.</li>
+</ul></li>
+</ul>
+<p>2019-01-10</p>
+<ul>
+<li>NexentaStor5 NFS Cinder driver 1.7.2
+<ul>
+<li>NEX-19525 NfsException: Unexpected error while running umount command.</li>
+</ul></li>
+</ul>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            <a href="https://nexenta.com" title="Nexenta Systems, Inc.">
+              Nexenta Systems, Inc.
+            </a>
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+</html>
