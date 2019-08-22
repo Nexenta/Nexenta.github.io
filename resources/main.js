@@ -7,9 +7,9 @@ try {
   for (var i = 0; i < codeElements.length; i++) {
     var codeElement = codeElements[i];
     var preElement = codeElement.parentNode;
-    if (codeElement.className.indexOf("mermaid") !== -1) {
+    if (codeElement.className.indexOf('mermaid') !== -1) {
       // this is a mermaid diagram, apply "mermaid" class and skip "copy" button injection
-      preElement.className += " mermaid";
+      preElement.className += ' mermaid';
       continue;
     }
     if (preElement.tagName === 'PRE') {
