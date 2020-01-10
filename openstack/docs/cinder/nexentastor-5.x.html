@@ -163,19 +163,27 @@ nexenta_volume_group = san
 <tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td>nexenta_dataset_compression</td><td>lz4</td><td>[off, on, gzip, gzip-1, gzip-2, gzip-3, gzip-4, gzip-5, gzip-6, gzip-7, gzip-8, gzip-9, lzjb, zle, lz4]</td><td>Controls the compression algorithm to compress Cinder volumes data.</td></tr>
+<tr><td>nexenta_dataset_compression</td><td>lz4</td><td>off, on, gzip, gzip-1, gzip-2, gzip-3, gzip-4, gzip-5, gzip-6, gzip-7, gzip-8, gzip-9, lzjb, zle, lz4</td><td>Controls the compression algorithm to compress Cinder volumes data.</td></tr>
+<tr><td>nexenta_dataset_dedup</td><td>off</td><td>off, on, sha256, verify, sha256,verify</td><td>Deduplication algorithm used to verify volume data integrity.</td></tr>
+<tr><td>nexenta_sparsed_volumes</td><td>True</td><td>Boolean</td><td>Volumes space allocation behavior. Whether volume is created as sparse and grown as needed or fully allocated up front. The default and recommended value is true, which ensures volumes are initially created as sparse devices. Setting value to false will result in volumes being fully allocated at the time of creation.</td></tr>
 <tr><td>nexenta_rest_address</td><td></td><td>String</td><td>IP address of NexentaStor management REST API endpoint, for HA environment it can have multiple comma separated values.</td></tr>
+<tr><td>nexenta_image_cache</td><td>True</td><td>Boolean</td><td>Enables an internal cache of images to efficiently create a new volume by cloning an existing cached image.</td></tr>
+<tr><td>nexenta_blocksize</td><td>32768</td><td>Integer</td><td>Specifies a suggested block size for a volume. The size specified must be a power of two greater than or equal to 512 and less than or equal to 131072 bytes. For an NFS backend, the block size may be up to 1048576 bytes. For an iSCSI backend, the block size cannot be changed after the volume is created.</td></tr>
+<tr><td>nexenta_migration_throttle</td><td></td><td>1-2047</td><td>Throttle migration throughput in MegaBytes per second.</td></tr>
 <tr><td>nexenta_rest_port</td><td>8443</td><td>Integer</td><td>HTTP(S) port to connect to NexentaStor REST API endpoint.</td></tr>
 <tr><td>nexenta_use_https</td><td>True</td><td>Boolean</td><td>Use secure HTTP for REST API connection.</td></tr>
-<tr><td>nexenta_user</td><td>admin</td><td>String</td><td>User name to connect to NexentaStor.</td></tr>
 <tr><td>nexenta_rest_connect_timeout</td><td>30</td><td>Float</td><td>Specifies the time limit (in seconds), within which the connection to NexentaStor management REST API server must be established.</td></tr>
 <tr><td>nexenta_rest_read_timeout</td><td>300</td><td>Float</td><td>Specifies the time limit (in seconds), within which NexentaStor management REST API server must send a response.</td></tr>
-<tr><td>nexenta_rest_backoff_factor</td><td>0.5</td><td>Float</td><td>Specifies the backoff factor to apply between connection attempts to NexentaStor management REST API server. For example, if the nexenta_rest_backoff_factor is 0.5 then Nexenta Cinder driver will sleep for [0.5, 1, 2, 4, 8, …] seconds between retries. Sleep intervals are calculated by the formula: <code>nexenta_rest_backoff_factor * (2 ** (number_of_total_retries - 1))</code>.</td></tr>
-<tr><td>nexenta_rest_retry_count</td><td>3</td><td>Integer</td><td>Specifies the number of times to repeat NexentaStor management REST API call in case of connection errors and NexentaStor appliance EBUSY or ENOENT errors.</td></tr>
+<tr><td>nexenta_rest_backoff_factor</td><td>1</td><td>Float</td><td>Specifies the backoff factor to apply between connection attempts to NexentaStor management REST API server. For example, if the nexenta_rest_backoff_factor is 0.5 then Nexenta Cinder driver will sleep for [0.5, 1, 2, 4, 8, …] seconds between retries. Sleep intervals are calculated by the formula: <code>nexenta_rest_backoff_factor * (2 ** (number_of_total_retries - 1))</code>.</td></tr>
+<tr><td>nexenta_rest_retry_count</td><td>5</td><td>Integer</td><td>Specifies the number of times to repeat NexentaStor management REST API call in case of connection errors and NexentaStor appliance EBUSY or ENOENT errors.</td></tr>
 <tr><td>nexenta_user</td><td>admin</td><td>String</td><td>User name to connect to NexentaStor management REST API.</td></tr>
 <tr><td>nexenta_password</td><td>nexenta</td><td>String</td><td>Password to connect to NexentaStor management REST API.</td></tr>
 <tr><td>nexenta_origin_snapshot_template</td><td>origin-snapshot-%s</td><td>String</td><td>Template string to generate origin name of clone.</td></tr>
 <tr><td>nexenta_group_snapshot_template</td><td>group-snapshot-%s</td><td>String</td><td>Template string to generate group snapshot name.</td></tr>
+<tr><td>nexenta_migration_service_prefix</td><td>cinder-migration</td><td>String</td><td>Prefix for migration service name.</td></tr>
+<tr><td>nexenta_migration_snapshot_prefix</td><td>migration-snapshot</td><td>String</td><td>Prefix for migration snapshot name.</td></tr>
+<tr><td>nexenta_cache_image_template</td><td>cache-image-%s</td><td>String</td><td>Template string to generate cache image name.</td></tr>
+<tr><td>nexenta_cache_snapshot_template</td><td>cache-snapshot-%s</td><td>String</td><td>Template string to generate cache snapshot name.</td></tr>
 </tbody>
 </table></div>
 <h3>NexentaStor 5.x - list of all available options, specific for NFS</h3>
@@ -184,8 +192,10 @@ nexenta_volume_group = san
 <tr><th>Parameter name</th><th>Default</th><th>Choices</th><th>Description</th></tr>
 </thead>
 <tbody>
+<tr><td>nexenta_volume_format</td><td>raw</td><td>raw, qcow, qcow2, parallels, vdi, vhdx, vmdk, vpc, qed</td><td>Volume image file format.</td></tr>
+<tr><td>nexenta_nbmand</td><td>False</td><td>Boolean</td><td>Allow or disallow non-blocking mandatory locking semantics for a volume.</td></tr>
+<tr><td>nexenta_smart_compression</td><td>False</td><td>Boolean</td><td>Allow or disallow dynamically tracks per-volume compression ratios to determine if a volume data is compressible or not.</td></tr>
 <tr><td>nexenta_mount_point_base</td><td>$state_path/mnt</td><td>String</td><td>Base directory that contains NFS share mount points.</td></tr>
-<tr><td>nexenta_sparsed_volumes</td><td>True</td><td>Boolean</td><td>Enables or disables the creation of volumes as sparsed files that take no space. If disabled (False), volume is created as a regular file, which takes a long time.</td></tr>
 <tr><td>nfs_mount_attempts</td><td>3</td><td>Integer</td><td>The number of attempts to mount or unmount NFS share before raising an error.</td></tr>
 <tr><td>nfs_mount_options or nas_mount_options</td><td>None</td><td>String</td><td>Mount options passed to the NFS client.</td></tr>
 </tbody>
@@ -197,8 +207,6 @@ nexenta_volume_group = san
 </thead>
 <tbody>
 <tr><td>nexenta_host</td><td></td><td>String</td><td>IP address of NexentaStor Appliance.</td></tr>
-<tr><td>nexenta_ns5_blocksize</td><td>32</td><td>KiloBytes</td><td>Block size for Cinder volumes.</td></tr>
-<tr><td>nexenta_sparse</td><td>False</td><td>Boolean</td><td>Enables or disables the creation of sparse volumes.</td></tr>
 <tr><td>nexenta_volume</td><td>cinder</td><td>String</td><td>NexentaStor pool name that holds all volumes.</td></tr>
 <tr><td>nexenta_volume_group</td><td>iscsi</td><td>String</td><td>A volumegroup where cinder created datasets will reside.</td></tr>
 <tr><td>nexenta_iscsi_target_portal_port</td><td>3260</td><td>Integer</td><td>NexentaStor iSCSI target portal port.</td></tr>

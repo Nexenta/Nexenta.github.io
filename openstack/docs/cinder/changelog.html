@@ -61,9 +61,34 @@
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Changelog</h1>
             <h3>Changelog</h3>
-<p>Master (TBD)</p>
+<p>2020-01-09</p>
+<ul>
+<li><p>NexentaStor4 NFS and iSCSI Cinder driver 1.4.2</p>
+<ul>
+<li>NEX-21119 NexentaBugs #92360 Volume creation fails when one Nexenta server is down</li>
+</ul></li>
+<li><p>NexentaStor5 NFS Cinder driver 1.9.1 and iSCSI Cinder driver 1.5.0</p>
 <ul>
 <li>NEX-20829 Fix REST API pagination (workaround for NEX-18013)</li>
+<li>NEX-22103 Unable to create Cinder bootable volumes from large Glance images</li>
+<li>NEX-21119 NexentaBugs #92360 Volume creation fails when one Nexenta server is down</li>
+<li>NEX-22044 Workaround for NEX-22043 NEF RESTful API returns HTTP error 401/Unauthorized on expired license</li>
+<li>NEX-21825 Cinder TypeError: encoding without a string argument</li>
+<li>NEX-21717 Volume service failed to start: ImportError: cannot import name utils</li>
+<li>NEX-21629 Implement Image Caching using Cinder’s clone_image method</li>
+<li>NEX-20345 Nexenta NFS Cinder driver improperly extends QCOW2 volume size</li>
+<li>NEX-21462 Cinder NFS driver must remount volumes created with nbmand enabled</li>
+<li>NEX-21461 Cinder NFS driver ignores nexenta_mount_point_base configuration option</li>
+<li>NEX-21463 Generic volume migration error: dataset already exists</li>
+<li>NEX-21546 Cinder NFS options are available for iSCSI driver and vice versa</li>
+<li>NEX-21547 Creating a volume from a snapshot loses the volume type properties</li>
+<li>NEX-21555 Update copyrights for Nexenta Cinder drivers</li>
+<li>NEX-21593 Workaround for NEX-21577: set refreservation for cloned ZFS volumes</li>
+<li>NEX-21594 Workaround for NEX-21586: set correct refreservation thick-provisioned ZFS volumes</li>
+<li>NEX-21596 Workaround for NEX-21595: add ‘source’ to the requested fields</li>
+<li>NEX-21009 Cinder/Manila CI to use python 3.7</li>
+<li>NEX-20829 Workaround for NEX-18013</li>
+</ul></li>
 </ul>
 <p>2019-05-18</p>
 <ul>

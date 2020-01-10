@@ -62,8 +62,8 @@
             <h1 itemprop="name">Nexenta Drivers for OpenStack Cinder</h1>
             <h3>Supported OpenStack Releases</h3>
 <ul>
-<li>NexentaStor 4.x - Juno+</li>
-<li>NexentaStor 5.x - Juno+</li>
+<li>NexentaStor 4.x - Icehouse+</li>
+<li>NexentaStor 5.x - Icehouse+</li>
 <li>NexentaEdge 2.1.x - Newton+</li>
 </ul>
 <h3>Feature List</h3>
@@ -74,6 +74,8 @@
 <tbody>
 <tr><td>Create thin-provisioned volume</td><td>✔</td><td>✔</td><td>✔</td></tr>
 <tr><td>Create thick-provisioned volume</td><td>✔</td><td>✔</td><td>—</td></tr>
+<tr><td>Create raw volume</td><td>✔</td><td>✔</td><td>✔</td></tr>
+<tr><td>Create qcow, qcow2, vdi, vhdx, vmdk and vpc volume</td><td>—</td><td>✔ (NFS only)</td><td>—</td></tr>
 <tr><td>Delete volume</td><td>✔</td><td>✔</td><td>✔</td></tr>
 <tr><td>Attach volume</td><td>✔</td><td>✔</td><td>✔</td></tr>
 <tr><td>Detach volume</td><td>✔</td><td>✔</td><td>✔</td></tr>
@@ -89,6 +91,7 @@
 <tr><td>Volume stats</td><td>✔</td><td>✔</td><td>✔</td></tr>
 <tr><td>Migrate volume</td><td>✔</td><td>✔</td><td>—</td></tr>
 <tr><td>Storage assisted volume migration</td><td>✔</td><td>✔</td><td>—</td></tr>
+<tr><td>Throttle for storage assisted volume migration</td><td>✔</td><td>✔</td><td>—</td></tr>
 <tr><td>Retype volume</td><td>—</td><td>✔</td><td>—</td></tr>
 <tr><td>Volume replication</td><td>—</td><td>—</td><td>—</td></tr>
 <tr><td>Consistency groups</td><td>—</td><td>✔</td><td>—</td></tr>
@@ -99,6 +102,7 @@
 <tr><td>Volume manage, unmanage and manageable-list</td><td>—</td><td>✔</td><td>—</td></tr>
 <tr><td>Snapshot manage, unmanage and manageable-list</td><td>—</td><td>✔</td><td>—</td></tr>
 <tr><td>Volume type extra specs</td><td>—</td><td>✔</td><td>—</td></tr>
+<tr><td>Image caching</td><td>—</td><td>✔</td><td>—</td></tr>
 <tr><td>Vendor capabilities support</td><td>—</td><td>✔</td><td>—</td></tr>
 <tr><td>TRIM/Discard support</td><td>✔ (<a href="https://en.wikipedia.org/wiki/Trim_(computing)">iSCSI only</a>)</td><td>✔ (<a href="https://en.wikipedia.org/wiki/Trim_(computing)">iSCSI only</a>)</td><td>—</td></tr>
 </tbody>
