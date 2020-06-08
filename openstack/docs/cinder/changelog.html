@@ -61,6 +61,27 @@
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Changelog</h1>
             <h3>Changelog</h3>
+<p>2020-06-08</p>
+<ul>
+<li>NexentaStor5 NFS Cinder driver 1.9.4 and iSCSI Cinder driver 1.5.3
+<ul>
+<li>Added support for lockless parallel volume management operations.</li>
+<li>Added support for NexentaStor5 vSolution API (volume creation and extend).</li>
+<li>Added support for NAS secure operations.</li>
+<li>Added support for nohide NFS option.</li>
+<li>Support for location header.</li>
+<li>Fixed list manageable volumes.</li>
+<li>Fixed concurrency issues.</li>
+<li>NEX-22630 Slow Cinder volume manipulation times</li>
+<li>NEX-22697 Concurrent creation/deleting volumes may fail with Stderr: qemu-img: Could not open volume: No such file or directory</li>
+<li>NEX-22725 The revert process should not change the volume’s current type and size</li>
+<li>NEX-22764 Cinder volume destroy TypeError: ‘&gt;’ not supported between instances of ‘str’ and ‘int’</li>
+<li>NEX-22776 Failed to extend non-raw volume: Image format driver does not support resize</li>
+<li>NEX-22777 Workaround for NEX-22773 Storage API cannot find datasets by name if parent is nested</li>
+<li>NEX-22778 Workarounds for known issues should only be applied if necessary</li>
+<li>NEX-22779 Support nohide NFS option</li>
+</ul></li>
+</ul>
 <p>2020-01-09</p>
 <ul>
 <li><p>NexentaStor4 NFS and iSCSI Cinder driver 1.4.2</p>
