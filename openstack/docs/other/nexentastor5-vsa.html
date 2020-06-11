@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - NexentaStor5 VSA for OpenStack</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+    <link href="/all.css?b" rel="stylesheet">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86415664-5"></script>
+    <script>
+      try {
+        if (window.location.hostname === 'nexenta.github.io') {
+          window.dataLayer = window.dataLayer || [];
+
+          function gtag() {dataLayer.push(arguments);}
+
+          gtag('js', new Date());
+          gtag('config', 'UA-86415664-5');
+        } else {
+          console.warn('Google Analytics runs only on nexenta.github.io');
+        }
+      } catch (e) {
+        console.warn('Cannot run Google Analytics', e);
+      }
+    </script>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.github.io" title="Nexenta">
+      <img src="/resources/images/logo-nexenta-ddn-white-with-title.png" class="desktop"/>
+      <img src="/resources/images/logo-nexenta-wo-title.png" class="mobile"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search" placeholder="Search" />
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        
+        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/changelog.html><p>Changelog</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/https.html><p>HTTPS Configuration</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li><li><a href=/openstack/docs/other/nexentastor5-vsa.html class="active"><p>NexentaStor5 VSA for OpenStack</p></a></li></ul></li></ul></nav>
+        
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">NexentaStor5 VSA for OpenStack</h1>
+            <h3>Instruction to deploy a NexentaStor5 VSA from an existing image</h3>
+<ul>
+<li>Download <a href="https://nexenta.sharefile.com/home/shared/foffd988-2ce7-41e6-9bf1-ba58d3a8a4a1">image template(s)</a></li>
+<li>Create a new boot image from the downloaded image file</li>
+</ul>
+<pre><code>stack$ openstack image create --public --disk-format qcow2 --min-disk 32 --file NexentaStor-5.1.2-FP1.qcow2 NexentaStor-5.1.2-FP1
+stack$ openstack image list
++--------------------------------------+--------------------------+--------+
+| ID                                   | Name                     | Status |
++--------------------------------------+--------------------------+--------+
+| 47b46d65-4a2a-4c44-830b-daf73f39f43b | NexentaStor-5.1.2-FP1    | active |
+| e82ebf28-ba5d-435a-b2b9-8bd4323d986d | cirros-0.4.0-x86_64-disk | active |
++--------------------------------------+--------------------------+--------+
+</code></pre>
+<ul>
+<li>Create a new bootable volume from the existing image. Please note: volume size must be &gt;= 32GB (due to the existing image properties)</li>
+</ul>
+<pre><code>stack$ openstack volume create --size 32 --image NexentaStor-5.1.2-FP1 Boot-Volume
+stack$ openstack volume list
++--------------------------------------+-------------+-----------+------+-------------+
+| ID                                   | Name        | Status    | Size | Attached to |
++--------------------------------------+-------------+-----------+------+-------------+
+| 399ab5d9-d273-4508-a0be-9f3c2593af5a | Boot-Volume | available |   32 |             |
++--------------------------------------+-------------+-----------+------+-------------+
+</code></pre>
+<ul>
+<li>Create a new data volume</li>
+</ul>
+<pre><code>stack$ openstack volume create --size 128 Data-Volume
+stack$ openstack volume list
++--------------------------------------+-------------+-----------+------+-------------+
+| ID                                   | Name        | Status    | Size | Attached to |
++--------------------------------------+-------------+-----------+------+-------------+
+| d9f52fba-59a7-4b93-b434-e21388a8c67b | Data-Volume | available |  128 |             |
+| 399ab5d9-d273-4508-a0be-9f3c2593af5a | Boot-Volume | available |   32 |             |
++--------------------------------------+-------------+-----------+------+-------------+
+</code></pre>
+<ul>
+<li>Create a new Openstack flavor. Please note: a minimum of 2 vCPU and 8GB RAM is required, 4 vCPU and 16GB is recommended</li>
+</ul>
+<pre><code>stack$ openstack flavor create --ram 16384 --vcpus 4 NexentaStor5
+stack$ openstack flavor list   
++-----+--------------+-------+------+-----------+-------+-----------+
+| ID  | Name         |   RAM | Disk | Ephemeral | VCPUs | Is Public |
++-----+--------------+-------+------+-----------+-------+-----------+
+| ee5 | NexentaStor5 | 16384 |    0 |         0 |     4 | True      |
++-----+--------------+-------+------+-----------+-------+-----------+
+</code></pre>
+<ul>
+<li>Boot a new NexentaStor5 instance from the existing boot volume and attach the data volume</li>
+</ul>
+<pre><code>stack$ openstack server create --flavor NexentaStor5 --volume Boot-Volume --block-device-mapping vdb=Data-Volume NexentaStor-5.1.2-FP1
+stack$ openstack server list
++--------------------------------------+-----------------------+--------+---------------------+-------+--------------+
+| ID                                   | Name                  | Status | Networks            | Image | Flavor       |
++--------------------------------------+-----------------------+--------+---------------------+-------+--------------+
+| 92012dfe-f3d4-46ea-a838-9901a1098830 | NexentaStor-5.1.2-FP1 | ACTIVE | public=172.24.4.149 |       | NexentaStor5 |
++--------------------------------------+-----------------------+--------+---------------------+-------+--------------+
+</code></pre>
+<ul>
+<li>Open ssh connection to the NexentaStor5 VSA instance. Note: default user name is admin, default password is Nexenta@1</li>
+</ul>
+<pre><code>stack$ openstack server ssh --login admin NexentaStor-5.1.2-FP1
+</code></pre>
+<ul>
+<li>Activate a license</li>
+</ul>
+<pre><code>CLI@nexenta&gt; license activate XXX-XXX-XXX-XXX-XXX
+</code></pre>
+<ul>
+<li>Create a new data pool using a data volume</li>
+</ul>
+<pre><code>CLI@nexenta&gt; disk list
+ <span class="hljs-comment">#  NAME    LABEL  SIZE      MEDIATYPE  SED  STATE   WHERE          USAGE</span>
+ 0  c4t0d0  -      34.36GB   ssd        no   ONLINE  LEGACY_NVME:0  rpool (active)
+ 1  c1t0d0  -      137.44GB  ssd        no   ONLINE  LEGACY_NVME:1  -
+CLI@nexenta&gt; pool create tank c1t0d0
+</code></pre>
+<ul>
+<li>Create and share a new NFS filesystem</li>
+</ul>
+<pre><code>CLI@nexenta&gt; filesystem create -p -o nbmand=off tank/data
+CLI@nexenta&gt; nfs share -o anon=root tank/data
+</code></pre>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            <a href="https://nexenta.com" title="Nexenta Systems, Inc.">
+              Nexenta Systems, Inc.
+            </a>
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+</html>
