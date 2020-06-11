@@ -94,7 +94,6 @@ Modifed NFS share <span class="hljs-keyword">for</span> folder <span class="hljs
 </code></pre>
 <h3>Steps for NexentaStor 5.x</h3>
 <pre><code>CLI@host&gt; filesystem create -p pool/nfs/backup
-CLI@host&gt; acl <span class="hljs-built_in">set</span> A+
 CLI@host&gt; nfs share -o sec=none,anon=root,rw=@10/8,@192.168/16 pool/nfs/backup
 </code></pre>
 
