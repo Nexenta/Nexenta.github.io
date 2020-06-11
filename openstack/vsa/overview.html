@@ -65,7 +65,7 @@
 <li>Download <a href="https://nexenta.sharefile.com/home/shared/foffd988-2ce7-41e6-9bf1-ba58d3a8a4a1">image template(s)</a></li>
 <li>Create a new boot image from the downloaded image file</li>
 </ul>
-<pre><code>stack$ openstack image create --public --disk-format qcow2 --file NexentaStor-5.1.2-FP1.qcow2 NexentaStor-5.1.2-FP1
+<pre><code>stack$ openstack image create --public --disk-format qcow2 --min-disk 32 --file NexentaStor-5.1.2-FP1.qcow2 NexentaStor-5.1.2-FP1
 stack$ openstack image list
 +--------------------------------------+--------------------------+--------+
 | ID                                   | Name                     | Status |
@@ -109,27 +109,15 @@ stack$ openstack flavor list
 +-----+--------------+-------+------+-----------+-------+-----------+
 </code></pre>
 <ul>
-<li>Boot a new NexentaStor5 instance</li>
+<li>Boot a new NexentaStor5 instance from the existing boot volume and attach the data volume</li>
 </ul>
-<pre><code>stack$ openstack server create --flavor NexentaStor5 --volume Boot-Volume NexentaStor-5.1.2-FP1
+<pre><code>stack$ openstack server create --flavor NexentaStor5 --volume Boot-Volume --block-device-mapping vdb=Data-Volume NexentaStor-5.1.2-FP1
 stack$ openstack server list
 +--------------------------------------+-----------------------+--------+---------------------+-------+--------------+
 | ID                                   | Name                  | Status | Networks            | Image | Flavor       |
 +--------------------------------------+-----------------------+--------+---------------------+-------+--------------+
 | 92012dfe-f3d4-46ea-a838-9901a1098830 | NexentaStor-5.1.2-FP1 | ACTIVE | public=172.24.4.149 |       | NexentaStor5 |
 +--------------------------------------+-----------------------+--------+---------------------+-------+--------------+
-</code></pre>
-<ul>
-<li>Attach the data volume</li>
-</ul>
-<pre><code>stack$ openstack server add volume NexentaStor-5.1.2-FP1 Data-Volume
-stack$ openstack volume list
-+--------------------------------------+-------------+--------+------+------------------------------------------------+
-| ID                                   | Name        | Status | Size | Attached to                                    |
-+--------------------------------------+-------------+--------+------+------------------------------------------------+
-| d9f52fba-59a7-4b93-b434-e21388a8c67b | Data-Volume | <span class="hljs-keyword">in</span>-use |  128 | Attached to NexentaStor-5.1.2-FP1 on /dev/vdb  |
-| 399ab5d9-d273-4508-a0be-9f3c2593af5a | Boot-Volume | <span class="hljs-keyword">in</span>-use |   32 | Attached to NexentaStor-5.1.2-FP1 on /dev/vda  |
-+--------------------------------------+-------------+--------+------+————————————————————————————————————————————————+
 </code></pre>
 <ul>
 <li>Open ssh connection to the NexentaStor5 VSA instance. Note: default user name is admin, default password is Nexenta@1</li>
