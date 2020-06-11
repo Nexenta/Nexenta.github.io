@@ -61,38 +61,42 @@
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Cinder Backup</h1>
             <h2>Backup</h2>
-<p>This section describes how to configure the cinder-backup service and cinder NFS driver on top NexentaStor NFS share. Official documentation link: <a href="https://docs.openstack.org/newton/config-reference/block-storage/backup/nfs-backup-driver.html">NFS backup driver</a>
-Example section for cinder.conf:</p>
+<p>This section describes how to configure the cinder-backup service and cinder NFS driver on top NexentaStor NFS share. Official documentation link: <a href="https://docs.openstack.org/newton/config-reference/block-storage/backup/nfs-backup-driver.html">NFS backup driver</a>. Example sections for cinder.conf:</p>
+<h3>For Rocky and previous releases</h3>
 <pre><code>[DEFAULT]
 backup_driver = cinder.backup.drivers.nfs
 backup_share = 10.1.1.1:/pool/nfs/backup
 backup_mount_options = vers=3,minorversion=0,noatime
 </code></pre>
+<h3>For Stein and later releases</h3>
+<pre><code>[DEFAULT]
+backup_driver = cinder.backup.drivers.nfs.NFSBackupDriver
+backup_share = 10.1.1.1:/pool/nfs/backup
+backup_mount_options = vers=3,minorversion=0,timeo=100,nolock
+</code></pre>
 <p>Notes:</p>
 <ul>
-<li><code>cinder.backup.drivers.nfs</code> - Cinder backup driver name (for Openstack Stein and later releases please use <code>cinder.backup.drivers.nfs.NFSBackupDriver</code>)</li>
 <li><code>10.1.1.1</code> - IP address or virtual IP address of NexentaStor appliance</li>
 <li><code>/pool/nfs/backup</code> - NFS share path</li>
-<li><code>vers=3,minorversion=0,noatime</code> - recommended NFS mount options</li>
+<li><code>vers=3,minorversion=0,timeo=100,nolock</code> - recommended NFS mount options</li>
 </ul>
-<p>Steps for NexentaStor 4.x:</p>
+<h3>Steps for NexentaStor 4.x</h3>
 <pre><code>nmc@host1:/$ create folder pool/nfs/backup
 nmc@host1:/$ share folder pool/nfs/backup nfs
-Auth Type            : sys
-Anonymous            : <span class="hljs-literal">false</span>
-Read-Write           :
+Auth Type            : none
+Anonymous            : root
+Read-Write           : @10/8,@192.168/16
 Read-Only            :
 Root                 :
-Extra Options        : uidmap=*:root:@10.1.1.2
+Extra Options        :
 Recursive            : <span class="hljs-literal">true</span>
 Modifed NFS share <span class="hljs-keyword">for</span> folder <span class="hljs-string">'pool/nfs/backup'</span>
 </code></pre>
-<p>Note: 10.1.1.2 - IP address of Openstack Cinder host.</p>
-<p>Steps for NexentaStor 5.x:</p>
+<h3>Steps for NexentaStor 5.x</h3>
 <pre><code>CLI@host&gt; filesystem create -p pool/nfs/backup
-CLI@host&gt; nfs share -o uidMap=<span class="hljs-string">'*:root:@10.1.1.2'</span> pool/nfs/backup
+CLI@host&gt; acl <span class="hljs-built_in">set</span> A+
+CLI@host&gt; nfs share -o sec=none,anon=root,rw=@10/8,@192.168/16 pool/nfs/backup
 </code></pre>
-<p>Note: 10.1.1.2 - IP address of Openstack Cinder host.</p>
 
         </article>
     </section>
