@@ -83,20 +83,42 @@ Note: nbmand option controls if non-blocking mandatory locks are enabled or disa
 volume_driver = cinder.volume.drivers.nexenta.nfs.NexentaNfsDriver
 nas_mount_options = vers=3,minorversion=0,timeo=100,nolock
 </code></pre>
-<h3>Where to get Cinder Drivers?</h3>
-<p>It’s recommended to get the latest driver from Nexenta’s repository: <a href="https://github.com/Nexenta/cinder">https://github.com/Nexenta/cinder</a></p>
-<p>The branches in the repository correspond with OpenStack releases.</p>
-<p>To following command can be used to download the exact version w/o having to switch branches</p>
-<p><code>git clone -b stable/mitaka</code> - this will download the exact version, no need to switch</p>
-<p>Nexenta Drivers are located under the following path:
-<a href="https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta">https://github.com/Nexenta/cinder/tree/stable/mitaka/cinder/volume/drivers/nexenta</a></p>
-<p>The path includes driver for NexentaStor 4.x, NexentaStor 5.x and NexnetaEdge 2.0. Make sure to copy the whole folder.</p>
+<h3>Where to get drivers?</h3>
+<p>It’s recommended to get the latest drivers from Nexenta’s GitHub repositories:</p>
+<ul>
+<li><a href="https://github.com/Nexenta/cinder">https://github.com/Nexenta/cinder</a></li>
+<li><a href="https://github.com/Nexenta/os-brick">https://github.com/Nexenta/os-brick</a></li>
+</ul>
+<p>The branches in the repositores correspond with OpenStack releases.</p>
+<p>The following commands can be used to download the exact version without having to switch branches:</p>
+<pre><code>$ git <span class="hljs-built_in">clone</span> -b stable/pike https://github.com/Nexenta/cinder
+$ git <span class="hljs-built_in">clone</span> -b stable/pike https://github.com/Nexenta/os-brick
+</code></pre>
+<p>Nexenta Cinder drivers are located under the following path:
+<a href="https://github.com/Nexenta/cinder/tree/stable/pike/cinder/volume/drivers/nexenta">https://github.com/Nexenta/cinder/tree/stable/pike/cinder/volume/drivers/nexenta</a></p>
+<p>The path includes driver for NexentaStor 4.x, NexentaStor 5.x and NexnetaEdge 2.x. Make sure to copy the whole folder.</p>
 <h3>Installation Steps</h3>
 <ol>
-<li>Determine cinder driver location path used in your environment</li>
-<li>Clone or download the correct version of the drivers, unzip if downloaded and copy to the cinder location. For example drivers for Mitaka release:
-<pre><code>$ git <span class="hljs-built_in">clone</span> -b stable/mitaka https://github.com/Nexenta/cinder nexenta-cinder
-$ cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/lib/python2.7/dist-packages/cinder/volume/drivers
+<li>Determine Cinder and OS-Brick locations used in your environment, for example:
+<ul>
+<li>for Python2 based distribution <code>/usr/lib/python2.7/dist-packages</code></li>
+<li>for Python3 based distribution <code>/usr/lib/python3.5/dist-packages</code></li>
+</ul></li>
+<li>Create a backup copy for the existing drivers:
+<pre><code>$ sudo cp -r /usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta /usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta.orig
+$ sudo cp -r /usr/lib/python2.7/dist-packages/os_brick /usr/lib/python2.7/dist-packages/os_brick.orig
+</code></pre></li>
+<li>Clone or download the correct version of the drivers, unzip if downloaded and copy to the Cinder and OS-Brick locations. For example drivers for Pike release:
+<pre><code>$ git <span class="hljs-built_in">clone</span> -b stable/pike https://github.com/Nexenta/cinder nexenta-cinder
+$ git <span class="hljs-built_in">clone</span> -b stable/pike https://github.com/Nexenta/os-brick nexenta-os-brick
+
+$ sudo cp -rf nexenta-cinder/cinder/volume/drivers/nexenta /usr/lib/python2.7/dist-packages/cinder/volume/drivers
+$ sudo cp -f nexenta-os-brick/os_brick/initiator/connectors/remotefs.py /usr/lib/python2.7/dist-packages/os_brick/initiator/connectors/remotefs.py
+$ sudo cp -f nexenta-os-brick/os_brick/remotefs/remotefs.py /usr/lib/python2.7/dist-packages/os_brick/remotefs/remotefs.py
+</code></pre></li>
+<li>Compile the updated drivers:
+<pre><code>$ sudo python2.7 -m compileall /usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta
+$ sudo python2.7 -m compileall /usr/lib/python2.7/dist-packages/os_brick/initiator/connectors/remotefs.py /usr/lib/python2.7/dist-packages/os_brick/remotefs/remotefs.py
 </code></pre></li>
 <li>Configure cinder.conf</li>
 <li>Restart Cinder Service
