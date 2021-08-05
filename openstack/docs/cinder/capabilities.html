@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title lang="en">Nexenta - Cinder volume types</title>
+    <meta name="description" content="Nexenta">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="">
+    <link href="/resources/images/favicon.ico" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet"/>
+    <link href="/all.css?b" rel="stylesheet">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86415664-5"></script>
+    <script>
+      try {
+        if (window.location.hostname === 'nexenta.github.io') {
+          window.dataLayer = window.dataLayer || [];
+
+          function gtag() {dataLayer.push(arguments);}
+
+          gtag('js', new Date());
+          gtag('config', 'UA-86415664-5');
+        } else {
+          console.warn('Google Analytics runs only on nexenta.github.io');
+        }
+      } catch (e) {
+        console.warn('Cannot run Google Analytics', e);
+      }
+    </script>
+</head>
+<body>
+
+
+<header>
+    <section class="container-docs">
+        
+<section class="title">
+    <a href="https://nexenta.github.io" title="Nexenta">
+      <img src="/resources/images/logo-nexenta-ddn-white-with-title.png" class="desktop"/>
+      <img src="/resources/images/logo-nexenta-wo-title.png" class="mobile"/>
+    </a>
+    
+</section>
+<section class="container-search">
+  <input id="search" placeholder="Search" />
+</section>
+
+    </section>
+</header>
+
+
+<section class="content">
+    
+<section class="docs">
+    <section class="container-docs">
+        
+        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/changelog.html><p>Changelog</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li><li><a href=/openstack/docs/cinder/https.html><p>HTTPS Configuration</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/capabilities.html class="active"><p>Cinder volume types</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li><li><a href=/openstack/docs/other/nexentastor5-vsa.html><p>NexentaStor5 VSA for OpenStack</p></a></li></ul></li></ul></nav>
+        
+        <article itemscope itemtype="http://schema.org/Article">
+            <h1 itemprop="name">Storage options</h1>
+            <h3>Definitions</h3>
+<ul>
+<li>Volume Type: A group of volume policies.</li>
+<li>Extra Specs: The definition of a volume type. This is a group of policies. For example, provision type, compression and volume type that will be used to define a volume at creation time.</li>
+<li>Capabilities: What the current deployed back end in Cinder is able to do. These correspond to extra specs.</li>
+</ul>
+<h3>Cinder volume types</h3>
+<p>OpenStack block storage enables administrators to configure volume type and extra specs without specific knowledge of the storage backend. And volume type extra specs are used for advanced configuration of Cinder volume types. NexentaStor Cinder driver exposes additional capabilities through volume type extra specs.</p>
+<h3>NexentaStor5 storage backend capabilies</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr><th>Extra spec</th><th>Capability</th><th>Type</th><th>Values</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>blocksize</td><td>Block size</td><td>integer</td><td>[512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576]</td><td>32768</td><td>Specifies the maximum size of a logical block for a volume</td></tr>
+<tr><td>checksum</td><td>Data integrity mode</td><td>string</td><td>[on, off, fletcher2, fletcher4, sha256]</td><td>on</td><td>Controls the checksum algorithm used to verify volume data integrity</td></tr>
+<tr><td>compression</td><td>Data compression mode</td><td>string</td><td>[off, on, lz4, lzjb, zle, gzip, gzip-1, gzip-2, gzip-3, gzip-4, gzip-5, gzip-6, gzip-7, gzip-8, gzip-9]</td><td>lz4</td><td>Controls the compression algorithm used to compress volume data</td></tr>
+<tr><td>copies</td><td>Number of data copies</td><td>integer</td><td>[1, 2, 3]</td><td>1</td><td>Controls the number of copies of volume data</td></tr>
+<tr><td>dedup</td><td>Data deduplication mode</td><td>string</td><td>[off, on, verify, sha256, sha256,verify]</td><td>off</td><td>Controls the deduplication algorithm used to verify volume data integrity</td></tr>
+<tr><td>format</td><td>Volume format</td><td>string</td><td>[raw, qcow, qcow2, parallels, vdi, vhdx, vmdk, vpc, qed]</td><td>raw</td><td>Controls volume format</td></tr>
+<tr><td>logbias</td><td>Log bias mode</td><td>string</td><td>[latency, throughput]</td><td>latency</td><td>Provides a hint about handling of synchronous requests for a volume</td></tr>
+<tr><td>nbmand</td><td>Non-blocking mandatory locking</td><td>boolean</td><td>[True, False]</td><td>False</td><td>Allow or disallow non-blocking mandatory locking semantics for a volume</td></tr>
+<tr><td>primarycache</td><td>Primary cache mode</td><td>string</td><td>[all, none, metadata]</td><td>all</td><td>Controls what is cached in the primary cache (ARC)</td></tr>
+<tr><td>rate_limit</td><td>Transfer rate limit</td><td>integer</td><td>0 - 2^64</td><td>0</td><td>Controls a transfer rate limit (bytes per second) for a volume (set 0 to disabled)</td></tr>
+<tr><td>readonly</td><td>Read-only mode</td><td>boolean</td><td>[True, False]</td><td>False</td><td>Controls whether a volume can be modified</td></tr>
+<tr><td>redundant_metadata</td><td>Metadata redundancy mode</td><td>string</td><td>[all, most]</td><td>all</td><td>Controls what types of metadata are stored redundantly</td></tr>
+<tr><td>secondarycache</td><td>Secondary cache</td><td>string</td><td>all, none, metadata</td><td>all</td><td>Controls what is cached in the secondary cache (L2ARC)</td></tr>
+<tr><td>smart_compression</td><td>Smart compression</td><td>boolean</td><td>[True, False]</td><td>False</td><td>Allow or disallow dynamically tracks volume compression ratios to determine if a volume data is compressible or not</td></tr>
+<tr><td>snapdir</td><td>.zfs directory visibility</td><td>boolean</td><td>[True, False]</td><td>False</td><td>Controls whether the .zfs directory is hidden or visible in the root of the volume file system</td></tr>
+<tr><td>sync</td><td>Sync mode</td><td>string</td><td>[standard, always, disabled]</td><td>standard</td><td>Controls the behavior of synchronous requests to a volume</td></tr>
+<tr><td>thin_provisioning</td><td>Thin provisioning</td><td>boolean</td><td>[True, False]</td><td>True</td><td>Controls if a volume is created sparse (with no space reservation)</td></tr>
+<tr><td>vsolution</td><td>vSolution API</td><td>boolean</td><td>[True, False]</td><td>False</td><td>Enables NexentaStor vSolution API</td></tr>
+</tbody>
+</table></div>
+<p>Also you can query the block storage host directly to determine which extra specs are supported by configured storage backens:</p>
+<pre><code>$ cinder service-list --binary cinder-volume
++---------------+---------------------------------+------+---------+-------+----------------------------+-----------------+
+| Binary        | Host                            | Zone | Status  | State | Updated_at                 | Disabled Reason |
++---------------+---------------------------------+------+---------+-------+----------------------------+-----------------+
+| cinder-volume | openstack-pike-ns5-nfs@ns5_nfs1 | nova | enabled | up    | 2021-08-05T19:26:41.000000 | -               |
+| cinder-volume | openstack-pike-ns5-nfs@ns5_nfs2 | nova | enabled | up    | 2021-08-05T19:26:41.000000 | -               |
++---------------+---------------------------------+------+---------+-------+----------------------------+-----------------+
+
+$ cinder get-capabilities openstack-pike-ns5-nfs@ns5_nfs1
++---------------------+------------------------------------------------------------+
+| Volume stats        | Value                                                      |
++---------------------+------------------------------------------------------------+
+| description         | NexentaStor5 172.27.10.105:<span class="hljs-built_in">test</span>/nfs                        |
+| display_name        | Capabilities of NexentaStor5 NFS driver                    |
+| driver_version      | 1.9.6                                                      |
+| namespace           | OS::Storage::Capabilities::openstack-pike-ns5-nfs@ns5_nfs1 |
+| pool_name           | <span class="hljs-built_in">test</span>                                                       |
+| replication_targets | []                                                         |
+| storage_protocol    | NFS                                                        |
+| vendor_name         | Nexenta                                                    |
+| visibility          | None                                                       |
+| volume_backend_name | ns5_nfs1                                                   |
++---------------------+------------------------------------------------------------+
++------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Backend properties                 | Value                                                                                                                                                                                                                                                                                                                            |
++------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| nexenta:volume_blocksize           | {<span class="hljs-string">'default'</span>: 32768, <span class="hljs-string">'enum'</span>: [512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576], <span class="hljs-string">'type'</span>: <span class="hljs-string">'integer'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Specifies the maximum size of a logical block for a volume.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Block size'</span>}                                                                                  |
+| nexenta:volume_checksum            | {<span class="hljs-string">'default'</span>: <span class="hljs-string">'on'</span>, <span class="hljs-string">'enum'</span>: [<span class="hljs-string">'on'</span>, <span class="hljs-string">'off'</span>, <span class="hljs-string">'fletcher2'</span>, <span class="hljs-string">'fletcher4'</span>, <span class="hljs-string">'sha256'</span>], <span class="hljs-string">'type'</span>: <span class="hljs-string">'string'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Controls the checksum algorithm used to verify volume data integrity.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Data integrity mode'</span>}                                                                                             |
+| nexenta:volume_compression         | {<span class="hljs-string">'default'</span>: <span class="hljs-string">'lz4'</span>, <span class="hljs-string">'enum'</span>: [<span class="hljs-string">'off'</span>, <span class="hljs-string">'on'</span>, <span class="hljs-string">'lz4'</span>, <span class="hljs-string">'lzjb'</span>, <span class="hljs-string">'zle'</span>, <span class="hljs-string">'gzip'</span>, <span class="hljs-string">'gzip-1'</span>, <span class="hljs-string">'gzip-2'</span>, <span class="hljs-string">'gzip-3'</span>, <span class="hljs-string">'gzip-4'</span>, <span class="hljs-string">'gzip-5'</span>, <span class="hljs-string">'gzip-6'</span>, <span class="hljs-string">'gzip-7'</span>, <span class="hljs-string">'gzip-8'</span>, <span class="hljs-string">'gzip-9'</span>], <span class="hljs-string">'type'</span>: <span class="hljs-string">'string'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Controls the compression algorithm used to compress volume data.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Data compression mode'</span>} |
+| nexenta:volume_copies              | {<span class="hljs-string">'default'</span>: 1, <span class="hljs-string">'enum'</span>: [1, 2, 3], <span class="hljs-string">'type'</span>: <span class="hljs-string">'integer'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Controls the number of copies of volume data.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Number of data copies'</span>}                                                                                                                                                                   |
+| nexenta:volume_dedup               | {<span class="hljs-string">'default'</span>: <span class="hljs-string">'off'</span>, <span class="hljs-string">'enum'</span>: [<span class="hljs-string">'off'</span>, <span class="hljs-string">'on'</span>, <span class="hljs-string">'verify'</span>, <span class="hljs-string">'sha256'</span>, <span class="hljs-string">'sha256,verify'</span>], <span class="hljs-string">'type'</span>: <span class="hljs-string">'string'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Controls the deduplication algorithm used to verify volume data integrity.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Data deduplication mode'</span>}                                                                                  |
+| nexenta:volume_format              | {<span class="hljs-string">'default'</span>: <span class="hljs-string">'raw'</span>, <span class="hljs-string">'enum'</span>: [<span class="hljs-string">'raw'</span>, <span class="hljs-string">'qcow'</span>, <span class="hljs-string">'qcow2'</span>, <span class="hljs-string">'parallels'</span>, <span class="hljs-string">'vdi'</span>, <span class="hljs-string">'vhdx'</span>, <span class="hljs-string">'vmdk'</span>, <span class="hljs-string">'vpc'</span>, <span class="hljs-string">'qed'</span>], <span class="hljs-string">'type'</span>: <span class="hljs-string">'string'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Controls volume format.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Volume format'</span>}                                                                                                                   |
+| nexenta:volume_logbias             | {<span class="hljs-string">'default'</span>: <span class="hljs-string">'latency'</span>, <span class="hljs-string">'enum'</span>: [<span class="hljs-string">'latency'</span>, <span class="hljs-string">'throughput'</span>], <span class="hljs-string">'type'</span>: <span class="hljs-string">'string'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Provides a hint about handling of synchronous requests for a volume.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Log bias mode'</span>}                                                                                                                          |
+| nexenta:volume_nbmand              | {<span class="hljs-string">'default'</span>: False, <span class="hljs-string">'type'</span>: <span class="hljs-string">'boolean'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Allow or disallow non-blocking mandatory locking semantics for a volume.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Non-blocking mandatory locking'</span>}                                                                                                                                               |
+| nexenta:volume_primarycache        | {<span class="hljs-string">'default'</span>: <span class="hljs-string">'all'</span>, <span class="hljs-string">'enum'</span>: [<span class="hljs-string">'all'</span>, <span class="hljs-string">'none'</span>, <span class="hljs-string">'metadata'</span>], <span class="hljs-string">'type'</span>: <span class="hljs-string">'string'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Controls what is cached in the primary cache (ARC).'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Primary cache mode'</span>}                                                                                                                                       |
+| nexenta:volume_rate_limit          | {<span class="hljs-string">'default'</span>: 0, <span class="hljs-string">'type'</span>: <span class="hljs-string">'integer'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Controls a transfer rate limit (bytes per second) for a volume.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Transfer rate limit'</span>}                                                                                                                                                                       |
+| nexenta:volume_readonly            | {<span class="hljs-string">'default'</span>: False, <span class="hljs-string">'type'</span>: <span class="hljs-string">'boolean'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Controls whether a volume can be modified.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Read-only mode'</span>}                                                                                                                                                                                             |
+| nexenta:volume_redundant_metadata  | {<span class="hljs-string">'default'</span>: <span class="hljs-string">'all'</span>, <span class="hljs-string">'enum'</span>: [<span class="hljs-string">'all'</span>, <span class="hljs-string">'most'</span>], <span class="hljs-string">'type'</span>: <span class="hljs-string">'string'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Controls what types of metadata are stored redundantly.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Metadata redundancy mode'</span>}                                                                                                                                          |
+| nexenta:volume_secondarycache      | {<span class="hljs-string">'default'</span>: <span class="hljs-string">'all'</span>, <span class="hljs-string">'enum'</span>: [<span class="hljs-string">'all'</span>, <span class="hljs-string">'none'</span>, <span class="hljs-string">'metadata'</span>], <span class="hljs-string">'type'</span>: <span class="hljs-string">'string'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Controls what is cached in the secondary cache (L2ARC).'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Secondary cache'</span>}                                                                                                                                      |
+| nexenta:volume_smart_compression   | {<span class="hljs-string">'default'</span>: False, <span class="hljs-string">'type'</span>: <span class="hljs-string">'boolean'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Allow or disallow dynamically tracks volume compression ratios to determine if a volume data is compressible or not.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Smart compression'</span>}                                                                                                                |
+| nexenta:volume_snapdir             | {<span class="hljs-string">'default'</span>: False, <span class="hljs-string">'type'</span>: <span class="hljs-string">'boolean'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Controls whether the .zfs directory is hidden or visible in the root of the volume file system.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'.zfs directory visibility'</span>}                                                                                                                             |
+| nexenta:volume_sync                | {<span class="hljs-string">'default'</span>: <span class="hljs-string">'standard'</span>, <span class="hljs-string">'enum'</span>: [<span class="hljs-string">'standard'</span>, <span class="hljs-string">'always'</span>, <span class="hljs-string">'disabled'</span>], <span class="hljs-string">'type'</span>: <span class="hljs-string">'string'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Controls the behavior of synchronous requests to a volume.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Sync mode'</span>}                                                                                                                             |
+| nexenta:volume_thin_provisioning   | {<span class="hljs-string">'default'</span>: True, <span class="hljs-string">'type'</span>: <span class="hljs-string">'boolean'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Controls if a volume is created sparse (with no space reservation).'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'Thin provisioning'</span>}                                                                                                                                                                  |
+| nexenta:volume_vsolution           | {<span class="hljs-string">'default'</span>: False, <span class="hljs-string">'type'</span>: <span class="hljs-string">'boolean'</span>, <span class="hljs-string">'description'</span>: <span class="hljs-string">'Enables NexentaStor vSolution API.'</span>, <span class="hljs-string">'title'</span>: <span class="hljs-string">'vSolution API'</span>}                                                                                                                                                                                                      |
++------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</code></pre>
+<h3>Create a Cinder volume type with custom extra specs</h3>
+<p>Create a new volume type with name <em>custom</em>:</p>
+<pre><code>$ cinder <span class="hljs-built_in">type</span>-create custom
+</code></pre>
+<p>Set NexentaStor5 backend name:</p>
+<pre><code>$ cinder <span class="hljs-built_in">type</span>-key custom <span class="hljs-built_in">set</span> volume_backend_name=ns5_nfs1
+</code></pre>
+<p>Set rate limit in 16MB/s:</p>
+<pre><code>$ cinder <span class="hljs-built_in">type</span>-key custom <span class="hljs-built_in">set</span> nexenta:volume_rate_limit=16777216
+</code></pre>
+<p>Set gzip compression:</p>
+<pre><code>$ cinder <span class="hljs-built_in">type</span>-key custom <span class="hljs-built_in">set</span> nexenta:volume_compression=gzip
+</code></pre>
+<p>Disable thin provisioning:</p>
+<pre><code>$ cinder <span class="hljs-built_in">type</span>-key custom <span class="hljs-built_in">set</span> nexenta:volume_thin_provisioning=False
+</code></pre>
+<p>Display all enabled extra specs for the custom volume type:</p>
+<pre><code>$ cinder <span class="hljs-built_in">type</span>-show custom
++---------------------------------+------------------------------------------+
+| Property                        | Value                                    |
++---------------------------------+------------------------------------------+
+| description                     | None                                     |
+| extra_specs                     | nexenta:volume_compression : gzip        |
+|                                 | nexenta:volume_rate_limit : 16777216     |
+|                                 | nexenta:volume_thin_provisioning : False |
+|                                 | volume_backend_name : ns5_nfs1           |
+| id                              | 77c38d3b-d075-4c12-9b9f-481681dfd914     |
+| name                            | custom                                   |
++---------------------------------+------------------------------------------+
+</code></pre>
+<h3>Create a Cinder volume using custom volume type</h3>
+<pre><code>$ cinder create --volume-type custom 32
+
+$ cinder list
++--------------------------------------+-----------+------+------+-------------+----------+-------------+
+| ID                                   | Status    | Name | Size | Volume Type | Bootable | Attached to |
++--------------------------------------+-----------+------+------+-------------+----------+-------------+
+| 0c475166-4687-48f1-8b68-201eb54b1d42 | available | -    | 32   | custom      | <span class="hljs-literal">false</span>    |             |
++--------------------------------------+-----------+------+------+-------------+----------+-------------+
+</code></pre>
+<h3>Check Cinder volume properties</h3>
+<p>To check the actual volume properties on the NexentaStor5 appliance:</p>
+<pre><code>CLI@nexenta&gt; filesystem get all <span class="hljs-built_in">test</span>/nfs/volume-0c475166-4687-48f1-8b68-201eb54b1d42
+ PATH                                                  PROPERTY           VALUE                                                  SOURCE
+ <span class="hljs-built_in">test</span>/nfs/volume-0c475166-4687-48f1-8b68-201eb54b1d42  used               32.25G                                                 -
+ <span class="hljs-built_in">test</span>/nfs/volume-0c475166-4687-48f1-8b68-201eb54b1d42  compression        gzip                                                   <span class="hljs-built_in">local</span>
+ <span class="hljs-built_in">test</span>/nfs/volume-0c475166-4687-48f1-8b68-201eb54b1d42  <span class="hljs-built_in">limit</span>              16M                                                    <span class="hljs-built_in">local</span>
+CLI@nexenta&gt; 
+</code></pre>
+
+        </article>
+    </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script src="/resources/main.js"></script>
+
+</section>
+
+
+<footer>
+    <section class="container-normal container-flex">
+        <nav></nav>
+        <section>
+            &copy;
+            <time><script>document.write(new Date().getFullYear())</script></time>
+            <a href="https://nexenta.com" title="Nexenta Systems, Inc.">
+              Nexenta Systems, Inc.
+            </a>
+        </section>
+    </section>
+</footer>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: '8a7bb77f6b91c0b17df8a3fd0bcb6743',
+  indexName: 'nexenta',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+</body>
+</html>
