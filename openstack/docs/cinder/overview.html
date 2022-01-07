@@ -56,7 +56,7 @@
 <section class="docs">
     <section class="container-docs">
         
-        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html class="active"><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/changelog.html><p>Changelog</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/https.html><p>HTTPS Configuration</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li><li><a href=/openstack/docs/other/nexentastor5-vsa.html><p>NexentaStor5 VSA for OpenStack</p></a></li></ul></li></ul></nav>
+        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html class="active"><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/changelog.html><p>Changelog</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/https.html><p>HTTPS Configuration</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li><li><a href=/openstack/docs/cinder/capabilities.html><p>Cinder volume types</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li><li><a href=/openstack/docs/other/nexentastor5-vsa.html><p>NexentaStor5 VSA for OpenStack</p></a></li></ul></li></ul></nav>
         
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Nexenta Drivers for OpenStack Cinder</h1>
@@ -64,47 +64,46 @@
 <ul>
 <li>NexentaStor 4.x - Icehouse+</li>
 <li>NexentaStor 5.x - Icehouse+</li>
-<li>NexentaEdge 2.1.x - Newton+</li>
 </ul>
 <h3>Feature List</h3>
 <div class="table-scroll"><table>
 <thead>
-<tr><th>Feature</th><th>NexentaStor 4.x</th><th>NexentaStor 5.x</th><th>NexentaEdge 2.1</th></tr>
+<tr><th>Feature</th><th>NexentaStor 4.x</th><th>NexentaStor 5.x</th></tr>
 </thead>
 <tbody>
-<tr><td>Create thin-provisioned volume</td><td>✔</td><td>✔</td><td>✔</td></tr>
-<tr><td>Create thick-provisioned volume</td><td>✔</td><td>✔</td><td>—</td></tr>
-<tr><td>Create raw volume</td><td>✔</td><td>✔</td><td>✔</td></tr>
-<tr><td>Create qcow, qcow2, vdi, vhdx, vmdk and vpc volume</td><td>—</td><td>✔ (NFS only)</td><td>—</td></tr>
-<tr><td>Delete volume</td><td>✔</td><td>✔</td><td>✔</td></tr>
-<tr><td>Attach volume</td><td>✔</td><td>✔</td><td>✔</td></tr>
-<tr><td>Detach volume</td><td>✔</td><td>✔</td><td>✔</td></tr>
-<tr><td>Extend detached volume</td><td>✔</td><td>✔</td><td>✔</td></tr>
-<tr><td>Extend attached volume</td><td>✔ (<a href="https://github.com/openstack/nova/blob/master/releasenotes/notes/nova-support-attached-volume-extend-88ce16ce41aa6d41.yaml">iSCSI only</a>)</td><td>✔ (<a href="https://github.com/openstack/nova/blob/master/releasenotes/notes/nova-support-attached-volume-extend-88ce16ce41aa6d41.yaml">iSCSI only</a>)</td><td>✔</td></tr>
-<tr><td>Create snapshot</td><td>✔</td><td>✔</td><td>✔</td></tr>
-<tr><td>Delete snapshot</td><td>✔</td><td>✔</td><td>✔</td></tr>
-<tr><td>Revert to snapshot</td><td>✔ (<a href="https://docs.openstack.org/releasenotes/cinder/pike.html">Pike and later</a>)</td><td>✔ (<a href="https://docs.openstack.org/releasenotes/cinder/pike.html">Pike and later</a>)</td><td>✔</td></tr>
-<tr><td>Create volume from snapshot</td><td>✔</td><td>✔</td><td>✔</td></tr>
-<tr><td>Create volume from image</td><td>✔</td><td>✔</td><td>✔</td></tr>
-<tr><td>Clone volume</td><td>✔</td><td>✔</td><td>✔</td></tr>
-<tr><td>Create image from volume</td><td>✔</td><td>✔</td><td>✔</td></tr>
-<tr><td>Volume stats</td><td>✔</td><td>✔</td><td>✔</td></tr>
-<tr><td>Migrate volume</td><td>✔</td><td>✔</td><td>—</td></tr>
-<tr><td>Storage assisted volume migration</td><td>✔</td><td>✔</td><td>—</td></tr>
-<tr><td>Throttle for storage assisted volume migration</td><td>✔</td><td>✔</td><td>—</td></tr>
-<tr><td>Retype volume</td><td>—</td><td>✔</td><td>—</td></tr>
-<tr><td>Volume replication</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>Consistency groups</td><td>—</td><td>✔</td><td>—</td></tr>
-<tr><td>Consistency groups capability to generic groups</td><td>—</td><td>✔</td><td>—</td></tr>
-<tr><td>iSCSI LUN Mapping</td><td>✔</td><td>✔</td><td>—</td></tr>
-<tr><td>QoS (rate limit)</td><td>—</td><td>✔</td><td>—</td></tr>
-<tr><td>Volume multi-attach</td><td>✔</td><td>✔</td><td>—</td></tr>
-<tr><td>Volume manage, unmanage and manageable-list</td><td>—</td><td>✔</td><td>—</td></tr>
-<tr><td>Snapshot manage, unmanage and manageable-list</td><td>—</td><td>✔</td><td>—</td></tr>
-<tr><td>Volume type extra specs</td><td>—</td><td>✔</td><td>—</td></tr>
-<tr><td>Image caching</td><td>—</td><td>✔</td><td>—</td></tr>
-<tr><td>Vendor capabilities support</td><td>—</td><td>✔</td><td>—</td></tr>
-<tr><td>TRIM/Discard support</td><td>✔ (<a href="https://en.wikipedia.org/wiki/Trim_(computing)">iSCSI only</a>)</td><td>✔ (<a href="https://en.wikipedia.org/wiki/Trim_(computing)">iSCSI only</a>)</td><td>—</td></tr>
+<tr><td>Create thin-provisioned volume</td><td>✔</td><td>✔</td></tr>
+<tr><td>Create thick-provisioned volume</td><td>✔</td><td>✔</td></tr>
+<tr><td>Create raw volume</td><td>✔</td><td>✔</td></tr>
+<tr><td>Create qcow, qcow2, vdi, vhdx, vmdk and vpc volume</td><td>—</td><td>✔ (NFS only)</td></tr>
+<tr><td>Delete volume</td><td>✔</td><td>✔</td></tr>
+<tr><td>Attach volume</td><td>✔</td><td>✔</td></tr>
+<tr><td>Detach volume</td><td>✔</td><td>✔</td></tr>
+<tr><td>Extend detached volume</td><td>✔</td><td>✔</td></tr>
+<tr><td>Extend attached volume</td><td>✔ (<a href="https://github.com/openstack/nova/blob/master/releasenotes/notes/nova-support-attached-volume-extend-88ce16ce41aa6d41.yaml">iSCSI only</a>)</td><td>✔ (<a href="https://github.com/openstack/nova/blob/master/releasenotes/notes/nova-support-attached-volume-extend-88ce16ce41aa6d41.yaml">iSCSI only</a>)</td></tr>
+<tr><td>Create snapshot</td><td>✔</td><td>✔</td></tr>
+<tr><td>Delete snapshot</td><td>✔</td><td>✔</td></tr>
+<tr><td>Revert to snapshot</td><td>✔ (<a href="https://docs.openstack.org/releasenotes/cinder/pike.html">Pike and later</a>)</td><td>✔ (<a href="https://docs.openstack.org/releasenotes/cinder/pike.html">Pike and later</a>)</td></tr>
+<tr><td>Create volume from snapshot</td><td>✔</td><td>✔</td></tr>
+<tr><td>Create volume from image</td><td>✔</td><td>✔</td></tr>
+<tr><td>Clone volume</td><td>✔</td><td>✔</td></tr>
+<tr><td>Create image from volume</td><td>✔</td><td>✔</td></tr>
+<tr><td>Volume stats</td><td>✔</td><td>✔</td></tr>
+<tr><td>Migrate volume</td><td>✔</td><td>✔</td></tr>
+<tr><td>Storage assisted volume migration</td><td>✔</td><td>✔</td></tr>
+<tr><td>Throttle for storage assisted volume migration</td><td>✔</td><td>✔</td></tr>
+<tr><td>Retype volume</td><td>—</td><td>✔</td></tr>
+<tr><td>Volume replication</td><td>—</td><td>—</td></tr>
+<tr><td>Consistency groups</td><td>—</td><td>✔</td></tr>
+<tr><td>Consistency groups capability to generic groups</td><td>—</td><td>✔</td></tr>
+<tr><td>iSCSI LUN Mapping</td><td>✔</td><td>✔</td></tr>
+<tr><td>QoS (rate limit)</td><td>—</td><td>✔</td></tr>
+<tr><td>Volume multi-attach</td><td>✔</td><td>✔</td></tr>
+<tr><td>Volume manage, unmanage and manageable-list</td><td>—</td><td>✔</td></tr>
+<tr><td>Snapshot manage, unmanage and manageable-list</td><td>—</td><td>✔</td></tr>
+<tr><td>Volume type extra specs</td><td>—</td><td>✔</td></tr>
+<tr><td>Image caching</td><td>—</td><td>✔</td></tr>
+<tr><td>Vendor capabilities support</td><td>—</td><td>✔</td></tr>
+<tr><td>TRIM/Discard support</td><td>✔ (<a href="https://en.wikipedia.org/wiki/Trim_(computing)">iSCSI only</a>)</td><td>✔ (<a href="https://en.wikipedia.org/wiki/Trim_(computing)">iSCSI only</a>)</td></tr>
 </tbody>
 </table></div>
 

@@ -56,7 +56,7 @@
 <section class="docs">
     <section class="container-docs">
         
-        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/changelog.html><p>Changelog</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/nexentaedge-2.x.html><p>NexentaEdge 2.x</p></a></li><li><a href=/openstack/docs/cinder/https.html><p>HTTPS Configuration</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/capabilities.html><p>Cinder volume types</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html class="active"><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li><li><a href=/openstack/docs/other/nexentastor5-vsa.html><p>NexentaStor5 VSA for OpenStack</p></a></li></ul></li></ul></nav>
+        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/changelog.html><p>Changelog</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/https.html><p>HTTPS Configuration</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li><li><a href=/openstack/docs/cinder/capabilities.html><p>Cinder volume types</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html class="active"><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li><li><a href=/openstack/docs/other/nexentastor5-vsa.html><p>NexentaStor5 VSA for OpenStack</p></a></li></ul></li></ul></nav>
         
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">Troubleshooting and Support Request</h1>
@@ -126,10 +126,9 @@ debug = True
 <h2>Support Request</h2>
 <p>When creating a support request please provide the following information:</p>
 <ul>
-<li><p>NexentaStor/NexentaEdge version</p></li>
-<li><p>Support bundle collected from NexentaStor/NexentaEdge</p></li>
-<li><p>OpenStack version (e.g. Icehouse, Juno, Kilo, Liberty, Mitaka, Newton, Ocata, Pike or Queens)</p></li>
-<li><p>nova-manage version (for reference use - <a href="https://wiki.openstack.org/wiki/Releases">https://wiki.openstack.org/wiki/Releases</a>)</p></li>
+<li><p>NexentaStor version</p></li>
+<li><p>Support bundle collected from NexentaStor</p></li>
+<li><p>OpenStack version (e.g. Icehouse, Juno, Kilo, Liberty, Mitaka, Newton, Ocata, Pike, Queens, Rocky, Stein, Train, Ussuri, Victoria, Wallaby or Xena)</p></li>
 <li><p>Cinder or Manila driver version: go to appropriate driver location and copy-paste comments from the top of file:</p>
 <div class="table-scroll"><table>
 <thead>
@@ -142,8 +141,6 @@ debug = True
 <tr><td>NexentaStor5</td><td>Cinder NFS</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/ns5/nfs.py</td></tr>
 <tr><td>NexentaStor5</td><td>Cinder iSCSI</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/ns5/iscsi.py</td></tr>
 <tr><td>NexentaStor5</td><td>Manila NFS</td><td>/usr/lib/python2.7/dist-packages/manila/share/drivers/nexenta/ns5/nexenta_nas.py</td></tr>
-<tr><td>NexentaEdge</td><td>Cinder iSCSI</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/nexentaedge/iscsi.py</td></tr>
-<tr><td>NexentaEdge</td><td>Cinder NBD</td><td>/usr/lib/python2.7/dist-packages/cinder/volume/drivers/nexenta/nexentaedge/nbd.py</td></tr>
 </tbody>
 </table></div>
 </li>
