@@ -56,56 +56,20 @@
 <section class="docs">
     <section class="container-docs">
         
-        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/changelog.html><p>Changelog</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/https.html class="active"><p>HTTPS Configuration</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li><li><a href=/openstack/docs/cinder/capabilities.html><p>Cinder volume types</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/manila/https.html><p>HTTPS Configuration</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li><li><a href=/openstack/docs/other/nexentastor5-vsa.html><p>NexentaStor5 VSA for OpenStack</p></a></li></ul></li></ul></nav>
+        <nav><ul><li><p class="root-category">Cinder</p><ul><li><a href=/openstack/docs/cinder/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/cinder/changelog.html><p>Changelog</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/cinder/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/cinder/https.html><p>HTTPS Configuration</p></a></li><li><a href=/openstack/docs/cinder/iscsi-multipath.html><p>iSCSI Multipath</p></a></li><li><a href=/openstack/docs/cinder/cinder-backup.html><p>Cinder Backup</p></a></li><li><a href=/openstack/docs/cinder/multiple-nodes.html><p>Multiple Cinder Nodes</p></a></li><li><a href=/openstack/docs/cinder/issues.html><p>Known Issues</p></a></li><li><a href=/openstack/docs/cinder/capabilities.html><p>Cinder volume types</p></a></li></ul></li><li><p class="root-category">Manila</p><ul><li><a href=/openstack/docs/manila/overview.html><p>Overview</p></a></li><li><a href=/openstack/docs/manila/nexentastor-5.x.html><p>NexentaStor 5.x</p></a></li><li><a href=/openstack/docs/manila/nexentastor-4.x.html><p>NexentaStor 4.x</p></a></li><li><a href=/openstack/docs/manila/https.html class="active"><p>HTTPS Configuration</p></a></li></ul></li><li><p class="root-category">Other</p><ul><li><a href=/openstack/docs/other/escalating-issue-to-support.html><p>Troubleshooting and Support Request</p></a></li><li><a href=/openstack/docs/other/glance.html><p>Glance</p></a></li><li><a href=/openstack/docs/other/hpr-and-openstack.html><p>HPR and OpenStack</p></a></li><li><a href=/openstack/docs/other/upgrading-4.x-to-5.x.html><p>Upgrading NexentaStor4 to NexentaStor5</p></a></li><li><a href=/openstack/docs/other/nexentastor5-vsa.html><p>NexentaStor5 VSA for OpenStack</p></a></li></ul></li></ul></nav>
         
         <article itemscope itemtype="http://schema.org/Article">
             <h1 itemprop="name">HTTPS Configuration</h1>
-            <p>OpenStack Administrator is able to enable HTTPS for communication between Nexenta Cinder driver and NexentaStor REST API.</p>
+            <p>OpenStack Administrator is able to enable HTTPS for communication between Nexenta Manila driver and NexentaStor REST API.</p>
 <h3>Using the default self-signed HTTPS certificates</h3>
 <h4>NexentaStor5</h4>
-<p>By default a NexentaStor5 Appliance is preinstalled with a self-signed certificate that is used for REST API communication and Nexenta Cinder driver supports HTTPS out of box.</p>
-<h4>NexentaStor4</h4>
+<p>By default a NexentaStor5 Appliance is preinstalled with a self-signed certificate that is used for REST API communication and Nexenta Manila driver supports HTTPS out of box.</p>
 <ul>
-<li>By default a NexentaStor4 Appliance is preinstalled with disabled HTTPS. To enable HTTPS use the following commands on NexentaStor4 Appliances:</li>
+<li>Enable REST API HTTPS for the Nexenta Manila driver and NexentaStor backend in manila.conf:</li>
 </ul>
-<pre><code>nmc@host:/$ setup appliance init                                                                                                                                         
-Interface ixgbe1           : Configured as 192.168.1.2/255.255.255.0 with mtu 9000
-Interface igb0 (PRIMARY)   : Configured as 10.1.1.2/255.255.252.0 with mtu 1500
-Interface ixgbe0           : Configured as 192.168.2.2/255.255.255.0 with mtu 9000
-Interface igb1             : Unconfigured
-Default Gateway            : 10.1.1.254       : OK
-DNS <span class="hljs-comment">#1                     : 10.1.1.1         : OK</span>
-DNS <span class="hljs-comment">#2                     : 10.2.2.2         : OK</span>
-DNS <span class="hljs-comment">#3                     : 10.3.3.3         : OK</span>
-
-Reconfigure?  No
-
-Your primary interface is  : igb0
-Web GUI protocol           : HTTPS
-Web GUI port               : 8457
-
-Starting self-signed SSL-certificate <span class="hljs-keyword">for</span> NMV generation.
-Country                    : US
-State/Province             : Missouri
-City/Locality              : St. Petersburg
-Organization/Company       : Art Store, Inc
-Organizational unit/Department: Paint Department
-Use current machine FQDN <span class="hljs-string">'host.art-store.local'</span> as certificate Common Name(CN)?   Yes
-Common name                : host.art-store.local
-Email                      : thomas.sawyer@art-store.local
-Days                       : 365
-
-Available on https://10.1.1.2:8457/
-
-nmc@host:/$                                                                                                                                                              
-</code></pre>
-<ul>
-<li>Enable REST API HTTPS for the Nexenta Cinder driver and NexentaStor4 backend in cinder.conf:</li>
-</ul>
-<pre><code>[nexentastor4_backend]
+<pre><code>[nexentastor_backend]
 nexenta_rest_protocol = https
 </code></pre>
-<p>Note: by default, <em>nexenta_rest_protocol</em> is set to <em>auto</em> and Nexenta Cinder driver automatically negotiates the protocol for accessing the REST API endpoint.</p>
 <h3>Using the custom HTTPS certificates and enabling certificate verification</h3>
 <p>HTTPS uses SSL/TLS to make the HTTP connection secure, but HTTPS can provide more security if certificate verification is enabled.</p>
 <h4>Requirements for certificates</h4>
@@ -202,67 +166,21 @@ subject=/CN=node1.qa.local/emailAddress=ca@art-store.local/OU=Paint Department/O
 issuer=/CN=CA/emailAddress=ca@art-store.local/OU=Paint Department/O=Art Store, Inc/L=St. Petersburg/ST=Missouri/C=US
 ...
 </code></pre>
-<h4>Steps for NexentaStor4</h4>
+<h4>Configuring Nexenta Manila driver</h4>
 <ul>
-<li>Copy the private host key to a remote file called nmv.key:</li>
+<li>Copy the CA certificate to the manila config directory:</li>
 </ul>
-<pre><code>client$ scp -p node1.qa.local.key root@10.1.1.2:/var/lib/nza/nmv.key
+<pre><code>manila$ cp ca.crt /etc/manila
 </code></pre>
 <ul>
-<li>Copy the host certificate to a remote file called nmv.crt:</li>
-</ul>
-<pre><code>client$ scp -p node1.qa.local.crt root@10.1.1.2:/var/lib/nza/nmv.crt
-</code></pre>
-<ul>
-<li>Enable HTTPS for NexentaStor4 Appliance:</li>
-</ul>
-<pre><code>nmc@node1:/$ setup appliance init                                                                                                                                         
-Interface ixgbe1           : Configured as 192.168.1.2/255.255.255.0 with mtu 9000
-Interface igb0 (PRIMARY)   : Configured as 10.1.1.2/255.255.252.0 with mtu 1500
-Interface ixgbe0           : Configured as 192.168.2.2/255.255.255.0 with mtu 9000
-Interface igb1             : Unconfigured
-Default Gateway            : 10.1.1.254       : OK
-DNS <span class="hljs-comment">#1                     : 10.1.1.1         : OK</span>
-DNS <span class="hljs-comment">#2                     : 10.2.2.2         : OK</span>
-DNS <span class="hljs-comment">#3                     : 10.3.3.3         : OK</span>
-
-Reconfigure?  No
-
-Your primary interface is  : igb0
-Web GUI protocol           : HTTPS
-Web GUI port               : 8457
-
-SSL certificate <span class="hljs-keyword">for</span> NMV already exists. Generate a new one?  No
-
-Available on https://10.1.1.2:8457/
-
-nmc@node1:/$
-</code></pre>
-<ul>
-<li>Check Rest API for the new certificate:</li>
-</ul>
-<pre><code>client$ <span class="hljs-built_in">echo</span> | openssl s_client -showcerts -connect 10.1.1.2:8457
-Certificate chain
-Server certificate
-subject=/CN=node1.qa.local/emailAddress=ca@art-store.local/OU=Paint Department/O=Art Store, Inc/L=St. Petersburg/ST=Missouri/C=US
-issuer=/CN=CA/emailAddress=ca@art-store.local/OU=Paint Department/O=Art Store, Inc/L=St. Petersburg/ST=Missouri/C=US
-...
-</code></pre>
-<h4>Configuring Nexenta Cinder driver</h4>
-<ul>
-<li>Copy the CA certificate to the cinder config directory:</li>
-</ul>
-<pre><code>cinder$ cp ca.crt /etc/cinder
-</code></pre>
-<ul>
-<li>Enable REST API HTTPS for the Nexenta Cinder driver and NexentaStor backend in cinder.conf:</li>
+<li>Enable REST API HTTPS for the Nexenta Manila driver and NexentaStor backend in manila.conf:</li>
 </ul>
 <pre><code>[nexentastor_backend]
-driver_ssl_cert_verify = True
-driver_ssl_cert_path = /etc/cinder/ca.crt
+nexenta_ssl_cert_verify = True
+nexenta_ssl_cert_path = /etc/manila/ca.crt
 ...
 </code></pre>
-<p>Note: If <code>driver_ssl_cert_path</code> is omitted, the system default CA will be used for CA verification.</p>
+<p>Note: If <code>nexenta_ssl_cert_path</code> is omitted, the system default CA will be used for CA verification.</p>
 
         </article>
     </section>
